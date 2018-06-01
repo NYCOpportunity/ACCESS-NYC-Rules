@@ -1,0 +1,110 @@
+package accessnyc.rules.household;
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+
+
+
+
+rule "Determine whether the head of household is married"
+    dialect "mvel"
+    when
+        Person(headOfHouseholdRelation == "Spouse")
+    then
+        insertLogical(new HeadOfHouseholdMarried(true));    
+
+end
+
+rule "Determine the number of household members including HoH, spouse, children, stepchildren"
+    dialect "mvel"
+    when
+        accumulate(
+            Person((headOfHousehold == true || headOfHouseholdRelation in ("Spouse","Child","StepChild")), $value : age);
+            $count : count($value)
+        )
+    then
+        insertLogical(new MembersNuclearOnly($count));
+end
+
+rule "Determine the number of foster children in the household"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            Person(headOfHouseholdRelation == "FosterChild", $value : headOfHouseholdRelation);
+            $count : count($value)
+        )
+    then
+        insertLogical(new FosterChildren($count));
+
+end
+//this needs to be tested in production
+rule "Count number of pregnant women in household"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            Person(pregnant == true, $pregnant : pregnant);
+            $count : count($pregnant)
+        )
+    then
+        insertLogical(new MembersPregnant($count));
+end
+
+//these foster calculations need to be validated
+rule "Count number of pregnant women in household who are not foster children of the HoH"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            Person((pregnant == true && headOfHouseholdRelation not in ("FosterChild")), $pregnant : pregnant);
+            $count : count($pregnant)
+        )
+    then
+        insertLogical(new MembersPregnantNotFoster($count));
+end
+
+
+rule "Calculate pregnant household members (who are not foster children) plus normal household members minus foster children"
+    dialect "mvel"
+    when
+        Household($members : members)
+        MembersPregnantNotFoster($membersPregnant : value)
+        FosterChildren($foster : value)
+        
+    then
+        Integer $total = $members + $membersPregnant - $foster;
+        insertLogical(new MembersPlusPregnantMinusFoster($total));
+end
+
+rule "Calculate pregnant household members plus normal household members"
+    dialect "mvel"
+    when
+        Household($members : members)
+        MembersPregnant($membersPregnant : value)
+    then
+        Integer $total = $members + $membersPregnant;
+        insertLogical(new MembersPlusPregnant($total));
+end
+
+rule "Determine number of children under age 19 or student under age 24"
+    dialect "mvel"
+    when
+        accumulate(
+            Person((age < 19 || (student == true && age < 24) || blind == true || disabled == true), $age : age);
+            $count : count($age)
+        )
+    then 
+        insertLogical(new ChildrenStudentEITCDefinition($count));
+end
+
+rule "Determine number of household members that are blind or diabled, but not the HoH or spouse"
+    dialect "mvel"
+    when
+        accumulate(
+            Person(((blind == true || disabled == true) && headOfHousehold == false && headOfHouseholdRelation not in ("Self","Spouse")), $age : age);
+            $count : count($age)
+        )
+    then 
+        insertLogical(new BlindDisabledHouseholdEITC($count));
+end   

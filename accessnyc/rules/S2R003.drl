@@ -1,0 +1,140 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+import accessnyc.rules.income.IncomeAdultsChildrenTotalMonthly
+import accessnyc.rules.income.IncomePersonMonthly 
+import accessnyc.request.Household
+import accessnyc.request.Person
+
+rule "s2_r003.2 non-disabled"
+    dialect "mvel"
+    
+    when 
+    //You have to live in NYC
+        Household(city == "NYC") 
+    //And one of the children must be under 14 and related to the head of household as either a parent or step-parent
+        Person( age < 13, headOfHouseholdRelation in ("Child","StepChild")) 
+
+          
+    //And the total household income must fall in this range      
+        ( 
+          (Household(members == 1)  and IncomeAdultsChildrenTotalMonthly(amount <=  973)) or 
+          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 3605)) or
+          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 4206)) or 
+          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 4472)) or 
+          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 5234)) or 
+          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 5995)) or 
+          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 6756)) or
+          (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 7517))
+        
+        ) 
+        
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R003")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r003.3 disabled"
+    dialect "mvel"
+    
+    when 
+    //You have to live in NYC
+        Household(city == "NYC") 
+        Person( age >= 13, age <= 18, headOfHouseholdRelation in ("Child","StepChild"), disabled == true) 
+
+          
+    //And the total household income must fall in this range      
+        ( 
+          (Household(members == 1)  and IncomeAdultsChildrenTotalMonthly(amount <=  973)) or 
+          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 3605)) or
+          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 4206)) or 
+          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 4472)) or 
+          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 5234)) or 
+          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 5995)) or 
+          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 6756)) or
+          (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 7517))
+        
+        ) 
+        
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R003")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r003.3 blind"
+    dialect "mvel"
+    
+    when 
+    //You have to live in NYC
+        Household(city == "NYC") 
+        Person( age >= 13, age <= 18, headOfHouseholdRelation in ("Child","StepChild"), blind == true) 
+
+          
+    //And the total household income must fall in this range      
+        ( 
+          (Household(members == 1)  and IncomeAdultsChildrenTotalMonthly(amount <=  973)) or 
+          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 3605)) or
+          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 4206)) or 
+          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 4472)) or 
+          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 5234)) or 
+          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 5995)) or 
+          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 6756)) or
+          (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 7517))
+        
+        ) 
+        
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R003")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r003.4"
+    dialect "mvel"
+    
+    when 
+    //You have to live in NYC
+        Household(city == "NYC") 
+        IncomePersonMonthly(person.age < 13, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 973)
+        
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R003")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r003.5 disabled "
+    dialect "mvel"
+    
+    when 
+    //You have to live in NYC
+        Household(city == "NYC") 
+        IncomePersonMonthly( person.disabled == true, person.age >= 13, person.age <= 18, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 973 )
+        
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R003")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r003.5 blind "
+    dialect "mvel"
+    
+    when 
+    //You have to live in NYC
+        Household(city == "NYC") 
+        IncomePersonMonthly( person.blind == true, person.age >= 13, person.age <= 18, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 973 )
+        
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R003")
+        insertLogical($programcode)
+
+end

@@ -1,0 +1,14 @@
+package accessnyc.rules.valid;
+
+import java.lang.Number;
+import accessnyc.request.Person;
+
+rule "ValidPerson"
+	dialect "mvel"
+	when
+		$person : Person( )
+	then
+		ValidPerson fact0 = new ValidPerson();
+		fact0.setPerson( $person );
+		insertLogical( fact0 );
+end

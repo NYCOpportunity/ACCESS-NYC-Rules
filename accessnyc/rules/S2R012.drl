@@ -1,0 +1,41 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+import accessnyc.rules.income.IncomeOwnersTotalYearly
+
+
+rule "s2_r012 Enhanced Star"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC", livingOwner == true)
+        IncomeOwnersTotalYearly( amount <= 86000 )
+        Person(livingOwnerOnDeed == true, age >= 65)
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R012")
+        $programcode.setLevel("Enhanced")
+        insertLogical($programcode)
+        System.out.println("Rule s2_r012 Enhanced fired")
+
+end
+
+rule "s2_r012 Basic Star"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC", livingOwner == true)
+        IncomeOwnersTotalYearly( amount <= 500000 )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R012")
+        $programcode.setLevel("Basic")
+        insertLogical($programcode)
+        System.out.println("Rule s2_r012 Basic fired")
+
+end

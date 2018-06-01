@@ -1,0 +1,109 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+import accessnyc.rules.income.IncomeHouseholdHasCashAssistance
+import accessnyc.rules.household.MembersNuclearOnly
+import accessnyc.rules.income.IncomeHouseholdNuclearISYYearly
+import accessnyc.rules.income.IncomePersonISYYearly
+
+rule "S2R028.2"
+    dialect "mvel"
+    
+    when 
+        Household( city == "NYC")
+        Person( age >= 14, age <= 21, student == true)
+        IncomeHouseholdHasCashAssistance(value == true)
+        
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R028")
+        insertLogical($programcode)
+        System.out.println("Rule S2R028 fired")
+
+end
+
+rule "S2R028.3"
+    dialect "mvel"
+    
+    when 
+        Household( city == "NYC")
+        Person( age >= 14, age <= 21, student == true, disabled == true )
+        
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R028")
+        insertLogical($programcode)
+        System.out.println("Rule S2R028 fired")
+
+end
+
+rule "S2R028.4"
+    dialect "mvel"
+    
+    when 
+        Household( city == "NYC")
+        Person( age >= 14, age <= 21, student == true, headOfHouseholdRelation == "FosterChild")
+        
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R028")
+        insertLogical($programcode)
+        System.out.println("Rule S2R028 fired")
+
+end
+
+rule "S2R028.5"
+    dialect "mvel"
+    
+    when 
+        Household( city == "NYC")
+        Person( age >= 14, age <= 21, student == true, pregnant == true)
+        
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R028")
+        insertLogical($programcode)
+        System.out.println("Rule S2R028 fired")
+
+end
+
+rule "S2R028.6"
+    dialect "mvel"
+    
+    when 
+        Household( city == "NYC")
+        Person( age >= 14, age <= 21, student == true, headOfHouseholdRelation in ("Child","StepChild"))
+        and (
+            (MembersNuclearOnly(value == 1) and IncomeHouseholdNuclearISYYearly(amount <= 11670))
+            or (MembersNuclearOnly(value == 2) and IncomeHouseholdNuclearISYYearly(amount <= 18336))
+            or (MembersNuclearOnly(value == 3) and IncomeHouseholdNuclearISYYearly(amount <= 25168))
+            or (MembersNuclearOnly(value == 4) and IncomeHouseholdNuclearISYYearly(amount <= 31071))
+            or (MembersNuclearOnly(value == 5) and IncomeHouseholdNuclearISYYearly(amount <= 36664))
+            or (MembersNuclearOnly(value == 6) and IncomeHouseholdNuclearISYYearly(amount <= 42885))
+            or (MembersNuclearOnly(value == 7) and IncomeHouseholdNuclearISYYearly(amount <= 49106))
+            or (MembersNuclearOnly(value == 8) and IncomeHouseholdNuclearISYYearly(amount <= 55327))
+            )
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R028")
+        insertLogical($programcode)
+        System.out.println("Rule S2R028 fired")
+
+end
+
+rule "S2R028.7"
+    dialect "mvel"
+    
+    when 
+        Household( city == "NYC")
+        IncomePersonISYYearly(person.age >= 14, person.age <= 21, person.student == true, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 11670)
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R028")
+        insertLogical($programcode)
+        System.out.println("Rule S2R028 fired")
+
+end

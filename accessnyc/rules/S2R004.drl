@@ -1,0 +1,19 @@
+package accessnyc.rules;
+
+import accessnyc.request.Person
+import accessnyc.response.EligibleProgram
+
+rule "S2R004 last mile"
+    dialect "mvel"
+    
+    when
+
+        Person( age < 17)
+    
+    then
+        
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R004")
+        insertLogical($programcode)
+
+end

@@ -1,0 +1,48 @@
+package accessnyc.rules.income;
+
+import accessnyc.request.Person
+import accessnyc.request.Income
+
+
+rule "Create a fact that calculates 75% of SS incomes person income based on the SES calculation in rule 25"
+    dialect "mvel"
+    when 
+        $incomePersonItem : IncomePersonItemMonthly($person: person, $originalAmount : convertedAmount, $type : type in ("SSRetirement", "SSSurvivor"))
+        
+    then 
+        Float $convertedAmount = $originalAmount * .75;
+        insertLogical(new IncomePersonSESItemMonthly($person, $convertedAmount, $type));
+end
+
+rule "Create a fact that remaining non-SS SES incomes for a  person income from rule 25"
+    dialect "mvel"
+    when 
+        $incomePersonItem : IncomePersonItemMonthly($person: person, $originalAmount : convertedAmount, $type : type in ("Alimony","Boarder","ChildSupport","Pension","Investment","Rental","SelfEmployment","Wages","DeferredComp"))
+        
+    then 
+        insertLogical(new IncomePersonSESItemMonthly($person, $originalAmount, $type));
+end
+
+rule "Calculate Total Person SES Income Monthly"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            IncomePersonSESItemMonthly(person == $person, $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new IncomePersonSESMonthly($person, $amount));
+end
+
+rule "Calculate income for the HoH, spouse by summing SES monthly income"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonSESMonthly( (person.headOfHousehold == true || person.headOfHouseholdRelation == "Spouse"), $amounthousehold : amount);
+            $requestAmount : sum($amounthousehold)
+        )
+    then
+        Float $amount = $requestAmount;
+        insertLogical(new IncomeHeadAndSpouseSESMonthly($amount));
+end

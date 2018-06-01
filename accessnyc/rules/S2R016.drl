@@ -1,0 +1,22 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+
+
+rule "s2_r016"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        Person( age >= 3, age < 5)
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R016")
+        insertLogical($programcode)
+        System.out.println("Rule s2_r016 fired")
+
+end

@@ -1,0 +1,64 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+import accessnyc.rules.income.IncomeHouseholdTotalYearly
+
+
+rule "s2_r020 free lunch"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        Person(age >= 0, age <= 21, student == true)
+        (
+               (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 15444))
+            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 20826))
+            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 26208))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 31590))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 36972))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 42354))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 47749))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 53157))
+            
+            
+            )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R020")
+        $programcode.setLevel("Free")
+        insertLogical($programcode)
+        System.out.println("Rule s2_r020")
+
+end
+
+rule "s2_r020"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        Person(age >= 0, age <= 21, student == true)
+        (
+               (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 21978))
+            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 29637))
+            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 37296))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 44955))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 52614))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 60273))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 67951))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 75647))
+            
+            
+            )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R020")
+        $programcode.setLevel("Reduced")
+        insertLogical($programcode)
+        System.out.println("Rule s2_r020 reduced fired")
+
+end

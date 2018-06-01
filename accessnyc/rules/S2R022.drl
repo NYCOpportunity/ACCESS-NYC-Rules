@@ -1,0 +1,83 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+import accessnyc.rules.household.MembersPlusPregnantMinusFoster
+import accessnyc.rules.income.IncomeHouseholdTotalMonthlyLessFoster
+import accessnyc.rules.income.IncomePersonMonthly
+
+
+rule "s2_r022.1a1"
+    dialect "mvel"
+    
+    when 
+        IncomePersonMonthly(person.headOfHouseholdRelation == "FosterChild", person.pregnant == true, amount <= 2470)
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R022")
+        insertLogical($programcode)
+        System.out.println("Rule s2_r022")
+
+end
+
+rule "s2_r022.1a2"
+    dialect "mvel"
+    
+    when 
+        IncomePersonMonthly(person.headOfHouseholdRelation == "FosterChild", person.pregnant == false, person.age < 5, amount <= 1832)
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R022")
+        insertLogical($programcode)
+        System.out.println("Rule s2_r022")
+
+end
+
+
+rule "s2_r022.2"
+    dialect "mvel"
+    
+    when 
+        Person(headOfHouseholdRelation not in ("FosterChild"), pregnant == true)
+        and (
+            (MembersPlusPregnantMinusFoster(value == 1) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 1832))
+            or (MembersPlusPregnantMinusFoster(value == 2) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 2470))
+            or (MembersPlusPregnantMinusFoster(value == 3) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 3108))
+            or (MembersPlusPregnantMinusFoster(value == 4) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 3747))
+            or (MembersPlusPregnantMinusFoster(value == 5) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 4385))
+            or (MembersPlusPregnantMinusFoster(value == 6) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 5023))
+            or (MembersPlusPregnantMinusFoster(value == 7) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 5663))
+            or (MembersPlusPregnantMinusFoster(value == 8) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 6304))
+            )
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R022")
+        insertLogical($programcode)
+        System.out.println("Rule s2_r022")
+
+end
+
+rule "s2_r022.3"
+    dialect "mvel"
+    
+    when 
+        Person(headOfHouseholdRelation not in ("FosterChild"), pregnant == false, age < 5 )
+        and (
+            (MembersPlusPregnantMinusFoster(value == 1) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 1832))
+            or (MembersPlusPregnantMinusFoster(value == 2) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 2470))
+            or (MembersPlusPregnantMinusFoster(value == 3) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 3108))
+            or (MembersPlusPregnantMinusFoster(value == 4) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 3747))
+            or (MembersPlusPregnantMinusFoster(value == 5) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 4385))
+            or (MembersPlusPregnantMinusFoster(value == 6) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 5023))
+            or (MembersPlusPregnantMinusFoster(value == 7) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 5663))
+            or (MembersPlusPregnantMinusFoster(value == 8) and IncomeHouseholdTotalMonthlyLessFoster(amount <= 6304))
+            )
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R022")
+        insertLogical($programcode)
+        System.out.println("Rule s2_r022")
+
+end
