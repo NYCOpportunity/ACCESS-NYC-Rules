@@ -16,6 +16,5 @@ rule "s2_r021 free lunch"
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R021")
         insertLogical($programcode)
-        System.out.println("Rule s2_r021")
 
 end

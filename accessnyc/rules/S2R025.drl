@@ -13,14 +13,13 @@ rule "S2R025.4a"
     
     when 
         Household( city == "NYC")
-        IncomePersonSESMonthly(person.age >= 55, person.unemployed == true, person.disabled == true, amount <= 1238)
+        IncomePersonSESMonthly(person.age >= 55, person.unemployed == true, person.disabled == true, amount <= 1264.58)
         
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R025")
         $programcode.setRulePart("4a")
         insertLogical($programcode)
-        System.out.println("Rule S2R025")
 
 end
 
@@ -29,14 +28,13 @@ rule "S2R025.4b"
     
     when 
         Household( city == "NYC")
-        IncomePersonSESMonthly(person.age >= 55, person.unemployed == true, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Spouse"), amount <= 1238)
+        IncomePersonSESMonthly(person.age >= 55, person.unemployed == true, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Spouse"), amount <= 1264.58)
         
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R025")
         $programcode.setRulePart("4b")
         insertLogical($programcode)
-        System.out.println("Rule S2R025")
 
 end
 
@@ -48,7 +46,7 @@ rule "S2R025.5a head of household married"
         Household( city == "NYC")
         Person( age >= 55, unemployed == true, disabled == false, headOfHousehold == true) 
         HeadOfHouseholdMarried(value == true)
-        IncomeHeadAndSpouseSESMonthly(amount <= 1669)
+        IncomeHeadAndSpouseSESMonthly(amount <= 1714.58)
         
         
     then
@@ -56,7 +54,6 @@ rule "S2R025.5a head of household married"
         $programcode.setCode("S2R025")
         $programcode.setRulePart("5a")
         insertLogical($programcode)
-        System.out.println("Rule S2R025")
 
 end
 
@@ -67,7 +64,7 @@ rule "S2R025.5a head of household unmarried"
         Household( city == "NYC")
         Person( age >= 55, unemployed == true, disabled == false, headOfHousehold == true) 
         not HeadOfHouseholdMarried( value == true)
-        IncomeHeadAndSpouseSESMonthly(amount <= 1238)
+        IncomeHeadAndSpouseSESMonthly(amount <= 1264.58)
 
         
     then
@@ -75,7 +72,6 @@ rule "S2R025.5a head of household unmarried"
         $programcode.setCode("S2R025")
         $programcode.setRulePart("5a")
         insertLogical($programcode)
-        System.out.println("Rule S2R025")
 
 end
 
@@ -86,14 +82,13 @@ rule "S2R025.5b spouse married"
         Household( city == "NYC")
         Person( age >= 55, unemployed == true, disabled == false, headOfHouseholdRelation == "Spouse") 
         HeadOfHouseholdMarried(value == true) 
-        IncomeHeadAndSpouseSESMonthly(amount <= 1669)
+        IncomeHeadAndSpouseSESMonthly(amount <= 1714.58)
         
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R025")
         $programcode.setRulePart("5b")
         insertLogical($programcode)
-        System.out.println("Rule S2R025")
 
 end
 
@@ -104,7 +99,7 @@ rule "S2R025.5b spouse unmarried"
         Household( city == "NYC")
         Person( age >= 55, unemployed == true, disabled == false, headOfHouseholdRelation == "Spouse") 
         not HeadOfHouseholdMarried( value == true) 
-        IncomeHeadAndSpouseSESMonthly(amount <= 1238)
+        IncomeHeadAndSpouseSESMonthly(amount <= 1264.58)
 
         
     then
@@ -112,7 +107,6 @@ rule "S2R025.5b spouse unmarried"
         $programcode.setCode("S2R025")
         $programcode.setRulePart("5b")
         insertLogical($programcode)
-        System.out.println("Rule S2R025")
 
 end
 

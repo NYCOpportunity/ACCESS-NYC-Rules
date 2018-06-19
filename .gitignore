@@ -1,3 +1,5 @@
 # JAVA meta directory and package file
 META-INF/
 *.jar
+
+.DS_Store

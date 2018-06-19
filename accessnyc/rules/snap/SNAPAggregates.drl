@@ -90,6 +90,7 @@ end
 
 //need to check this works
 rule "if medical expenses just went below 0"
+no-loop true
     dialect "mvel"
     when 
         $medical : ExpenseHouseholdMedicalMonthlyAdjusted(amount < 0)
@@ -102,7 +103,7 @@ rule "create snap deduction amount based on household size less than 4"
     when
         Household(members <= 3)
     then 
-        insertLogical(new SNAPStandardDeduction(157));
+        insertLogical(new SNAPStandardDeduction(160));
 end
 
 rule "create snap deduction amount based on household size 4"
@@ -110,7 +111,7 @@ rule "create snap deduction amount based on household size 4"
     when
         Household(members == 4)
     then 
-        insertLogical(new SNAPStandardDeduction(168));
+        insertLogical(new SNAPStandardDeduction(170));
 end
 
 rule "create snap deduction amount based on household size 5"
@@ -118,7 +119,7 @@ rule "create snap deduction amount based on household size 5"
     when
         Household(members == 5)
     then 
-        insertLogical(new SNAPStandardDeduction(197));
+        insertLogical(new SNAPStandardDeduction(199));
 end
 
 rule "create snap deduction amount based on household size 6+"
@@ -126,7 +127,7 @@ rule "create snap deduction amount based on household size 6+"
     when
         Household(members >= 6)
     then 
-        insertLogical(new SNAPStandardDeduction(226));
+        insertLogical(new SNAPStandardDeduction(228));
 end
 
 rule "create the snap deductions"
@@ -158,7 +159,7 @@ rule "calculate shelter costs"
         Household(members > 0)
         ExpenseHouseholdRentMortgageMonthly($rent : amount)
     then 
-        Float $shelter = $rent + 758;
+        Float $shelter = $rent + 791;
         insertLogical(new SNAPShelterCost($shelter));
 end
 
@@ -175,6 +176,7 @@ end
 
 //need to check this works
 rule "if excess shelter just went below 0"
+no-loop true
     dialect "mvel"
     when 
         $shelter : SNAPShelterCostExcess(amount < 0)

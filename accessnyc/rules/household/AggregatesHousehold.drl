@@ -91,12 +91,13 @@ rule "Determine number of children under age 19 or student under age 24"
     dialect "mvel"
     when
         accumulate(
-            Person((age < 19 || (student == true && age < 24) || blind == true || disabled == true), $age : age);
+            Person((age < 19 || (student == true && age < 24) || blind == true || disabled == true) && headOfHousehold == false && headOfHouseholdRelation not in ("Spouse"), $age : age);
             $count : count($age)
         )
     then 
         insertLogical(new ChildrenStudentEITCDefinition($count));
 end
+
 
 rule "Determine number of household members that are blind or diabled, but not the HoH or spouse"
     dialect "mvel"

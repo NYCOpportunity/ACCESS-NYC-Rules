@@ -20,7 +20,6 @@ rule "s2_r012 Enhanced Star"
         $programcode.setCode("S2R012")
         $programcode.setLevel("Enhanced")
         insertLogical($programcode)
-        System.out.println("Rule s2_r012 Enhanced fired")
 
 end
 
@@ -36,6 +35,5 @@ rule "s2_r012 Basic Star"
         $programcode.setCode("S2R012")
         $programcode.setLevel("Basic")
         insertLogical($programcode)
-        System.out.println("Rule s2_r012 Basic fired")
 
 end

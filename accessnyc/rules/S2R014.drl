@@ -12,13 +12,13 @@ rule "s2_r014"
     
     when 
         Household(city == "NYC", livingOwner == true)
-        IncomeOwnersTotalYearly( amount < 37399 )
+        //updated income threshold to 58399
+        IncomeOwnersTotalYearly( amount <= 58399 )
         Person(livingOwnerOnDeed == true, age >= 65)
 
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R014")
         insertLogical($programcode)
-        System.out.println("Rule s2_r014")
 
 end

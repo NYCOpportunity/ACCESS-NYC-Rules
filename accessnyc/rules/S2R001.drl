@@ -15,7 +15,6 @@ rule "s2_r001: This is the last mile of rule s2r001"
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R001")
         insertLogical($programcode)
-        System.out.println("Rule s2_r001 fired")
 
 end
 

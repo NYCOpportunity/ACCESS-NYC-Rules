@@ -31,7 +31,7 @@ rule "s2_r010.2"
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R010")
         insertLogical($programcode)
-        System.out.println("Rule s2_r010 fired")
+
 
 end
 
@@ -58,7 +58,6 @@ rule "s2_r010.3"
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R010")
         insertLogical($programcode)
-        System.out.println("Rule s2_r010.3 fired")
 
 end
 
@@ -85,7 +84,6 @@ rule "s2_r010.4"
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R010")
         insertLogical($programcode)
-        System.out.println("Rule s2_r010.4 fired")
 
 end
 
@@ -111,7 +109,6 @@ rule "s2_r010.5"
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R010")
         insertLogical($programcode)
-        System.out.println("Rule s2_r010.5 fired")
 
 end
 
@@ -138,7 +135,6 @@ rule "s2_r010.6"
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R010")
         insertLogical($programcode)
-        System.out.println("Rule s2_r010.6 fired")
 
 end
 
@@ -164,7 +160,6 @@ rule "s2_r010.7"
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R010")
         insertLogical($programcode)
-        System.out.println("Rule s2_r010.7 fired")
 
 end
 
@@ -190,7 +185,6 @@ rule "s2_r010.8"
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R010")
         insertLogical($programcode)
-        System.out.println("Rule s2_r010.8 fired")
 
 end
 
@@ -216,6 +210,5 @@ rule "s2_r010.9"
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R010")
         insertLogical($programcode)
-        System.out.println("Rule s2_r010.9 fired")
 
 end

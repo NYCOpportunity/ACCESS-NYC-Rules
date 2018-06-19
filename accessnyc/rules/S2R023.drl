@@ -14,6 +14,5 @@ rule "S2R023"
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R023")
         insertLogical($programcode)
-        System.out.println("Rule S2R023")
 
 end

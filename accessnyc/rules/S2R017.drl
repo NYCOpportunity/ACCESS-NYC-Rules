@@ -14,14 +14,13 @@ rule "s2_r017 disabled"
     when 
         Household(city == "NYC", livingOwner == true)
         Person(livingOwnerOnDeed == true, disabled == true) 
-        IncomeOwnersTotalYearly( amount <= 37399 )
+        IncomeOwnersTotalYearly( amount <= 58399 )
         
 
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R017")
         insertLogical($programcode)
-        System.out.println("Rule s2_r017")
 
 end
 
@@ -33,14 +32,13 @@ rule "s2_r017 blind"
     when 
         Household(city == "NYC", livingOwner == true)
         Person(livingOwnerOnDeed == true, blind == true) 
-        IncomeOwnersTotalYearly( amount <= 37400 )
+        IncomeOwnersTotalYearly( amount <= 58399 )
         
 
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R017")
         insertLogical($programcode)
-        System.out.println("Rule s2_r017")
 
 end
 
@@ -51,13 +49,12 @@ rule "s2_r017 SSI or SSDB"
         Household(city == "NYC", livingOwner == true)
         Person(livingOwnerOnDeed == true)
         IncomeOwnersHasSSIorSSDB(value == true)
-        IncomeOwnersTotalYearly( amount <= 37400 )
+        IncomeOwnersTotalYearly( amount <= 58399 )
         
 
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R017")
         insertLogical($programcode)
-        System.out.println("Rule s2_r017")
 
 end
