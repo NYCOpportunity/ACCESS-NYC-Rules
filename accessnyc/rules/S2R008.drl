@@ -15,14 +15,14 @@ rule "s2_r008"
         Person( age <= 5, age >= 2)
         
         (
-               (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 973))
-            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 1311))
-            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 1650))
-            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 1988))
-            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 2326))
-            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 2665))
-            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 3003))
-            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 3341))
+               (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 1012))
+            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 1372))
+            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 1732))
+            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 2092))
+            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 2452))
+            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 2812))
+            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 3172))
+            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 3532))
         )
 
     then
