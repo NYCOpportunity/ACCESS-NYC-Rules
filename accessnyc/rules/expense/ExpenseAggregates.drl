@@ -117,6 +117,17 @@ rule "Calculate  rent or mortgage   cost  monthly"
         insertLogical(new ExpenseHouseholdRentMortgageMonthly($amount));
 end
 
+rule "Calculate rent cost monthly"
+    dialect "mvel"
+    when
+        accumulate(
+            ExpensePersonItemMonthly(type in ( "Rent"), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new ExpenseHouseholdRentMonthly($amount));
+end
+
 rule "calculate household child support paid"
     dialect "mvel"
     when

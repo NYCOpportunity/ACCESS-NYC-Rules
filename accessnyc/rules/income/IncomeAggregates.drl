@@ -304,6 +304,16 @@ rule "Calculate Household Income Monthly"
         insertLogical(new IncomeHouseholdTotalMonthly($amount));
 end
 
+rule "Calculate Household Income Monthly by excluding Gifts"
+    dialect "mvel"
+    when
+        IncomeHouseholdTotalMonthly($amounthousehold : amount);
+        IncomeHouseholdGiftsMonthly($amountgifts : amount)
+    then
+        Float $amount = $amounthousehold - $amountgifts;
+        insertLogical(new IncomeHouseholdTotalMonthlyLessGifts($amount));
+end
+
 rule "Calculate income for all owners of a home, Yearly"
     dialect "mvel"
     when
