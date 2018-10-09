@@ -10,7 +10,7 @@ rule "S2R032"
     
     when 
         Household( city == "NYC")
-        Person( age >= 14 )
+        Person( age >= 10 )
         
     then
         $programcode = new EligibleProgram()

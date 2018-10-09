@@ -13,14 +13,14 @@ rule "S2R027"
         //This is a person 60 or over.
         Person( age >= 60 )
         and (
-               (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 1287))
-            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 1736))
-            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 2184))
-            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 2633))
-            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 3081))
-            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 3530))
-            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 3980))
-            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 4430))
+               (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 1316))
+            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 1784))
+            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 2252))
+            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 2720))
+            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 3188))
+            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 3656))
+            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 4124))
+            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 4592))
             )
         
     then
