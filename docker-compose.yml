@@ -1,0 +1,23 @@
+version: '3.2'
+
+services:
+  drools-wb:
+    image: jboss/drools-workbench-showcase:6.5.0.Final
+    ports:
+      - 8080:8080
+      - 8001:8001
+    environment:
+      - KIE_DEMO=false
+      - JAVA_OPTS=-Xms512m -Xmx1024m -Djava.net.preferIPv4Stack=true
+
+    network_mode: default
+
+  kie-wb:
+    image: jboss/kie-server-showcase:6.5.0.Final
+    ports:
+      - 8180:8080
+    environment:
+      - JAVA_OPTS=-Xms256m -Xmx512m -Djava.net.preferIPv4Stack=true
+    links:
+      - drools-wb:kie-wb
+    network_mode: default
