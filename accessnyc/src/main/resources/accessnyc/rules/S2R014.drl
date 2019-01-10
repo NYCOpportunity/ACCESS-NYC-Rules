@@ -1,0 +1,24 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+import accessnyc.rules.income.IncomeOwnersTotalYearly
+
+
+rule "s2_r014"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC", livingOwner == true)
+        //updated income threshold to 58399
+        IncomeOwnersTotalYearly( amount <= 58399 )
+        Person(livingOwnerOnDeed == true, age >= 65)
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R014")
+        insertLogical($programcode)
+
+end

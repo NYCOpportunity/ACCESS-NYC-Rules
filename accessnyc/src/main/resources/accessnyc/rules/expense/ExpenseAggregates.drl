@@ -1,0 +1,140 @@
+package accessnyc.rules.expense;
+
+import accessnyc.request.Expense
+import accessnyc.request.Person
+
+
+rule "Infer Person Request Expenses From Valid Person Expenses List"
+    dialect "mvel"
+    when
+        $person : Person($expenses : expenses)
+        $expense : Expense($amount : amount, $type : type, $frequency : frequency) from $expenses
+    then
+        insertLogical(new RequestExpense($person, $amount, $type, $frequency))
+end
+
+
+
+
+rule "Normalize Person Request Expense from monthly to Monthly2"
+    dialect "mvel"
+    when
+        $requestIncome : RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "monthly")
+    then
+        Float $convertedAmount = $requestAmount;
+        insertLogical(new ExpensePersonItemMonthly($person, $convertedAmount, $type));
+end
+
+rule "Normalize Person Request Expense Yearly to Monthly2"
+    dialect "mvel"
+    when
+        $requestIncome : RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "yearly")
+    then
+        Float $convertedAmount = $requestAmount / 12;
+        insertLogical(new ExpensePersonItemMonthly($person, $convertedAmount, $type));
+end
+
+rule "Normalize Person Request Expense from weekly to Monthly2"
+    dialect "mvel"
+    when
+        $requestIncome : RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "weekly")
+    then
+        Float $convertedAmount = $requestAmount * 4.3333333333333;
+        insertLogical(new ExpensePersonItemMonthly($person, $convertedAmount, $type));
+end
+
+rule "Normalize Person Request Expense from biweekly to Monthly2"
+    dialect "mvel"
+    when
+        $requestIncome : RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "biweekly")
+    then
+        Float $convertedAmount = $requestAmount * 2.166666666667;
+        insertLogical(new ExpensePersonItemMonthly($person, $convertedAmount, $type));
+end
+
+rule "Normalize Person Request Expense from semimonthly to Monthly2"
+    dialect "mvel"
+    when
+        $requestIncome : RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "semimonthly")
+    then
+        Float $convertedAmount = $requestAmount * 2;
+        insertLogical(new ExpensePersonItemMonthly($person, $convertedAmount, $type));
+end
+
+
+rule "create a fact if the household has an expense type of Heating"
+    dialect "mvel"
+    when
+        RequestExpense(type == "Heating"   )
+    then 
+        $programcode = new ExpenseHouseholdHasHeating()
+        $programcode.setValue(true)
+        insertLogical($programcode)
+        System.out.println("Rule creating ExpenseHouseholdHasHeating fired")
+end
+
+rule "create a fact if the household has an expense type of dependent care"
+    dialect "mvel"
+    when
+        RequestExpense(type == "DependentCare"   )
+    then 
+        $programcode = new ExpenseHouseholdHasDependentCare()
+        $programcode.setValue(true)
+        insertLogical($programcode)
+        System.out.println("Rule creating ExpenseHouseholdHasDependentCare fired")
+end
+
+rule "Calculate  child and dependent care  monthly"
+    dialect "mvel"
+    when
+        accumulate(
+            ExpensePersonItemMonthly(type in ( "ChildCare","DependentCare"), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new ExpenseHouseholdChildDependentCareMonthly($amount));
+end
+
+rule "Calculate  medical  care  cost  monthly"
+    dialect "mvel"
+    when
+        accumulate(
+            ExpensePersonItemMonthly(type in ( "Medical"), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new ExpenseHouseholdMedicalMonthly($amount));
+end
+
+rule "Calculate  rent or mortgage   cost  monthly"
+    dialect "mvel"
+    when
+        accumulate(
+            ExpensePersonItemMonthly(type in ( "Rent","Mortgage"), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new ExpenseHouseholdRentMortgageMonthly($amount));
+end
+
+rule "Calculate rent cost monthly"
+    dialect "mvel"
+    when
+        accumulate(
+            ExpensePersonItemMonthly(type in ( "Rent"), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new ExpenseHouseholdRentMonthly($amount));
+end
+
+rule "calculate household child support paid"
+    dialect "mvel"
+    when
+        accumulate(
+            ExpensePersonItemMonthly(type  in ( "ChildSupport"), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new ExpenseHouseholdChildSupportMonthly($amount));
+end

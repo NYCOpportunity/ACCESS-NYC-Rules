@@ -1,0 +1,198 @@
+package accessnyc.rules.snap;
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+import accessnyc.rules.income.IncomePersonItemMonthly
+import accessnyc.rules.income.IncomeHouseholdTotalMonthly
+
+import accessnyc.rules.income.IncomeHouseholdWageSelfEmploymentBoarderMonthly
+import accessnyc.rules.income.IncomeHouseholdUnearnedMonthly
+
+import accessnyc.rules.expense.ExpenseHouseholdChildSupportMonthly
+import accessnyc.rules.expense.ExpenseHouseholdChildDependentCareMonthly
+import accessnyc.rules.expense.ExpenseHouseholdMedicalMonthly
+import accessnyc.rules.expense.ExpenseHouseholdRentMortgageMonthly
+    
+//we need to know if all the household members have SSI or Cash Assistance. These next four rules do that
+rule "create a new fact if the person has cash assistance or SSI income"
+    dialect "mvel"
+    when
+        $person : Person()
+        IncomePersonItemMonthly(person == $person, type in ( "SSI","CashAssistance"))
+
+    then
+        insertLogical(new IncomePersonHasSSIorCashAssistance($person, true));
+end
+
+rule "count household members with SSI or Cash Assistance"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonHasSSIorCashAssistance( value == true, $value : value);
+            $membersWithIncomeTypes : count($value)
+        )
+    then
+        insertLogical(new IncomeHouseholdMembersWithSSIorCashAssistance($membersWithIncomeTypes));
+end
+
+rule "Create a fact if all household members have SSI or Cash Assistance"
+    dialect "mvel"
+    when
+        IncomeHouseholdMembersWithSSIorCashAssistance($membersSSI : value)
+        Household($members : members)
+    then
+        $final = $membersSSI - $members
+        insertLogical(new IncomeDifMembersMinusSSI($final));
+end
+
+rule "If household members and members with SSI or Cash Assistance is the same, set a new fact"
+    dialect "mvel"
+    when
+        IncomeDifMembersMinusSSI(value == 0)
+    then
+        insertLogical(new IncomeHouseholdAllSSIOrCash(true));
+end
+//end of previous comment
+
+
+rule "create a fact for total household income minus child support paid"
+    dialect "mvel"
+    when
+        ExpenseHouseholdChildSupportMonthly($childsupport : amount)
+        IncomeHouseholdTotalMonthly($income : amount)
+    
+    then
+        Float $amount = $income - $childsupport;
+        insertLogical(new IncomeHouseholdMinusChildSupportPaid($amount));
+end
+
+//starting the snap budget
+
+rule "create the snap total income"
+    dialect "mvel"
+    when
+        IncomeHouseholdWageSelfEmploymentBoarderMonthly($earnedIncome : amount)
+        IncomeHouseholdUnearnedMonthly($unearnedIncome : amount)
+        ExpenseHouseholdChildSupportMonthly($childSupportExpense : amount)
+    then
+        Float $totalincome = $earnedIncome + $unearnedIncome - $childSupportExpense;
+        insertLogical(new SNAPTotalIncome($totalincome));
+end
+
+rule "subtract 35 from medical expenses"
+    dialect "mvel"
+    when
+        ExpenseHouseholdMedicalMonthly($amount : amount)
+    then 
+        Float $amountadj = $amount - 35;
+        insertLogical(new ExpenseHouseholdMedicalMonthlyAdjusted($amountadj));
+end
+
+//need to check this works
+rule "if medical expenses just went below 0"
+no-loop true
+    dialect "mvel"
+    when 
+        $medical : ExpenseHouseholdMedicalMonthlyAdjusted(amount < 0)
+    then 
+        $medical.setAmount(0)
+end
+
+rule "create snap deduction amount based on household size less than 4"
+    dialect "mvel"
+    when
+        Household(members <= 3)
+    then 
+        insertLogical(new SNAPStandardDeduction(160));
+end
+
+rule "create snap deduction amount based on household size 4"
+    dialect "mvel"
+    when
+        Household(members == 4)
+    then 
+        insertLogical(new SNAPStandardDeduction(170));
+end
+
+rule "create snap deduction amount based on household size 5"
+    dialect "mvel"
+    when
+        Household(members == 5)
+    then 
+        insertLogical(new SNAPStandardDeduction(199));
+end
+
+rule "create snap deduction amount based on household size 6+"
+    dialect "mvel"
+    when
+        Household(members >= 6)
+    then 
+        insertLogical(new SNAPStandardDeduction(228));
+end
+
+rule "create the snap deductions"
+    dialect "mvel"
+    when
+        IncomeHouseholdWageSelfEmploymentBoarderMonthly($totalIncome : amount)
+        ExpenseHouseholdChildDependentCareMonthly($dependentCareExpense : amount)
+        ExpenseHouseholdMedicalMonthlyAdjusted($medicalExpense : amount)
+        SNAPStandardDeduction($standardDeduction : amount)
+    then
+        Float $deductions = (.2 * $totalIncome) + $standardDeduction + $dependentCareExpense + $medicalExpense;
+        insertLogical(new SNAPTotalDeductions($deductions));
+end
+
+rule "find the adjusted income"
+    dialect "mvel"
+    when
+        SNAPTotalIncome($income : amount)
+        SNAPTotalDeductions($deductions : amount)
+    then 
+        Float $final = $income - $deductions;
+        insertLogical(new SNAPIncomeAdjusted($final));
+end
+
+//will this work if there is no mortgage or rent field in the household?
+rule "calculate shelter costs"
+    dialect "mvel"
+    when 
+        Household(members > 0)
+        ExpenseHouseholdRentMortgageMonthly($rent : amount)
+    then 
+        Float $shelter = $rent + 791;
+        insertLogical(new SNAPShelterCost($shelter));
+end
+
+
+rule "excess shelter costs"
+    dialect "mvel"
+    when 
+        SNAPShelterCost($shelter : amount)
+        SNAPIncomeAdjusted($income : amount)
+    then 
+        Float $total = $shelter - ($income / 2);
+        insertLogical(new SNAPShelterCostExcess($total));
+end
+
+//need to check this works
+rule "if excess shelter just went below 0"
+no-loop true
+    dialect "mvel"
+    when 
+        $shelter : SNAPShelterCostExcess(amount < 0)
+    then 
+        $shelter.setAmount(0)
+end
+
+rule "calculate monthly food stamp net income"
+    dialect "mvel"
+    when
+        SNAPShelterCostExcess($shelter : amount)
+        SNAPIncomeAdjusted($income : amount)
+    then 
+        Float $total = $income - $shelter;
+        insertLogical(new IncomeSNAP($total));
+end
+        
+    
+        

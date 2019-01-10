@@ -1,0 +1,33 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+
+import accessnyc.rules.income.IncomeHouseholdTotalMonthly
+
+rule "s2_r008"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        Person( age <= 5, age >= 2)
+        
+        (
+               (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 1012))
+            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 1372))
+            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 1732))
+            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 2092))
+            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 2452))
+            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 2812))
+            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 3172))
+            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 3532))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R008")
+        insertLogical($programcode)
+
+end

@@ -1,0 +1,60 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+import accessnyc.rules.income.IncomeOwnersTotalYearly
+import accessnyc.rules.income.IncomeOwnersHasSSIorSSDB
+
+
+rule "s2_r017 disabled"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC", livingOwner == true)
+        Person(livingOwnerOnDeed == true, disabled == true) 
+        IncomeOwnersTotalYearly( amount <= 58399 )
+        
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R017")
+        insertLogical($programcode)
+
+end
+
+
+        
+rule "s2_r017 blind"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC", livingOwner == true)
+        Person(livingOwnerOnDeed == true, blind == true) 
+        IncomeOwnersTotalYearly( amount <= 58399 )
+        
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R017")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r017 SSI or SSDB"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC", livingOwner == true)
+        Person(livingOwnerOnDeed == true)
+        IncomeOwnersHasSSIorSSDB(value == true)
+        IncomeOwnersTotalYearly( amount <= 58399 )
+        
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R017")
+        insertLogical($programcode)
+
+end

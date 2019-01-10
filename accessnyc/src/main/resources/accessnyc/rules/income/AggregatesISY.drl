@@ -1,0 +1,38 @@
+package accessnyc.rules.income;
+
+import accessnyc.request.Person
+
+//need to check all this
+rule "Calculate Total Person ISY Income Monthly"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            IncomePersonItemMonthly((person == $person && type not in ("ChildSupport","CashAssistance","SSSurvivor","SSI","Unemployment")), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new IncomePersonISYMonthly($person, $amount));
+end
+
+rule "Calculate Total Person ISY Income Yearly"
+    dialect "mvel"
+    when
+        IncomePersonISYMonthly($person : person, $requestAmount : amount)
+    then
+        Float $amount = $requestAmount * 12;
+        insertLogical(new IncomePersonISYYearly($person, $amount));
+end
+
+
+rule "Calculate ISY income yearly for the HoH, Spouse, children, StepChildren"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonISYYearly( (person.headOfHousehold == true || person.headOfHouseholdRelation in ("Spouse","Child","StepChild")), $amounthousehold : amount);
+            $requestAmount : sum($amounthousehold)
+        )
+    then
+        Float $amount = $requestAmount;
+        insertLogical(new IncomeHouseholdNuclearISYYearly($amount));
+end
