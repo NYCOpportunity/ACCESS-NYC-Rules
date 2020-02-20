@@ -7,20 +7,20 @@ import accessnyc.request.Household
 
 
 import accessnyc.rules.snap.IncomeHouseholdAllSSIOrCash
-  import accessnyc.rules.snap.IncomeHouseholdMinusChildSupportPaid
+import accessnyc.rules.snap.IncomeHouseholdMinusChildSupportPaid
 import accessnyc.rules.expense.ExpenseHouseholdHasDependentCare
 import accessnyc.rules.snap.IncomeSNAP
 
 rule "s2_r007.2"
     dialect "mvel"
-
+    
     when
-
+        
         Household(city == "NYC")
-        IncomeHouseholdAllSSIOrCash(value == true)
+        IncomeHouseholdAllSSIOrCash(value == true)  
 
     then
-
+    
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R007")
         $programcode.setRulePart("2")
@@ -32,20 +32,20 @@ rule "s2_r007.3 blind"
     dialect "mvel"
     when
         Household(city == "NYC")
-        Person( blind == true)
+        Person( blind == true) 
         (
-               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2010))
-            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2707))
-            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3403))
-            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 4100))
-            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4797))
-            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5493))
-            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 6190))
-            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 6897))
+               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2023))
+            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2743))
+            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3463))
+            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 4183))
+            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4903))
+            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5623))
+            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 6343))
+            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 7063))
         )
-
+            
     then
-
+    
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R007")
         $programcode.setRulePart("3")
@@ -57,20 +57,20 @@ rule "s2_r007.3 blind snap income"
     dialect "mvel"
     when
         Household(city == "NYC")
-        Person( blind == true)
+        Person( blind == true) 
         (
-               (Household(members == 1, cashOnHand <= 3500) and IncomeSNAP(amount <= 1005))
-            or (Household(members == 2, cashOnHand <= 3500) and IncomeSNAP(amount <= 1354))
-            or (Household(members == 3, cashOnHand <= 3500) and IncomeSNAP(amount <= 1720))
-            or (Household(members == 4, cashOnHand <= 3500) and IncomeSNAP(amount <= 2050))
-            or (Household(members == 5, cashOnHand <= 3500) and IncomeSNAP(amount <= 2399))
-            or (Household(members == 6, cashOnHand <= 3500) and IncomeSNAP(amount <= 2747))
-            or (Household(members == 7, cashOnHand <= 3500) and IncomeSNAP(amount <= 3095))
-            or (Household(members == 8, cashOnHand <= 3500) and IncomeSNAP(amount <= 3444))
+               (Household(members == 1, cashOnHand <= 3500) and IncomeSNAP(amount <= 1012))
+            or (Household(members == 2, cashOnHand <= 3500) and IncomeSNAP(amount <= 1372))
+            or (Household(members == 3, cashOnHand <= 3500) and IncomeSNAP(amount <= 1732))
+            or (Household(members == 4, cashOnHand <= 3500) and IncomeSNAP(amount <= 2092))
+            or (Household(members == 5, cashOnHand <= 3500) and IncomeSNAP(amount <= 2452))
+            or (Household(members == 6, cashOnHand <= 3500) and IncomeSNAP(amount <= 2812))
+            or (Household(members == 7, cashOnHand <= 3500) and IncomeSNAP(amount <= 3172))
+            or (Household(members == 8, cashOnHand <= 3500) and IncomeSNAP(amount <= 3532))
         )
-
+            
     then
-
+    
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R007")
         $programcode.setRulePart("3")
@@ -81,20 +81,20 @@ rule "s2_r007.3b"
     dialect "mvel"
     when
         Household(city == "NYC")
-        Person(disabled == true)
+        Person(disabled == true) 
         (
-               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2010))
-            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2707))
-            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3403))
-            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 4100))
-            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4797))
-            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5493))
-            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 6190))
-            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 6887))
+               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2023))
+            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2743))
+            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3463))
+            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 4183))
+            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4903))
+            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5623))
+            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 6343))
+            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 7063))
         )
-
+            
     then
-
+    
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R007")
         $programcode.setRulePart("3")
@@ -105,20 +105,20 @@ rule "s2_r007.3b snap budget"
     dialect "mvel"
     when
         Household(city == "NYC")
-        Person(disabled == true)
+        Person(disabled == true) 
         (
-               (Household(members == 1, cashOnHand <= 3500) and IncomeSNAP(amount <= 1005))
-            or (Household(members == 2, cashOnHand <= 3500) and IncomeSNAP(amount <= 1354))
-            or (Household(members == 3, cashOnHand <= 3500) and IncomeSNAP(amount <= 1720))
-            or (Household(members == 4, cashOnHand <= 3500) and IncomeSNAP(amount <= 2050))
-            or (Household(members == 5, cashOnHand <= 3500) and IncomeSNAP(amount <= 2399))
-            or (Household(members == 6, cashOnHand <= 3500) and IncomeSNAP(amount <= 2747))
-            or (Household(members == 7, cashOnHand <= 3500) and IncomeSNAP(amount <= 3095))
-            or (Household(members == 8, cashOnHand <= 3500) and IncomeSNAP(amount <= 3444))
+               (Household(members == 1, cashOnHand <= 3500) and IncomeSNAP(amount <= 1012))
+            or (Household(members == 2, cashOnHand <= 3500) and IncomeSNAP(amount <= 1372))
+            or (Household(members == 3, cashOnHand <= 3500) and IncomeSNAP(amount <= 1732))
+            or (Household(members == 4, cashOnHand <= 3500) and IncomeSNAP(amount <= 2092))
+            or (Household(members == 5, cashOnHand <= 3500) and IncomeSNAP(amount <= 2452))
+            or (Household(members == 6, cashOnHand <= 3500) and IncomeSNAP(amount <= 2812))
+            or (Household(members == 7, cashOnHand <= 3500) and IncomeSNAP(amount <= 3172))
+            or (Household(members == 8, cashOnHand <= 3500) and IncomeSNAP(amount <= 3532))
         )
-
+            
     then
-
+    
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R007")
         $programcode.setRulePart("3")
@@ -131,18 +131,18 @@ rule "s2_r007.3c"
         Household(city == "NYC")
         Person( age >= 60 )
         (
-               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2010))
-            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2707))
-            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3403))
-            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 4100))
-            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4797))
-            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5493))
-            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 6190))
-            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 6897))
+               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2023))
+            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2743))
+            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3463))
+            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 4183))
+            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4903))
+            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5623))
+            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 6343))
+            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 7063))
         )
-
+            
     then
-
+    
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R007")
         $programcode.setRulePart("3")
@@ -155,18 +155,18 @@ rule "s2_r007.3c snap budget"
         Household(city == "NYC")
         Person( age >= 60 )
         (
-               (Household(members == 1, cashOnHand <= 3500) and IncomeSNAP(amount <= 1005))
-            or (Household(members == 2, cashOnHand <= 3500) and IncomeSNAP(amount <= 1354))
-            or (Household(members == 3, cashOnHand <= 3500) and IncomeSNAP(amount <= 1720))
-            or (Household(members == 4, cashOnHand <= 3500) and IncomeSNAP(amount <= 2050))
-            or (Household(members == 5, cashOnHand <= 3500) and IncomeSNAP(amount <= 2399))
-            or (Household(members == 6, cashOnHand <= 3500) and IncomeSNAP(amount <= 2747))
-            or (Household(members == 7, cashOnHand <= 3500) and IncomeSNAP(amount <= 3095))
-            or (Household(members == 8, cashOnHand <= 3500) and IncomeSNAP(amount <= 3444))
+               (Household(members == 1, cashOnHand <= 3500) and IncomeSNAP(amount <= 1012))
+            or (Household(members == 2, cashOnHand <= 3500) and IncomeSNAP(amount <= 1372))
+            or (Household(members == 3, cashOnHand <= 3500) and IncomeSNAP(amount <= 1732))
+            or (Household(members == 4, cashOnHand <= 3500) and IncomeSNAP(amount <= 2092))
+            or (Household(members == 5, cashOnHand <= 3500) and IncomeSNAP(amount <= 2452))
+            or (Household(members == 6, cashOnHand <= 3500) and IncomeSNAP(amount <= 2812))
+            or (Household(members == 7, cashOnHand <= 3500) and IncomeSNAP(amount <= 3172))
+            or (Household(members == 8, cashOnHand <= 3500) and IncomeSNAP(amount <= 3532))
         )
-
+            
     then
-
+    
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R007")
         $programcode.setRulePart("3")
@@ -176,24 +176,24 @@ end
 
 rule "s2_r007.4"
     dialect "mvel"
-
+    
     when
-
+        
         Household(city == "NYC")
         ExpenseHouseholdHasDependentCare(value == true)
        (
-               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2010))
-            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2707))
-            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3403))
-            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 4100))
-            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4797))
-            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5493))
-            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 6190))
-            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 6897))
+               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2023))
+            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2743))
+            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3463))
+            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 4183))
+            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4903))
+            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5623))
+            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 6343))
+            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 7063))
         )
-
+            
     then
-
+    
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R007")
         $programcode.setRulePart("4")
@@ -202,23 +202,23 @@ end
 
 rule "s2_r007.5"
     dialect "mvel"
-
+    
     when
-
+        
         Household(city == "NYC")
        (
-               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 1508))
-            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2030))
-            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 2553))
-            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 3075))
-            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 3598))
-            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 4120))
-            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 4643))
-            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 5165))
+               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 1518))
+            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2058))
+            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 2598))
+            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 3138))
+            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 3678))
+            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 4218))
+            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 4758))
+            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 5298))
         )
-
+            
     then
-
+    
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R007")
         $programcode.setRulePart("5")
