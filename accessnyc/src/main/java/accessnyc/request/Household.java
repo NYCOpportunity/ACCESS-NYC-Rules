@@ -21,6 +21,7 @@ public class Household implements java.io.Serializable
    private java.lang.Boolean livingOwner;
 
    private java.lang.Boolean livingHotel;
+   private java.lang.Boolean livingShelter;
 
    public Household()
    {
@@ -96,10 +97,20 @@ public class Household implements java.io.Serializable
       this.livingHotel = livingHotel;
    }
 
+   public java.lang.Boolean getLivingShelter()
+   {
+      return this.livingShelter;
+   }
+
+   public void setLivingShelter(java.lang.Boolean livingShelter)
+   {
+      this.livingShelter = livingShelter;
+   }
+
    public Household(java.lang.String city, java.lang.Integer members,
          java.lang.Boolean livingRenting, java.lang.String livingRentalType,
          java.lang.Float cashOnHand, java.lang.Boolean livingOwner,
-         java.lang.Boolean livingHotel)
+         java.lang.Boolean livingHotel, java.lang.Boolean livingShelter)
    {
       this.city = city;
       this.members = members;
@@ -108,6 +119,7 @@ public class Household implements java.io.Serializable
       this.cashOnHand = cashOnHand;
       this.livingOwner = livingOwner;
       this.livingHotel = livingHotel;
+      this.livingShelter = livingShelter;
    }
 
 }

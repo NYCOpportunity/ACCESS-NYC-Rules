@@ -14,14 +14,14 @@ rule "s2_r013 "
         Household(city == "NYC")
         Person(headOfHousehold == true, age >= 18)
         (
-            (Household(members == 1) and IncomeHouseholdTotalYearly( amount <= 26900 )) 
-            or (Household(members == 2) and IncomeHouseholdTotalYearly( amount <= 30700 )) 
-            or (Household(members == 3) and IncomeHouseholdTotalYearly( amount <= 34550 ))
-            or (Household(members == 4) and IncomeHouseholdTotalYearly( amount <= 38400 ))
-            or (Household(members == 5) and IncomeHouseholdTotalYearly( amount <= 41450 ))
-            or (Household(members == 6) and IncomeHouseholdTotalYearly( amount <= 44550 ))
-            or (Household(members == 7) and IncomeHouseholdTotalYearly( amount <= 47600 ))
-            or (Household(members == 8) and IncomeHouseholdTotalYearly( amount <= 50700 ))
+            (Household(members == 1) and IncomeHouseholdTotalYearly( amount <= 36550 )) 
+            or (Household(members == 2) and IncomeHouseholdTotalYearly( amount <= 41750 )) 
+            or (Household(members == 3) and IncomeHouseholdTotalYearly( amount <= 46950 ))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly( amount <= 52150 ))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly( amount <= 56350 ))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly( amount <= 60500 ))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly( amount <= 64700 ))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly( amount <= 68850 ))
         )
 
     then

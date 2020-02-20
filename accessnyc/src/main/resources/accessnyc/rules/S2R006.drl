@@ -23,8 +23,8 @@ rule "s2_r006.2 head of household - children and students under 24 - childrenstu
         HeadOfHouseholdMarried( value == true)
         Person(headOfHousehold == true ) 
         ChildrenStudentEITCDefinition(value == 1) 
-        IncomeHeadAndSpouseEarnedYearly(amount > 0  , amount <= 45207 )
-        IncomeHeadAndSpouseInvestmentYearly(amount <= 3450)
+        IncomeHeadAndSpouseEarnedYearly(amount > 0  , amount <= 46884 )
+        IncomeHeadAndSpouseInvestmentYearly(amount <= 3600)
 
 
     then
@@ -41,8 +41,8 @@ rule "s2_r006.2 head of household - children and students under 24 - ChildrenStu
         HeadOfHouseholdMarried( value == true)
         Person(headOfHousehold == true ) 
         ChildrenStudentEITCDefinition(value > 1) 
-        IncomeHeadAndSpouseEarnedYearly(amount > 0, amount <= 50597 )
-        IncomeHeadAndSpouseInvestmentYearly(amount <= 3450)
+        IncomeHeadAndSpouseEarnedYearly(amount > 0, amount <= 52493 )
+        IncomeHeadAndSpouseInvestmentYearly(amount <= 3600)
 
     then
         $programcode = new EligibleProgram()
@@ -60,13 +60,13 @@ rule "s2_r006.2 head of household - blind disabled"
         BlindDisabledHouseholdEITC(value > 0)
         (
           (ChildrenStudentEITCDefinition(value == 1) 
-            and IncomeHeadAndSpouseEarnedYearly(amount > 0  , amount <= 45207 )
-            and IncomeHeadAndSpouseInvestmentYearly(amount <= 3450)
+            and IncomeHeadAndSpouseEarnedYearly(amount > 0  , amount <= 46884 )
+            and IncomeHeadAndSpouseInvestmentYearly(amount <= 3600)
             )
         or 
           (ChildrenStudentEITCDefinition(value > 1) 
-            and IncomeHeadAndSpouseEarnedYearly(amount > 0, amount <= 50597 )
-            and IncomeHeadAndSpouseInvestmentYearly(amount <= 3450)
+            and IncomeHeadAndSpouseEarnedYearly(amount > 0, amount <= 52493 )
+            and IncomeHeadAndSpouseInvestmentYearly(amount <= 3600)
             )
         )
     then
@@ -87,13 +87,13 @@ rule "s2_r006.2 spouse"
         //each above line is an "and" with the other lines?
         (
           (ChildrenStudentEITCDefinition(value == 1) 
-            and IncomeHeadAndSpouseEarnedYearly(amount > 0  , amount <= 45207 )
-            and IncomeHeadAndSpouseInvestmentYearly(amount <= 3450)
+            and IncomeHeadAndSpouseEarnedYearly(amount > 0  , amount <= 46884 )
+            and IncomeHeadAndSpouseInvestmentYearly(amount <= 3600)
             )
         or 
           (ChildrenStudentEITCDefinition(value > 1) 
-            and IncomeHeadAndSpouseEarnedYearly(amount > 0, amount <= 50597 )
-            and IncomeHeadAndSpouseInvestmentYearly(amount <= 3450)
+            and IncomeHeadAndSpouseEarnedYearly(amount > 0, amount <= 52493 )
+            and IncomeHeadAndSpouseInvestmentYearly(amount <= 3600)
             )
         )
     then
@@ -109,8 +109,8 @@ rule "s2_r006.3 head of household"
     when
         HeadOfHouseholdMarried( value == true)
         Person(headOfHousehold == true, age >= 25, age < 65 ) 
-        IncomeHeadAndSpouseEarnedYearly(amount > 0, amount <= 20600 )
-        IncomeHeadAndSpouseInvestmentYearly(amount <= 3450)
+        IncomeHeadAndSpouseEarnedYearly(amount > 0, amount <= 21370 )
+        IncomeHeadAndSpouseInvestmentYearly(amount <= 3600)
 
     then
         $programcode = new EligibleProgram()
@@ -125,8 +125,8 @@ rule "s2_r006.3 spouse"
     when
         HeadOfHouseholdMarried( value == true)
         Person( headOfHouseholdRelation == "Spouse",  age >= 25, age < 65)
-        IncomeHeadAndSpouseEarnedYearly(amount > 0, amount <= 20600 )
-        IncomeHeadAndSpouseInvestmentYearly(amount <= 3450)
+        IncomeHeadAndSpouseEarnedYearly(amount > 0, amount <= 21370 )
+        IncomeHeadAndSpouseInvestmentYearly(amount <= 3600)
 
     then
         $programcode = new EligibleProgram()
@@ -145,13 +145,13 @@ rule "s2_r006.4 child under 19 or student under 24"
         ChildrenStudentEITCDefinition(value > 0)
         (
           (ChildrenStudentEITCDefinition(value == 1) 
-            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 39617 )
-            and IncomePersonInvestmentYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 3450)
+            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 41094 )
+            and IncomePersonInvestmentYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 3600)
             )
         or 
           (ChildrenStudentEITCDefinition(value > 1) 
-            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 45007 )
-            and IncomePersonInvestmentYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 3450)
+            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 46703 )
+            and IncomePersonInvestmentYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 3600)
             )
         )
 
@@ -171,13 +171,13 @@ rule "s2_r006.4 blind disabled"
         BlindDisabledHouseholdEITC(value > 0)
         (
           (ChildrenStudentEITCDefinition(value == 1) 
-            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 39617 )
-            and IncomePersonInvestmentYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 3450)
+            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 41094 )
+            and IncomePersonInvestmentYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 3600)
             )
         or 
           (ChildrenStudentEITCDefinition(value > 1) 
-            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 45007 )
-            and IncomePersonInvestmentYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 3450)
+            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 46703 )
+            and IncomePersonInvestmentYearly(person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 3600)
             )
         )
 
@@ -194,8 +194,8 @@ rule "s2_r006.5"
     when
         $person : Person()
         not HeadOfHouseholdMarried( value == true)
-        IncomeHeadEarnedYearly(person == $person, person.headOfHousehold == true, person.age >= 25, person.age < 65, amount > 0, amount <= 15010 )
-        IncomeHeadInvestmentYearly(person == $person, person.headOfHousehold == true, person.age >= 25, person.age < 65, amount <= 3450)
+        IncomeHeadEarnedYearly(person == $person, person.headOfHousehold == true, person.age >= 25, person.age < 65, amount > 0, amount <= 15570 )
+        IncomeHeadInvestmentYearly(person == $person, person.headOfHousehold == true, person.age >= 25, person.age < 65, amount <= 3600)
 
     then
         $programcode = new EligibleProgram()
@@ -214,13 +214,13 @@ rule "s2_r006.6 children under 19 or student under 24"
 
         (
           (ChildrenStudentEITCDefinition(value == 1) 
-            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 45207 )
-            and IncomePersonInvestmentYearly(person == $person, amount <= 3450)
+            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 46884 )
+            and IncomePersonInvestmentYearly(person == $person, amount <= 3600)
             )
         or 
           (ChildrenStudentEITCDefinition(value > 1) 
-            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 50597 )
-            and IncomePersonInvestmentYearly(person == $person, amount <= 3450)
+            and IncomePersonEarnedYearly(person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 52493 )
+            and IncomePersonInvestmentYearly(person == $person, amount <= 3600)
             )
         )
 
@@ -239,13 +239,13 @@ rule "s2_r006.6 blind disabled household but not household member"
         BlindDisabledHouseholdEITC(value > 0 )
         (
           (ChildrenStudentEITCDefinition(value == 1) 
-            and IncomePersonEarnedYearly(person == $person, person.blind == false, person.disabled == false, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 45207 )
-            and IncomePersonInvestmentYearly(person == $person, amount <= 3450)
+            and IncomePersonEarnedYearly(person == $person, person.blind == false, person.disabled == false, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 46884 )
+            and IncomePersonInvestmentYearly(person == $person, amount <= 3600)
             )
         or 
           (ChildrenStudentEITCDefinition(value > 1) 
-            and IncomePersonEarnedYearly(person == $person, person.blind == false, person.disabled == false, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 50597 )
-            and IncomePersonInvestmentYearly(person == $person, amount <= 3450)
+            and IncomePersonEarnedYearly(person == $person, person.blind == false, person.disabled == false, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 52493 )
+            and IncomePersonInvestmentYearly(person == $person, amount <= 3600)
             )
         )
 
@@ -261,8 +261,8 @@ rule "s2_r006.7"
     
     when
         $person : Person()
-        IncomePersonEarnedYearly(person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 20600)
-        IncomePersonInvestmentYearly(person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount <= 3450 )
+        IncomePersonEarnedYearly(person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 21370)
+        IncomePersonInvestmentYearly(person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount <= 3600 )
 
     then
         $programcode = new EligibleProgram()
@@ -270,4 +270,3 @@ rule "s2_r006.7"
         $programcode.setRulePart("7")
         insertLogical($programcode)
 end
-

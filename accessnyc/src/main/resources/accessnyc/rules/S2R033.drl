@@ -1,0 +1,37 @@
+package accessnyc.rules;
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+import accessnyc.rules.income.IncomeAdultsTotalMonthly
+import accessnyc.rules.expense.ExpenseHouseholdHasHeating
+
+
+rule "s2_r033"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        not (Household(livingRentalType == "NYCHA") and not (ExpenseHouseholdHasHeating(value == true)))
+        not Household(livingHotel == true)
+        not Household(livingShelter == true)
+        (
+            (Household(members == 1) and IncomeAdultsTotalMonthly(amount <= 2391))
+            or (Household(members == 2) and IncomeAdultsTotalMonthly(amount <= 3127))
+            or (Household(members == 3) and IncomeAdultsTotalMonthly(amount <= 3863))
+            or (Household(members == 4) and IncomeAdultsTotalMonthly(amount <= 4598))
+            or (Household(members == 5) and IncomeAdultsTotalMonthly(amount <= 5334))
+            or (Household(members == 6) and IncomeAdultsTotalMonthly(amount <= 6070))
+            or (Household(members == 7) and IncomeAdultsTotalMonthly(amount <= 6208))
+            or (Household(members == 8) and IncomeAdultsTotalMonthly(amount <= 6346))
+            or (Household(members == 9) and IncomeAdultsTotalMonthly(amount <= 6886))
+            or (Household(members == 10) and IncomeAdultsTotalMonthly(amount <= 7426))
+            or (Household(members == 11) and IncomeAdultsTotalMonthly(amount <= 7966))    
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R033")
+        insertLogical($programcode)
+
+end

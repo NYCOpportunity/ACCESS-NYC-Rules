@@ -11,7 +11,7 @@ rule "s2_r009"
     
     when 
         Household(city == "NYC")
-        Person( age >= 5, age <= 21)
+        Person( age >= 5, age <= 21, student == true)
 
     then
         $programcode = new EligibleProgram()
