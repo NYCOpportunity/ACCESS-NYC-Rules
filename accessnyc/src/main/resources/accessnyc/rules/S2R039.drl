@@ -5,14 +5,12 @@ import accessnyc.response.EligibleProgram
 import accessnyc.request.Household
 import accessnyc.rules.income.IncomeHouseholdTotalYearly
 
-
-
 rule "s2_r039"
     dialect "mvel"
     
     when 
-        Household( city == "NYC")
-        IncomeHouseholdTotalYearly ( amount <= 69000)
+        Household( city == "NYC" )
+        IncomeHouseholdTotalYearly ( amount <= 68000 )
        
     then
 

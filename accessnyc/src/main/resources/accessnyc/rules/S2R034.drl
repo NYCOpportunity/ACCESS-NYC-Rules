@@ -5,7 +5,7 @@ import accessnyc.request.Person
 import accessnyc.request.Household
 import accessnyc.rules.income.IncomeHouseholdTotalYearly
 
-
+// FairFares Rule
 rule "s2_r034"
     dialect "mvel"
     
@@ -13,14 +13,14 @@ rule "s2_r034"
         Household(city == "NYC")
         Person( age >= 18, age <= 64)
         ( 
-          (Household(members == 1) and IncomeHouseholdTotalYearly( amount <= 12760) ) or 
-          (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 17240)) or
-          (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 21720)) or 
-          (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 26200)) or 
-          (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 30680)) or 
-          (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 35160)) or 
-          (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 39640)) or
-          (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 44120))
+          (Household(members == 1) and IncomeHouseholdTotalYearly( amount <= 12880) ) or 
+          (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 17420)) or
+          (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 21960)) or 
+          (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 26500)) or 
+          (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 31040)) or 
+          (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 35580)) or 
+          (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 40120)) or
+          (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 44660))
         
         ) 
     then

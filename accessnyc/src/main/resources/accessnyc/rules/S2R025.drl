@@ -12,8 +12,8 @@ rule "S2R025.4a"
     dialect "mvel"
     
     when 
-        Household( city == "NYC")
-        IncomePersonSESMonthly(person.age >= 55, person.unemployed == true, person.disabled == true, amount <= 1329.17)
+        Household( city == "NYC" )
+        IncomePersonSESMonthly( person.age >= 55, person.unemployed == true, person.disabled == true, amount <= 1341.66 )
         
     then
         $programcode = new EligibleProgram()
@@ -28,7 +28,7 @@ rule "S2R025.4b"
     
     when 
         Household( city == "NYC")
-        IncomePersonSESMonthly(person.age >= 55, person.unemployed == true, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Spouse"), amount <= 1329.17)
+        IncomePersonSESMonthly( person.age >= 55, person.unemployed == true, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Spouse"), amount <= 1341.66 )
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R025")
@@ -42,9 +42,9 @@ rule "S2R025.5a head of household married"
     
     when 
         Household( city == "NYC")
-        Person( age >= 55, unemployed == true, disabled == false, headOfHousehold == true) 
-        HeadOfHouseholdMarried(value == true)
-        IncomeHeadAndSpouseSESMonthly(amount <= 1795.83)
+        Person( age >= 55, unemployed == true, disabled == false, headOfHousehold == true ) 
+        HeadOfHouseholdMarried( value == true )
+        IncomeHeadAndSpouseSESMonthly( amount <= 1814.58 )
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R025")
@@ -58,9 +58,9 @@ rule "S2R025.5a head of household unmarried"
     
     when 
         Household( city == "NYC")
-        Person( age >= 55, unemployed == true, disabled == false, headOfHousehold == true) 
+        Person( age >= 55, unemployed == true, disabled == false, headOfHousehold == true ) 
         not HeadOfHouseholdMarried( value == true)
-        IncomeHeadAndSpouseSESMonthly(amount <= 1329.17)
+        IncomeHeadAndSpouseSESMonthly( amount <= 1341.66 )
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R025")
@@ -74,9 +74,9 @@ rule "S2R025.5b spouse married"
     
     when 
         Household( city == "NYC")
-        Person( age >= 55, unemployed == true, disabled == false, headOfHouseholdRelation == "Spouse") 
-        HeadOfHouseholdMarried(value == true) 
-        IncomeHeadAndSpouseSESMonthly(amount <= 1795.83)
+        Person( age >= 55, unemployed == true, disabled == false, headOfHouseholdRelation == "Spouse" ) 
+        HeadOfHouseholdMarried( value == true ) 
+        IncomeHeadAndSpouseSESMonthly( amount <= 1814.58 )
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R025")
