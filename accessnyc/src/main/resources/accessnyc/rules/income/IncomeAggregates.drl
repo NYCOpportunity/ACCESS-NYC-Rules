@@ -71,7 +71,7 @@ end
 rule "create a fact if the head of household has certain income types"
     dialect "mvel"
     when
-        IncomePersonItemMonthly(person.headOfHousehold == true, type in ("SSI","SSDisability","Veteran","DisabilityMedicaid")   )
+        IncomePersonItemMonthly(person.headOfHousehold == true, type in ("SSI","SSDisability","Veteran","DisabilityMedicaid")   )accessnyc.rules.income.IncomePersonItemMonthly( )
     then 
         $programcode = new IncomeHeadHasS2R005Income()
         $programcode.setValue(true)
@@ -378,6 +378,29 @@ rule "Calculate yearly household income minus household gift income"
         insertLogical(new IncomeHouseholdTotalYearlyLessGifts($amount));
 end
 
+rule "create a fact if the household has Unemployment Insurance"
+    dialect "mvel"
+    when
+        IncomePersonItemMonthly( type == "Unemployment" )
+    then 
+        insertLogical(new IncomeHouseholdHasUI(true))
+        System.out.println("Rule creating IncomeHouseholdHasUI fired")
+end
 
+rule "create a fact if the household has benefit"
+    dialect "mvel"
+    when
+        IncomePersonItemMonthly( type in ("Veteran", "SSI", "SSSurvivor", "DisabilityMedicaid"))
+    then
+        insertLogical(new IncomeHouseholdHasBenefit(true))
+end 
+
+rule "create a fact if a household member has DisabilityMedicaid benefit"
+    dialect "mvel"
+    when
+        IncomePersonItemMonthly( type == "DisabilityMedicaid")
+    then
+        insertLogical(new IncomePersonHasDM(true))
+end
 
 

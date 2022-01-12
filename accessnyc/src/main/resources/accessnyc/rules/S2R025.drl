@@ -83,3 +83,5 @@ rule "S2R025.5b spouse married"
         $programcode.setRulePart("5b")
         insertLogical($programcode)
 end
+
+

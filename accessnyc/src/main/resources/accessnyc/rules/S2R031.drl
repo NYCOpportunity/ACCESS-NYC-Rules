@@ -16,14 +16,14 @@ rule "S2R031"
         Household( city == "NYC")
         Person( benefitsMedicaid == false, pregnant == false, age >= 10, age <= 64) 
         and (
-           (MembersPlusPregnant(value == 1) and IncomeHouseholdTotalMonthly(amount <= 2322))
-        or (MembersPlusPregnant(value == 2) and IncomeHouseholdTotalMonthly(amount <= 3143))
-        or (MembersPlusPregnant(value == 3) and IncomeHouseholdTotalMonthly(amount <= 3964))
-        or (MembersPlusPregnant(value == 4) and IncomeHouseholdTotalMonthly(amount <= 4786))
-        or (MembersPlusPregnant(value == 5) and IncomeHouseholdTotalMonthly(amount <= 5607))
-        or (MembersPlusPregnant(value == 6) and IncomeHouseholdTotalMonthly(amount <= 6428))
-        or (MembersPlusPregnant(value == 7) and IncomeHouseholdTotalMonthly(amount <= 7250))
-        or (MembersPlusPregnant(value == 8) and IncomeHouseholdTotalMonthly(amount <= 8072))
+           (MembersPlusPregnant(value == 1) and IncomeHouseholdTotalMonthly(amount <= 2394))
+        or (MembersPlusPregnant(value == 2) and IncomeHouseholdTotalMonthly(amount <= 3238))
+        or (MembersPlusPregnant(value == 3) and IncomeHouseholdTotalMonthly(amount <= 4081))
+        or (MembersPlusPregnant(value == 4) and IncomeHouseholdTotalMonthly(amount <= 4925))
+        or (MembersPlusPregnant(value == 5) and IncomeHouseholdTotalMonthly(amount <= 5769))
+        or (MembersPlusPregnant(value == 6) and IncomeHouseholdTotalMonthly(amount <= 6612))
+        or (MembersPlusPregnant(value == 7) and IncomeHouseholdTotalMonthly(amount <= 7456))
+        or (MembersPlusPregnant(value == 8) and IncomeHouseholdTotalMonthly(amount <= 8300))
         )
     
     then

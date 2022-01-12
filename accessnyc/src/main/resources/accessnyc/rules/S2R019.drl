@@ -16,18 +16,19 @@ rule "s2_r019"
         not Household(livingHotel == true)
         not Household(livingShelter == true)
         (
-               (Household(members == 1) and IncomeAdultsTotalMonthly(amount <= 2610))
-            or (Household(members == 2) and IncomeAdultsTotalMonthly(amount <= 3413))
-            or (Household(members == 3) and IncomeAdultsTotalMonthly(amount <= 4216))
-            or (Household(members == 4) and IncomeAdultsTotalMonthly(amount <= 5019))
-            or (Household(members == 5) and IncomeAdultsTotalMonthly(amount <= 5822))
-            or (Household(members == 6) and IncomeAdultsTotalMonthly(amount <= 6625))
-            or (Household(members == 7) and IncomeAdultsTotalMonthly(amount <= 6775))
-            or (Household(members == 8) and IncomeAdultsTotalMonthly(amount <= 6926))
-            or (Household(members == 9) and IncomeAdultsTotalMonthly(amount <= 7077))
-            or (Household(members == 10) and IncomeAdultsTotalMonthly(amount <= 7227))
-            or (Household(members == 11) and IncomeAdultsTotalMonthly(amount <= 7378))
-            or (Household(members == 12) and IncomeAdultsTotalMonthly(amount <= 7755))
+               (Household(members == 1) and IncomeAdultsTotalMonthly(amount <= 2729))
+            or (Household(members == 2) and IncomeAdultsTotalMonthly(amount <= 3569))
+            or (Household(members == 3) and IncomeAdultsTotalMonthly(amount <= 4409))
+            or (Household(members == 4) and IncomeAdultsTotalMonthly(amount <= 5249))
+            or (Household(members == 5) and IncomeAdultsTotalMonthly(amount <= 6088))
+            or (Household(members == 6) and IncomeAdultsTotalMonthly(amount <= 6928))
+            or (Household(members == 7) and IncomeAdultsTotalMonthly(amount <= 7086))
+            or (Household(members == 8) and IncomeAdultsTotalMonthly(amount <= 7243))
+            or (Household(members == 9) and IncomeAdultsTotalMonthly(amount <= 7401))
+            or (Household(members == 10) and IncomeAdultsTotalMonthly(amount <= 7558))
+            or (Household(members == 11) and IncomeAdultsTotalMonthly(amount <= 7715))
+            or (Household(members == 12) and IncomeAdultsTotalMonthly(amount <= 7873))
+            or (Household(members == 13) and IncomeAdultsTotalMonthly(amount <= 8420))
             )
 
     then
@@ -36,4 +37,3 @@ rule "s2_r019"
         insertLogical($programcode)
 
 end
-
