@@ -15,13 +15,13 @@ rule "s2_r038.3"
         Household(city == "NYC")
         Person( pregnant == true )
         (
-               (MembersPlusPregnant(value == 2) and IncomeHouseholdTotalMonthly(amount <= 3204))
-            or (MembersPlusPregnant(value == 3) and IncomeHouseholdTotalMonthly(amount <= 4037))
-            or (MembersPlusPregnant(value == 4) and IncomeHouseholdTotalMonthly(amount <= 4869))
-            or (MembersPlusPregnant(value == 5) and IncomeHouseholdTotalMonthly(amount <= 5702))
-            or (MembersPlusPregnant(value == 6) and IncomeHouseholdTotalMonthly(amount <= 6534))
-            or (MembersPlusPregnant(value == 7) and IncomeHouseholdTotalMonthly(amount <= 7367))
-            or (MembersPlusPregnant(value == 8) and IncomeHouseholdTotalMonthly(amount <= 8199))
+               (MembersPlusPregnant(value == 2) and IncomeHouseholdTotalMonthly(amount <= 3238))
+            or (MembersPlusPregnant(value == 3) and IncomeHouseholdTotalMonthly(amount <= 4081))
+            or (MembersPlusPregnant(value == 4) and IncomeHouseholdTotalMonthly(amount <= 4925))
+            or (MembersPlusPregnant(value == 5) and IncomeHouseholdTotalMonthly(amount <= 5769))
+            or (MembersPlusPregnant(value == 6) and IncomeHouseholdTotalMonthly(amount <= 6612))
+            or (MembersPlusPregnant(value == 7) and IncomeHouseholdTotalMonthly(amount <= 7456))
+            or (MembersPlusPregnant(value == 8) and IncomeHouseholdTotalMonthly(amount <= 8300))
         )
 
     then

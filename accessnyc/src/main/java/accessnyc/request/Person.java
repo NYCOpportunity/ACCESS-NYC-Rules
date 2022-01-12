@@ -39,6 +39,8 @@ public class Person implements java.io.Serializable
 
    private java.lang.Boolean veteran;
 
+   private java.lang.Boolean benefitsMedicaidDisability;
+
    public Person()
    {
    }
@@ -194,6 +196,17 @@ public class Person implements java.io.Serializable
       this.veteran = veteran;
    }
 
+   public java.lang.Boolean getBenefitsMedicaidDisability()
+   {
+      return this.benefitsMedicaidDisability;
+   }
+
+   public void setBenefitsMedicaidDisability(
+         java.lang.Boolean benefitsMedicaidDisability)
+   {
+      this.benefitsMedicaidDisability = benefitsMedicaidDisability;
+   }
+
    public Person(java.lang.Integer age,
          java.util.List<accessnyc.request.Income> incomes,
          java.lang.Boolean headOfHousehold, java.lang.Boolean livingOwnerOnDeed,
@@ -204,7 +217,7 @@ public class Person implements java.io.Serializable
          java.lang.Boolean pregnant, java.lang.Boolean student,
          java.lang.Boolean unemployed,
          java.lang.Boolean unemployedWorkedLast18Months,
-         java.lang.Boolean veteran)
+         java.lang.Boolean veteran, java.lang.Boolean benefitsMedicaidDisability)
    {
       this.age = age;
       this.incomes = incomes;
@@ -221,6 +234,7 @@ public class Person implements java.io.Serializable
       this.unemployed = unemployed;
       this.unemployedWorkedLast18Months = unemployedWorkedLast18Months;
       this.veteran = veteran;
+      this.benefitsMedicaidDisability = benefitsMedicaidDisability;
    }
 
 }

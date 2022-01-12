@@ -13,19 +13,19 @@ rule "s2_r003.2 non-disabled"
     //You have to live in NYC
         Household(city == "NYC") 
     //And one of the children must be under 5 and related to the head of household as either a parent or step-parent
-        Person( age < 5, headOfHouseholdRelation in ("Child","StepChild")) 
+        Person( age < 3, headOfHouseholdRelation in ("Child","StepChild")) 
 
           
     //And the total household income must fall in this range      
         ( 
-          (Household(members == 1)  and IncomeAdultsChildrenTotalMonthly(amount <= 1012)) or 
-          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 2743)) or
-          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 3463)) or 
-          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 4183)) or 
-          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 4903)) or 
-          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 5623)) or 
-          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 6343)) or
-          (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 7063))
+          (Household(members == 1)  and IncomeAdultsChildrenTotalMonthly(amount <= 1073)) or 
+          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 1452)) or
+          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 1830)) or 
+          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 2209)) or 
+          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 2587)) or 
+          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 2965)) or 
+          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 3344)) or
+          (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 3722))
         
         ) 
         
@@ -47,14 +47,13 @@ rule "s2_r003.3 disabled"
           
     //And the total household income must fall in this range      
         ( 
-          (Household(members == 1)  and IncomeAdultsChildrenTotalMonthly(amount <= 1012)) or 
-          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 2743)) or
-          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 3463)) or 
-          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 4183)) or 
-          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 4903)) or 
-          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 5623)) or 
-          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 6343)) or
-          (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 7063))
+          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 1452)) or
+          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 1830)) or 
+          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 2209)) or 
+          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 2587)) or 
+          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 2965)) or 
+          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 3344)) or
+          (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 3722))
         
         ) 
         
@@ -76,14 +75,13 @@ rule "s2_r003.3 blind"
           
     //And the total household income must fall in this range      
         ( 
-          (Household(members == 1)  and IncomeAdultsChildrenTotalMonthly(amount <= 1012)) or 
-          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 2743)) or
-          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 3463)) or 
-          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 4183)) or 
-          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 4903)) or 
-          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 5623)) or 
-          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 6343)) or
-          (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 7063))
+          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 1452)) or
+          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 1830)) or 
+          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 2209)) or 
+          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 2587)) or 
+          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 2965)) or 
+          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 3344)) or
+          (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 3722))
         
         ) 
         
@@ -100,7 +98,7 @@ rule "s2_r003.4"
     when 
     //You have to live in NYC
         Household(city == "NYC") 
-        IncomePersonMonthly(person.age < 5, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 1012)
+        IncomePersonMonthly(person.age < 3, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 1073)
         
     then
         $programcode = new EligibleProgram()
@@ -115,7 +113,7 @@ rule "s2_r003.5 disabled "
     when 
     //You have to live in NYC
         Household(city == "NYC") 
-        IncomePersonMonthly( person.disabled == true, person.age >= 5, person.age <= 18, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 1012 )
+        IncomePersonMonthly( person.disabled == true, person.age >= 5, person.age <= 18, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 1073 )
         
     then
         $programcode = new EligibleProgram()
@@ -130,7 +128,7 @@ rule "s2_r003.5 blind "
     when 
     //You have to live in NYC
         Household(city == "NYC") 
-        IncomePersonMonthly( person.blind == true, person.age >= 5, person.age <= 18, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 1012 )
+        IncomePersonMonthly( person.blind == true, person.age >= 5, person.age <= 18, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 1073 )
         
     then
         $programcode = new EligibleProgram()

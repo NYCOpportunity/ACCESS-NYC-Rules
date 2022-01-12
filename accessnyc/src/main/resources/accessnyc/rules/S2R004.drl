@@ -8,7 +8,7 @@ rule "S2R004 last mile"
     
     when
 
-        Person( age < 17)
+        Person( age < 18)
     
     then
         

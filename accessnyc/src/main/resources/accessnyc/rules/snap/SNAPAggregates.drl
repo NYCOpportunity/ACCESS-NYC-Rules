@@ -103,7 +103,7 @@ rule "create snap deduction amount based on household size less than 4"
     when
         Household(members <= 3)
     then 
-        insertLogical(new SNAPStandardDeduction(167));
+        insertLogical(new SNAPStandardDeduction(177));
 end
 
 rule "create snap deduction amount based on household size 4"
@@ -111,7 +111,7 @@ rule "create snap deduction amount based on household size 4"
     when
         Household(members == 4)
     then 
-        insertLogical(new SNAPStandardDeduction(181));
+        insertLogical(new SNAPStandardDeduction(184));
 end
 
 rule "create snap deduction amount based on household size 5"
@@ -119,7 +119,7 @@ rule "create snap deduction amount based on household size 5"
     when
         Household(members == 5)
     then 
-        insertLogical(new SNAPStandardDeduction(212));
+        insertLogical(new SNAPStandardDeduction(215));
 end
 
 rule "create snap deduction amount based on household size 6+"
@@ -127,7 +127,7 @@ rule "create snap deduction amount based on household size 6+"
     when
         Household(members >= 6)
     then 
-        insertLogical(new SNAPStandardDeduction(234));
+        insertLogical(new SNAPStandardDeduction(246));
 end
 
 rule "create the snap deductions"
@@ -159,7 +159,7 @@ rule "calculate shelter costs"
         Household(members > 0)
         ExpenseHouseholdRentMortgageMonthly($rent : amount)
     then 
-        Float $shelter = $rent + 801;
+        Float $shelter = $rent + 852;
         insertLogical(new SNAPShelterCost($shelter));
 end
 
@@ -193,3 +193,6 @@ rule "calculate monthly food stamp net income"
         Float $total = $income - $shelter;
         insertLogical(new IncomeSNAP($total));
 end
+        
+    
+        

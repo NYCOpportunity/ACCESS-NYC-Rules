@@ -12,7 +12,7 @@ rule "s2_r012 Enhanced Star"
     
     when 
         Household(city == "NYC", livingOwner == true)
-        IncomeOwnersTotalYearly( amount <= 90550 )
+        IncomeOwnersTotalYearly( amount <= 92000 )
         Person(livingOwnerOnDeed == true, age >= 65)
 
     then
