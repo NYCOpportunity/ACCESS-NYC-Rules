@@ -1,0 +1,27 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+
+import accessnyc.rules.income.IncomeHouseholdTotalYearly
+import accessnyc.rules.income.IncomeHeadHasS2R005Income
+
+rule "s2_r005"
+    dialect "mvel"
+    
+    when
+        
+        Household(city == "NYC", livingRenting == true, livingRentalType in ("RentControlled", "HDFC", "MitchellLama","Section213")) 
+        Person(age >= 18, headOfHousehold == true, livingRentalOnLease == true) 
+        IncomeHeadHasS2R005Income(value == true)
+        IncomeHouseholdTotalYearly ( amount <= 50000) 
+
+
+    then
+    
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R005")
+        insertLogical($programcode)
+end

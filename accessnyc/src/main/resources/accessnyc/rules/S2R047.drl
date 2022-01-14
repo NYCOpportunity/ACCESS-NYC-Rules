@@ -1,0 +1,406 @@
+package accessnyc.rules.income;
+
+import accessnyc.request.Person
+import accessnyc.request.Income
+
+rule "Infer Person Request Incomes From Valid Person Incomes List"
+    dialect "mvel"
+    when
+        $person : Person($incomes : incomes)
+        $income : Income($amount : amount, $type : type, $frequency : frequency) from $incomes
+    then
+        insertLogical(new RequestIncome($person, $amount, $type, $frequency))
+end
+
+rule "Normalize Person Request Incomes from monthly to Monthly2"
+    dialect "mvel"
+    when
+        $requestIncome : RequestIncome($person : person, $requestAmount : amount, $type : type, frequency == "monthly")
+    then
+        Float $convertedAmount = $requestAmount;
+        insertLogical(new IncomePersonItemMonthly($person, $convertedAmount, $type));
+end
+
+rule "Normalize Person Request Incomes Yearly to Monthly2"
+    dialect "mvel"
+    when
+        $requestIncome : RequestIncome($person : person, $requestAmount : amount, $type : type, frequency == "yearly")
+    then
+        Float $convertedAmount = $requestAmount / 12;
+        insertLogical(new IncomePersonItemMonthly($person, $convertedAmount, $type));
+end
+
+rule "Normalize Person Request Incomes from weekly to Monthly2"
+    dialect "mvel"
+    when
+        $requestIncome : RequestIncome($person : person, $requestAmount : amount, $type : type, frequency == "weekly")
+    then
+        Float $convertedAmount = $requestAmount * 4.3333333333333;
+        insertLogical(new IncomePersonItemMonthly($person, $convertedAmount, $type));
+end
+
+rule "Normalize Person Request Incomes from biweekly to Monthly2"
+    dialect "mvel"
+    when
+        $requestIncome : RequestIncome($person : person, $requestAmount : amount, $type : type, frequency == "biweekly")
+    then
+        Float $convertedAmount = $requestAmount * 2.166666666667;
+        insertLogical(new IncomePersonItemMonthly($person, $convertedAmount, $type));
+end
+
+rule "Normalize Person Request Incomes from semimonthly to Monthly2"
+    dialect "mvel"
+    when
+        $requestIncome : RequestIncome($person : person, $requestAmount : amount, $type : type, frequency == "semimonthly")
+    then
+        Float $convertedAmount = $requestAmount * 2;
+        insertLogical(new IncomePersonItemMonthly($person, $convertedAmount, $type));
+end
+
+rule "create a fact if anyone in the household has cash assistance"
+    dialect "mvel"
+    when
+        IncomePersonItemMonthly(type == "CashAssistance"   )
+    then 
+        $programcode = new IncomeHouseholdHasCashAssistance()
+        $programcode.setValue(true)
+        insertLogical($programcode)
+
+end
+
+rule "create a fact if the head of household has certain income types"
+    dialect "mvel"
+    when
+        IncomePersonItemMonthly(person.headOfHousehold == true, type in ("SSI","SSDisability","Veteran","DisabilityMedicaid")   )accessnyc.rules.income.IncomePersonItemMonthly( )
+    then 
+        $programcode = new IncomeHeadHasS2R005Income()
+        $programcode.setValue(true)
+        insertLogical($programcode)
+        System.out.println("Rule creating IncomeHeadHasS2R005Income fired")
+end
+
+rule "create a fact if the owners have certain income types"
+    dialect "mvel"
+    when
+        IncomePersonItemMonthly(person.livingOwnerOnDeed == true, type in ("SSI","SSDisability")   )
+    then 
+        $programcode = new IncomeOwnersHasSSIorSSDB()
+        $programcode.setValue(true)
+        insertLogical($programcode)
+        System.out.println("Rule creating IncomeOwnersHasSSIorSSDB fired")
+end
+
+//make sure this is doing wages correctly
+rule "Calculate  Person Wage and self employment Income Monthly"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            IncomePersonItemMonthly((person == $person && type in ( "SelfEmployment","Wages")), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new IncomePersonWageSelfEmploymentMonthly($person, $amount));
+end
+
+rule "Calculate  Person Wage and self employment and boarder Income Monthly"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            IncomePersonItemMonthly((person == $person && type in ( "SelfEmployment","Wages","Boarder")), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new IncomePersonWageSelfEmploymentBoarderMonthly($person, $amount));
+end
+
+rule "Calculate  Person Wage and self employment Income yearly"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            IncomePersonItemMonthly((person == $person && type in ( "SelfEmployment","Wages")), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        Float $amountFinal = $amount * 12;
+        insertLogical(new IncomePersonEarnedYearly($person, $amountFinal));
+end
+
+rule "Calculate  Person investment Income Yearly"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            IncomePersonItemMonthly((person == $person && type in ( "Investment","Rental")), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        Float $amountFinal = $amount * 12;
+        insertLogical(new IncomePersonInvestmentYearly($person, $amountFinal));
+end
+
+//is this going to create three facts?
+rule "Calculate earned income for the head of household"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            IncomePersonEarnedYearly( person.headOfHousehold == true, $amounthousehold : amount);
+            $amount : sum($amounthousehold)
+        )
+    then
+        insertLogical(new IncomeHeadEarnedYearly($person, $amount));
+end
+
+rule "Calculate investment income for the head of household"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            IncomePersonInvestmentYearly( person.headOfHousehold == true, $amounthousehold : amount);
+            $amount : sum($amounthousehold)
+        )
+    then
+        insertLogical(new IncomeHeadInvestmentYearly($person, $amount));
+end
+
+
+rule "Calculate wage income for head of HH and spouse, yearly "
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonEarnedYearly( (person.headOfHousehold == true || person.headOfHouseholdRelation == "Spouse"), $amounthousehold : amount);
+            $amount : sum($amounthousehold)
+        )
+    then
+        insertLogical(new IncomeHeadAndSpouseEarnedYearly($amount));
+end
+
+rule "Calculate investment income for the head of household and spouse"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonInvestmentYearly( (person.headOfHousehold == true || person.headOfHouseholdRelation == "Spouse"), $amounthousehold : amount);
+            $amount : sum($amounthousehold)
+        )
+    then
+        insertLogical(new IncomeHeadAndSpouseInvestmentYearly($amount));
+end
+
+
+
+rule "Calculate  Person Gift Income Monthly"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            IncomePersonItemMonthly((person == $person && type == "Gifts"), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new IncomePersonGiftsMonthly($person, $amount));
+end
+
+rule "Calculate Total Person Income Monthly"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            IncomePersonItemMonthly(person == $person, $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new IncomePersonMonthly($person, $amount));
+end
+
+rule "Calculate  unearned household income monthly - this only applies to SNAP because of Boarder income"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonItemMonthly(type not in ( "SelfEmployment","Wages", "Boarder"), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new IncomeHouseholdUnearnedMonthly($amount));
+end
+
+rule "Calculate  boarder household income monthly"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonItemMonthly(type in ( "Boarder"), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new IncomeHouseholdBoarderMonthly($amount));
+end
+
+rule "Calculate wage income for all household members under 18"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonWageSelfEmploymentMonthly( person.age < 18, $amounthousehold : amount);
+            $amount : sum($amounthousehold)
+        )
+    then
+        insertLogical(new IncomeChildrenWageSelfEmploymentMonthly($amount));
+end
+
+rule "Calculate wage income for all household members "
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonWageSelfEmploymentMonthly( $amounthousehold : amount);
+            $amount : sum($amounthousehold)
+        )
+    then
+        insertLogical(new IncomeHouseholdWageSelfEmploymentMonthly($amount));
+end
+
+rule "Calculate wage income for all household members, including boarder income (used in the SNAP rule) "
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonWageSelfEmploymentBoarderMonthly( $amounthousehold : amount);
+            $amount : sum($amounthousehold)
+        )
+    then
+        insertLogical(new IncomeHouseholdWageSelfEmploymentBoarderMonthly($amount));
+end
+
+
+rule "Calculate Household Gifts Income Monthly"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonGiftsMonthly($amounthousehold : amount);
+            $amount : sum($amounthousehold)
+        )
+    then
+        insertLogical(new IncomeHouseholdGiftsMonthly($amount));
+end
+
+rule "Calculate Household Income for all members except foster children, Monthly"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonMonthly(person.headOfHouseholdRelation not in ("FosterChild"), $amounthousehold : amount);
+            $amount : sum($amounthousehold)
+        )
+    then
+        insertLogical(new IncomeHouseholdTotalMonthlyLessFoster($amount));
+end
+
+rule "Calculate Household Income Monthly"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonMonthly($amounthousehold : amount);
+            $amount : sum($amounthousehold)
+        )
+    then
+        insertLogical(new IncomeHouseholdTotalMonthly($amount));
+end
+
+rule "Calculate Household Income Monthly by excluding Gifts"
+    dialect "mvel"
+    when
+        IncomeHouseholdTotalMonthly($amounthousehold : amount);
+        IncomeHouseholdGiftsMonthly($amountgifts : amount)
+    then
+        Float $amount = $amounthousehold - $amountgifts;
+        insertLogical(new IncomeHouseholdTotalMonthlyLessGifts($amount));
+end
+
+rule "Calculate income for all owners of a home, Yearly"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonMonthly( person.livingOwnerOnDeed == true, $amounthousehold : amount);
+            $requestAmount : sum($amounthousehold)
+        )
+    then
+        Float $amount = $requestAmount * 12;
+        insertLogical(new IncomeOwnersTotalYearly($amount));
+end
+
+
+rule "Calculate income for the HoH, spouse, and any children, monthly"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonMonthly( (person.headOfHousehold == true || person.headOfHouseholdRelation == "Spouse" || person.age < 18), $amounthousehold : amount);
+            $requestAmount : sum($amounthousehold)
+        )
+    then
+        Float $amount = $requestAmount;
+        insertLogical(new IncomeAdultsChildrenTotalMonthly($amount));
+end
+
+rule "Calculate income all household members, excluding wage income from people under 18"
+    dialect "mvel"
+    when
+        IncomeHouseholdTotalMonthly($householdIncome : amount)
+        IncomeChildrenWageSelfEmploymentMonthly($wageIncome : amount)
+    then
+        Float $amount = $householdIncome - $wageIncome;
+        insertLogical(new IncomeAdultsTotalMonthly($amount));
+end
+
+rule "Calculate household gifts income yearly from the monthly income"
+    dialect "mvel"
+    when
+        IncomeHouseholdGiftsMonthly($requestAmount : amount)
+    then
+        Float $amount = $requestAmount * 12;
+        insertLogical(new IncomeHouseholdGiftsYearly($amount));
+end
+
+
+rule "Calculate household income yearly from the monthly income"
+    dialect "mvel"
+    when
+        IncomeHouseholdTotalMonthly($requestAmount : amount)
+    then
+        Float $amount = $requestAmount * 12;
+        insertLogical(new IncomeHouseholdTotalYearly($amount));
+end
+
+rule "Calculate yearly household income minus household gift income"
+    dialect "mvel"
+    when
+        IncomeHouseholdTotalYearly($householdIncome : amount)
+        IncomeHouseholdGiftsYearly($giftsIncome : amount)
+    then
+        Float $amount = $householdIncome - $giftsIncome;
+        insertLogical(new IncomeHouseholdTotalYearlyLessGifts($amount));
+end
+
+rule "create a fact if the household has Unemployment Insurance"
+    dialect "mvel"
+    when
+        IncomePersonItemMonthly( type == "Unemployment" )
+    then 
+        insertLogical(new IncomeHouseholdHasUI(true))
+        System.out.println("Rule creating IncomeHouseholdHasUI fired")
+end
+
+rule "create a fact if the household has benefit"
+    dialect "mvel"
+    when
+        IncomePersonItemMonthly( type in ("Veteran", "SSI", "SSSurvivor", "DisabilityMedicaid"))
+    then
+        insertLogical(new IncomeHouseholdHasBenefit(true))
+end 
+
+rule "create a fact if a household member has DisabilityMedicaid benefit"
+    dialect "mvel"
+    when
+        IncomePersonItemMonthly( type == "DisabilityMedicaid")
+    then
+        insertLogical(new IncomePersonHasDM(true))
+end
+
+

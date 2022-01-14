@@ -1,0 +1,19 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+import accessnyc.request.Person
+import accessnyc.rules.expense.RequestExpense
+
+rule "s2_r001: This is the last mile of rule s2r001"
+    dialect "mvel"
+    
+    when 
+        RequestExpense( amount > 0, type in ("ChildCare","DependentCare") )  
+        Person( age < 13 ) 
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R001")
+        insertLogical($programcode)
+end
+

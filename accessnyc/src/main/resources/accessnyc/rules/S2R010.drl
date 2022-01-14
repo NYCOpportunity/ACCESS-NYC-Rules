@@ -1,0 +1,214 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+
+import accessnyc.rules.income.IncomeHouseholdTotalMonthly
+
+rule "s2_r010.2"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        Person( age >= 60) // verify that these lines are doing ORs properly
+        Person( pregnant == true )
+        (Person( age < 18) or Person(age == 18, student == true) )
+
+        (
+               (Household(members == 1, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1073.19))
+            or (Household(members == 2, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1284.83))
+            or (Household(members == 3, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1681.65))
+            or (Household(members == 4, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1988.20))
+            or (Household(members == 5, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2306.40))
+            or (Household(members == 6, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2534.87))
+            or (Household(members == 7, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2767.05))
+            or (Household(members == 8, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2956.67))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R010")
+        insertLogical($programcode)
+
+
+end
+
+rule "s2_r010.3"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        Person( age >= 60) // verify that these lines are doing ANDs properly
+        (Person( age < 18) or Person(age == 18, student == true) )
+
+        (
+               (Household(members == 1, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 980.69))
+            or (Household(members == 2, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1192.33))
+            or (Household(members == 3, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1589.15))
+            or (Household(members == 4, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1859.70))
+            or (Household(members == 5, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2213.90))
+            or (Household(members == 6, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2442.37))
+            or (Household(members == 7, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2674.55))
+            or (Household(members == 8, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2864.17))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R010")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r010.4"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        Person( age >= 60) 
+        Person( pregnant == true)
+
+        (
+               (Household(members == 1, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1073.19))
+            or (Household(members == 2, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1284.83))
+            or (Household(members == 3, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1681.65))
+            or (Household(members == 4, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1988.20))
+            or (Household(members == 5, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2306.40))
+            or (Household(members == 6, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2534.87))
+            or (Household(members == 7, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2767.05))
+            or (Household(members == 8, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2956.67))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R010")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r010.5"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        Person( age >= 60) 
+
+        (
+               (Household(members == 1, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 865.99))
+            or (Household(members == 2, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1131.28))
+            or (Household(members == 3, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1378.25))
+            or (Household(members == 4, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1640.40))
+            or (Household(members == 5, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 1910.50))
+            or (Household(members == 6, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2118.62))
+            or (Household(members == 7, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2410.00))
+            or (Household(members == 8, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 2599.62))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R010")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r010.6"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        Person( pregnant == true)
+        (Person( age < 18) or Person(age == 18, student == true) )
+
+        (
+               (Household(members == 1, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1073.19))
+            or (Household(members == 2, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1284.83))
+            or (Household(members == 3, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1681.65))
+            or (Household(members == 4, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1988.20))
+            or (Household(members == 5, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2306.40))
+            or (Household(members == 6, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2534.87))
+            or (Household(members == 7, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2767.05))
+            or (Household(members == 8, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2956.67))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R010")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r010.7"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        Person( pregnant == true)
+
+        (
+               (Household(members == 1, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1073.19))
+            or (Household(members == 2, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1284.83))
+            or (Household(members == 3, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1681.65))
+            or (Household(members == 4, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1988.20))
+            or (Household(members == 5, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2306.40))
+            or (Household(members == 6, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2534.87))
+            or (Household(members == 7, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2767.05))
+            or (Household(members == 8, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2956.67))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R010")
+        insertLogical($programcode)
+
+end
+
+
+rule "s2_r010.8"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        (Person( age < 18) or Person(age == 18, student == true) )
+        (
+               (Household(members == 1, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 980.69))
+            or (Household(members == 2, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1192.33))
+            or (Household(members == 3, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1589.15))
+            or (Household(members == 4, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1859.70))
+            or (Household(members == 5, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2213.90))
+            or (Household(members == 6, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2442.37))
+            or (Household(members == 7, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2674.55))
+            or (Household(members == 8, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2864.17))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R010")
+        insertLogical($programcode)
+
+end
+
+
+
+rule "s2_r010.9"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        (
+               (Household(members == 1, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 865.99))
+            or (Household(members == 2, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1131.28))
+            or (Household(members == 3, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1378.25))
+            or (Household(members == 4, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1640.40))
+            or (Household(members == 5, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1910.50))
+            or (Household(members == 6, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2118.62))
+            or (Household(members == 7, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2410.00))
+            or (Household(members == 8, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 2599.62))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R010")
+        insertLogical($programcode)
+
+end

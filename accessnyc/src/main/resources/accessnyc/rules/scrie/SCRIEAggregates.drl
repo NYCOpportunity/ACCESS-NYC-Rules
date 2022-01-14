@@ -1,0 +1,17 @@
+package accessnyc.rules.scrie;
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+
+import accessnyc.rules.income.IncomeHouseholdTotalMonthlyLessGifts
+import accessnyc.rules.expense.ExpenseHouseholdRentMonthly
+
+rule "Calculate the ratio of rent and household income monthly"
+    dialect "mvel"
+    when
+        ExpenseHouseholdRentMonthly($rent: amount)
+        IncomeHouseholdTotalMonthlyLessGifts($income: amount)
+    then
+        Float $ratio = $rent / $income;
+        insertLogical(new SCRIERentIncomeRatioMonthly($ratio));
+end

@@ -1,0 +1,273 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+
+import accessnyc.rules.household.HeadOfHouseholdMarried
+import accessnyc.rules.household.ChildrenStudentEITCDefinition
+import accessnyc.rules.household.BlindDisabledHouseholdEITC
+import accessnyc.rules.income.IncomeHeadAndSpouseEarnedYearly
+import accessnyc.rules.income.IncomeHeadAndSpouseInvestmentYearly
+import accessnyc.rules.income.IncomeHeadEarnedYearly
+import accessnyc.rules.income.IncomeHeadInvestmentYearly
+import accessnyc.rules.income.IncomePersonEarnedYearly
+import accessnyc.rules.income.IncomePersonInvestmentYearly
+
+
+rule "s2_r006.2 head of household - children and students under 24 - childrenstudenteitc == 1"
+    dialect "mvel"
+    
+    when
+        HeadOfHouseholdMarried( value == true )
+        Person( headOfHousehold == true ) 
+        ChildrenStudentEITCDefinition( value == 1 ) 
+        IncomeHeadAndSpouseEarnedYearly( amount > 0  , amount <= 48108 )
+        IncomeHeadAndSpouseInvestmentYearly( amount <= 10000 )
+
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("2")
+        insertLogical($programcode)
+end
+
+rule "s2_r006.2 head of household - children and students under 24 - ChildrenStudentEITC > 1"
+    dialect "mvel"
+    
+    when
+        HeadOfHouseholdMarried( value == true)
+        Person( headOfHousehold == true ) 
+        ChildrenStudentEITCDefinition( value > 1 ) 
+        IncomeHeadAndSpouseEarnedYearly( amount > 0, amount <= 53865 )
+        IncomeHeadAndSpouseInvestmentYearly( amount <= 10000 )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("2")
+        insertLogical($programcode)
+end
+
+rule "s2_r006.2 head of household - blind disabled"
+    dialect "mvel"
+    
+    when
+        HeadOfHouseholdMarried( value == true)
+        Person( headOfHousehold == true ) 
+        BlindDisabledHouseholdEITC( value > 0)
+        (
+          (ChildrenStudentEITCDefinition( value == 1 ) 
+            and IncomeHeadAndSpouseEarnedYearly( amount > 0  , amount <= 48108 )
+            and IncomeHeadAndSpouseInvestmentYearly( amount <= 10000 )
+            )
+        or 
+          (ChildrenStudentEITCDefinition( value > 1) 
+            and IncomeHeadAndSpouseEarnedYearly( amount > 0, amount <= 53865 )
+            and IncomeHeadAndSpouseInvestmentYearly( amount <= 10000 )
+            )
+        )
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("2")
+        insertLogical($programcode)
+end
+
+rule "s2_r006.2 spouse"
+    dialect "mvel"
+    
+    when
+        HeadOfHouseholdMarried( value == true)
+        Person( headOfHouseholdRelation == "Spouse")
+
+        (ChildrenStudentEITCDefinition(value > 0) or BlindDisabledHouseholdEITC(value > 0))
+        //each above line is an "and" with the other lines?
+        (
+          (ChildrenStudentEITCDefinition( value == 1 ) 
+            and IncomeHeadAndSpouseEarnedYearly( amount > 0  , amount <= 48108 )
+            and IncomeHeadAndSpouseInvestmentYearly( amount <= 10000 )
+            )
+        or 
+          (ChildrenStudentEITCDefinition( value > 1 ) 
+            and IncomeHeadAndSpouseEarnedYearly( amount > 0, amount <= 53865 )
+            and IncomeHeadAndSpouseInvestmentYearly( amount <= 10000 )
+            )
+        )
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("2")
+        insertLogical($programcode)
+end
+
+rule "s2_r006.3 head of household"
+    dialect "mvel"
+    
+    when
+        HeadOfHouseholdMarried( value == true)
+        Person( headOfHousehold == true, age >= 25, age < 65 ) 
+        IncomeHeadAndSpouseEarnedYearly( amount > 0, amount <= 27380 )
+        IncomeHeadAndSpouseInvestmentYearly( amount <= 10000 )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("3")
+        insertLogical($programcode)
+end
+
+rule "s2_r006.3 spouse"
+    dialect "mvel"
+    
+    when
+        HeadOfHouseholdMarried( value == true )
+        Person( headOfHouseholdRelation == "Spouse", age >= 25, age < 65 )
+        IncomeHeadAndSpouseEarnedYearly( amount > 0, amount <= 27380 )
+        IncomeHeadAndSpouseInvestmentYearly( amount <= 10000 )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("3")
+        insertLogical($programcode)
+end
+
+
+rule "s2_r006.4 child under 19 or student under 24"
+    dialect "mvel"
+    
+    when
+        $person : Person()
+        not HeadOfHouseholdMarried( value == true )
+        ChildrenStudentEITCDefinition( value > 0 )
+        (
+          (ChildrenStudentEITCDefinition( value == 1 ) 
+            and IncomePersonEarnedYearly( person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 42158 )
+            and IncomePersonInvestmentYearly( person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 10000 )
+            )
+        or 
+          (ChildrenStudentEITCDefinition( value > 1 ) 
+            and IncomePersonEarnedYearly( person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 47915 )
+            and IncomePersonInvestmentYearly( person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 10000 )
+            )
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("4")
+        insertLogical($programcode)
+end
+
+rule "s2_r006.4 blind disabled"
+    dialect "mvel"
+    
+    when
+        $person : Person()
+        not HeadOfHouseholdMarried( value == true)
+        BlindDisabledHouseholdEITC( value > 0 )
+        (
+          (ChildrenStudentEITCDefinition( value == 1 ) 
+            and IncomePersonEarnedYearly( person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 42158 )
+            and IncomePersonInvestmentYearly( person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 10000 )
+            )
+        or 
+          (ChildrenStudentEITCDefinition( value > 1 ) 
+            and IncomePersonEarnedYearly( person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount > 0, amount <= 47915 )
+            and IncomePersonInvestmentYearly( person == $person, person.headOfHousehold == true, person.blind == false, person.disabled == false, amount <= 10000 )
+            )
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("4")
+        insertLogical($programcode)
+end
+
+rule "s2_r006.5"
+    dialect "mvel"
+    
+    when
+        $person : Person()
+        not HeadOfHouseholdMarried( value == true )
+        IncomeHeadEarnedYearly( person == $person, person.headOfHousehold == true, person.age >= 25, person.age < 65, amount > 0, amount <= 21430 )
+        IncomeHeadInvestmentYearly( person == $person, person.headOfHousehold == true, person.age >= 25, person.age < 65, amount <= 10000 )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("5")
+        insertLogical($programcode)
+end
+
+
+rule "s2_r006.6 children under 19 or student under 24"
+    dialect "mvel"
+    
+    when
+        $person : Person()
+        ChildrenStudentEITCDefinition( value > 0 )
+
+        (
+          (ChildrenStudentEITCDefinition( value == 1 ) 
+            and IncomePersonEarnedYearly( person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 48108 )
+            and IncomePersonInvestmentYearly( person == $person, amount <= 10000 )
+            )
+        or 
+          (ChildrenStudentEITCDefinition( value > 1 ) 
+            and IncomePersonEarnedYearly( person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 53865 )
+            and IncomePersonInvestmentYearly( person == $person, amount <= 10000 )
+            )
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("6")
+        insertLogical($programcode)
+end
+
+rule "s2_r006.6 blind disabled household but not household member"
+    dialect "mvel"
+    
+    when
+        $person : Person()
+        BlindDisabledHouseholdEITC( value > 0 )
+        (
+          (ChildrenStudentEITCDefinition( value == 1 ) 
+            and IncomePersonEarnedYearly( person == $person, person.blind == false, person.disabled == false, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 48108 )
+            and IncomePersonInvestmentYearly(person == $person, amount <= 10000 )
+            )
+        or 
+          (ChildrenStudentEITCDefinition( value > 1 ) 
+            and IncomePersonEarnedYearly( person == $person, person.blind == false, person.disabled == false, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 53865 )
+            and IncomePersonInvestmentYearly( person == $person, amount <= 10000 )
+            )
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("6")
+        insertLogical($programcode)
+end
+
+rule "s2_r006.7"
+    dialect "mvel"
+    
+    when
+        $person : Person()
+        IncomePersonEarnedYearly( person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount > 0, amount <= 27380 )
+        IncomePersonInvestmentYearly( person == $person, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Self","Spouse"), person.age >= 25, person.age < 65, amount <= 10000 )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R006")
+        $programcode.setRulePart("7")
+        insertLogical($programcode)
+end
+

@@ -1,4 +1,3 @@
-Repository Init Content
-=======================
+# ACCESS NYC Rules
 
-Your project description here.
+The rules that support the eligibility calculator on ACCESS NYC.

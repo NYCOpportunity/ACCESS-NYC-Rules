@@ -1,0 +1,21 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Household
+import accessnyc.rules.income.IncomeHouseholdTotalYearly
+
+rule "s2_r039"
+    dialect "mvel"
+    
+    when 
+        Household( city == "NYC" )
+        IncomeHouseholdTotalYearly ( amount <= 68000 )
+       
+    then
+
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R039")
+        insertLogical($programcode)
+
+end
