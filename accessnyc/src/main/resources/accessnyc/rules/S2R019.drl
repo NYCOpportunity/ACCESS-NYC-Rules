@@ -12,7 +12,6 @@ rule "s2_r019"
     
     when 
         Household(city == "NYC")
-        not (Household(livingRentalType == "NYCHA") and not (ExpenseHouseholdHasHeating(value == true))) // need to check this logic is working
         not Household(livingHotel == true)
         not Household(livingShelter == true)
         (
