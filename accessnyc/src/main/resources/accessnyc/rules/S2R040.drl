@@ -41,7 +41,7 @@ rule "s2_r040.3 disabled"
     when 
     //You have to live in NYC
         Household(city == "NYC") 
-        Person( age < 19, student == true, headOfHouseholdRelation in ("Child","StepChild"), disabled == true) 
+        Person( age < 19, studentFulltime == true, headOfHouseholdRelation in ("Child","StepChild"), disabled == true) 
 
           
     //And the total household income must fall in this range      
@@ -69,7 +69,7 @@ rule "s2_r040.3 blind"
     when 
     //You have to live in NYC
         Household(city == "NYC") 
-        Person( age < 19, student == true, headOfHouseholdRelation in ("Child","StepChild"), blind == true) 
+        Person( age < 19, studentFulltime == true, headOfHouseholdRelation in ("Child","StepChild"), blind == true) 
 
           
     //And the total household income must fall in this range      
