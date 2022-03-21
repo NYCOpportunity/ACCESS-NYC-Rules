@@ -31,14 +31,14 @@ rule "s2_r035"
             Person(headOfHouseholdRelation=="StepSisterStepBrother")
         )
         ( 
-          (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 63700)) or 
-          (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 72800)) or
-          (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 81900)) or 
-          (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 90950)) or 
-          (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 98250)) or 
-          (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 105550)) or 
-          (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 112800)) or
-          (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 120100))
+          (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 66850)) or 
+          (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 76400)) or
+          (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 84950)) or 
+          (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 95450)) or 
+          (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 103100)) or 
+          (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 110750)) or 
+          (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 118400)) or
+          (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 126000))
         ) 
     then
         $programcode = new EligibleProgram()
