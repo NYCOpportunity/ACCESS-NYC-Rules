@@ -41,7 +41,7 @@ rule "s2_r010.3"
     when 
         Household(city == "NYC")
         Person( age >= 60) // verify that these lines are doing ANDs properly
-        (Person( age < 18) or Person(age == 18, student == true) )
+        (Person( age < 18) or Person(age == 18, studentFulltime == true) )
 
         (
                (Household(members == 1, cashOnHand <= 3000) and IncomeHouseholdTotalMonthly(amount <= 980.69))
@@ -118,7 +118,7 @@ rule "s2_r010.6"
     when 
         Household(city == "NYC")
         Person( pregnant == true)
-        (Person( age < 18) or Person(age == 18, student == true) )
+        (Person( age < 18) or Person(age == 18, studentFulltime == true) )
 
         (
                (Household(members == 1, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1073.19))
@@ -169,7 +169,7 @@ rule "s2_r010.8"
     
     when 
         Household(city == "NYC")
-        (Person( age < 18) or Person(age == 18, student == true) )
+        (Person( age < 18) or Person(age == 18, studentFulltime == true) )
         (
                (Household(members == 1, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 980.69))
             or (Household(members == 2, cashOnHand <= 2000) and IncomeHouseholdTotalMonthly(amount <= 1192.33))
