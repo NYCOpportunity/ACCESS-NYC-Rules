@@ -9,7 +9,7 @@ public class IncomeHouseholdTotalYearly implements java.io.Serializable
 
    static final long serialVersionUID = 1L;
 
-   private java.lang.Float amount;
+   private Float amount;
 
    public IncomeHouseholdTotalYearly()
    {
