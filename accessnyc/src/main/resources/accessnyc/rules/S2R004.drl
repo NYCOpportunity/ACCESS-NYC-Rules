@@ -7,9 +7,13 @@ rule "S2R004 last mile"
     dialect "mvel"
     
     when
-
-        Person( age < 18)
-    
+        Person( age < 17 )
+        (
+            (HeadOfHouseholdMarried(value == true) and IncomeHouseholdTotalYearly(amount >= 2500, amount <= 400000))
+        or 
+            IncomeHouseholdTotalYearly(amount >= 2500, amount <= 200000)
+        )
+        
     then
         
         $programcode = new EligibleProgram()

@@ -8,8 +8,9 @@ rule "s2_r001: This is the last mile of rule s2r001"
     dialect "mvel"
     
     when 
-        RequestExpense( amount > 0, type in ("ChildCare","DependentCare") )  
-        Person( age < 13 ) 
+        ( Person( age < 13 ) or Person( disabled == true ) or Person( blind == true ) )
+        RequestExpense( amount > 0, type in ("ChildCare","DependentCare") )
+        IncomeHeadAndSpouseEarnedYearly( amount > 0 )
 
     then
         $programcode = new EligibleProgram()
