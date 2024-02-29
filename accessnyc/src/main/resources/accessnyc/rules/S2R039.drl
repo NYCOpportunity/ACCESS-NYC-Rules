@@ -10,7 +10,10 @@ rule "s2_r039"
     
     when 
         Household( city == "NYC" )
-        IncomeHouseholdTotalYearly ( amount <= 72000 )
+        (
+            (Household( members == 1 ) and IncomeHouseholdTotalYearly ( amount <= 56000 ))
+            or (Household( members > 1 ) and IncomeHouseholdTotalYearly ( amount <= 80000 ))
+        )
        
     then
 
