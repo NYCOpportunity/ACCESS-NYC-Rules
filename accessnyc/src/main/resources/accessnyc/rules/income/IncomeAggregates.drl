@@ -469,7 +469,7 @@ rule "create a new fact if the person has wage AND self employment income"
 end
 
 // We need to subtract the number of people who have both wages and self employment in order to not double-count
-rule "Create a fact if all household members have SSI or Cash Assistance"
+rule "Create for the Cash Assistance income with the expense disregard"
     dialect "mvel"
     when
         IncomeHouseholdMonthlyCA($amount : amount)
