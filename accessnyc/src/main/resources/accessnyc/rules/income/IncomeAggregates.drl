@@ -490,4 +490,17 @@ rule "Create a fact if all household members have SSI or Cash Assistance"
 end
 //end of Cash Assistance aggregates
 
+rule "Calculate Person Income yearly"
+    dialect "mvel"
+    when
+        $person : Person()
+        accumulate(
+            IncomePersonItemMonthly(person == $person, $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        Float $amountFinal = $amount * 12;
+        insertLogical(new IncomePersonYearly($person, $amountFinal));
+end
+
 
