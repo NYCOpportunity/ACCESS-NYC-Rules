@@ -129,7 +129,7 @@ rule "create snap deduction amount based on household size less than 4"
     when
         Household(members <= 3)
     then 
-        insertLogical(new SNAPStandardDeduction(177));
+        insertLogical(new SNAPStandardDeduction(198));
 end
 
 rule "create snap deduction amount based on household size 4"
@@ -137,7 +137,7 @@ rule "create snap deduction amount based on household size 4"
     when
         Household(members == 4)
     then 
-        insertLogical(new SNAPStandardDeduction(184));
+        insertLogical(new SNAPStandardDeduction(208));
 end
 
 rule "create snap deduction amount based on household size 5"
@@ -145,7 +145,7 @@ rule "create snap deduction amount based on household size 5"
     when
         Household(members == 5)
     then 
-        insertLogical(new SNAPStandardDeduction(215));
+        insertLogical(new SNAPStandardDeduction(244));
 end
 
 rule "create snap deduction amount based on household size 6+"
@@ -153,7 +153,23 @@ rule "create snap deduction amount based on household size 6+"
     when
         Household(members >= 6)
     then 
-        insertLogical(new SNAPStandardDeduction(246));
+        insertLogical(new SNAPStandardDeduction(279));
+end
+
+rule "add snap deduction amount if household is in a shelter or homeless"
+    dialect "mvel"
+    when
+        Household(livingShelter == true)
+    then 
+        insertLogical(new SNAPHomelessDeduction(179.66));
+end
+
+rule "add 0 for snap deduction amount if household is not in a shelter or homeless"
+    dialect "mvel"
+    when
+        Household(livingShelter == false)
+    then 
+        insertLogical(new SNAPHomelessDeduction(0));
 end
 
 rule "create the snap deductions"
@@ -163,8 +179,9 @@ rule "create the snap deductions"
         ExpenseHouseholdChildDependentCareMonthly($dependentCareExpense : amount)
         ExpenseHouseholdMedicalMonthlyAdjusted($medicalExpense : amount)
         SNAPStandardDeduction($standardDeduction : amount)
+        SNAPHomelessDeduction($homelessDeduction : amount)
     then
-        Float $deductions = (.2 * $totalIncome) + $standardDeduction + $dependentCareExpense + $medicalExpense;
+        Float $deductions = (.2 * $totalIncome) + $standardDeduction + $homelessDeduction + $dependentCareExpense + $medicalExpense;
         insertLogical(new SNAPTotalDeductions($deductions));
 end
 
@@ -185,10 +202,9 @@ rule "calculate shelter costs"
         Household(members > 0)
         ExpenseHouseholdRentMortgageMonthly($rent : amount)
     then 
-        Float $shelter = $rent + 852;
+        Float $shelter = $rent + 992;
         insertLogical(new SNAPShelterCost($shelter));
 end
-
 
 rule "excess shelter costs"
     dialect "mvel"

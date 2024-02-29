@@ -5,6 +5,7 @@ import accessnyc.request.Person
 import accessnyc.request.Household
 import accessnyc.rules.income.IncomeHouseholdTotalYearly
 import accessnyc.rules.income.IncomePersonYearly
+import accessnyc.rules.household.HouseholdAllAdults
 
 rule "s2_r035.5"
     dialect "mvel"
@@ -45,14 +46,14 @@ rule "s2_r035.5"
 
 end
 
-// if a person is living by themselves or with only unrelated people, check 
+// if an adult is living by themselves or with only unrelated adults, check 
 // their eligibility for public housing as an individual
 rule "s2_r035.6"
     dialect "mvel"
     
     when 
         Household(city == "NYC")
-        Person( age >= 18, headOfHousehold==true)
+        HouseholdAllAdults(value == true)
         not (
             Person(headOfHouseholdRelation=="Spouse") or
             Person(headOfHouseholdRelation=="Child") or
@@ -66,7 +67,7 @@ rule "s2_r035.6"
             Person(headOfHouseholdRelation=="StepParent") or
             Person(headOfHouseholdRelation=="StepSisterStepBrother")
         )
-        IncomePersonYearly(amount <= 79200, person.headOfHousehold == true)
+        IncomePersonYearly(amount <= 79200)
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R035")

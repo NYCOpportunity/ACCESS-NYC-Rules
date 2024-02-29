@@ -41,12 +41,12 @@ rule "s2_r003.5"
         Person( age < 3, headOfHouseholdRelation in ("Child","StepChild")) 
 
         ( 
-          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 4930)) or
-          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 6215)) or 
-          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 7500)) or 
-          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 8785)) or 
-          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 10070)) or 
-          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 11165)) or
+          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 5624)) or
+          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 6948)) or 
+          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 8271)) or 
+          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 9594)) or 
+          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 10918)) or 
+          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 11166)) or
           (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 11414))
         ) 
         
@@ -63,7 +63,7 @@ rule "s2_r003.6"
     
     when 
         Household(city == "NYC") 
-        IncomePersonMonthly(person.age < 3, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 3465)
+        IncomePersonMonthly(person.age < 3, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 4301)
         
     then
         $programcode = new EligibleProgram()

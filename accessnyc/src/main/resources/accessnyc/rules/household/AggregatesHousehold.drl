@@ -127,3 +127,15 @@ rule "Determine the number of household members including HoH, spouse, children 
     then
         insertLogical(new ChildCareVoucherHouseholdMembers($count));
 end
+
+rule "Determine whether all household members are adults"
+dialect "mvel"
+    when
+        Household($members : members)
+        accumulate(
+            Person(age >= 18, $value : age);
+            $count : count($value)
+        )
+    then
+        insertLogical(new HouseholdAllAdults($count == $members));
+end
