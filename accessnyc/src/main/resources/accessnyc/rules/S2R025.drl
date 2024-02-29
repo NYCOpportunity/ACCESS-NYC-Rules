@@ -4,84 +4,31 @@ import accessnyc.response.EligibleProgram
 
 import accessnyc.request.Person
 import accessnyc.request.Household
-import accessnyc.rules.income.IncomePersonSESMonthly
-import accessnyc.rules.income.IncomeHeadAndSpouseSESMonthly
-import accessnyc.rules.household.HeadOfHouseholdMarried
+import accessnyc.rules.income.IncomeHouseholdTotalYearly
 
-rule "S2R025.4a"
+rule "s2_r025"
     dialect "mvel"
     
     when 
         Household( city == "NYC" )
-        IncomePersonSESMonthly( person.age >= 55, person.unemployed == true, person.disabled == true, amount <= 1415.66 )
+        Person( age >= 55, unemployed == true )
+        
+        (
+               (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 18225))
+            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 24650))
+            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 31075))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 37500))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 43925))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 50350))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 56775))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 63200))
+        )
         
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R025")
-        $programcode.setRulePart("4a")
         insertLogical($programcode)
 
-end
-
-rule "S2R025.4b"
-    dialect "mvel"
-    
-    when 
-        Household( city == "NYC")
-        IncomePersonSESMonthly( person.age >= 55, person.unemployed == true, person.headOfHousehold == false, person.headOfHouseholdRelation not in ("Spouse"), amount <= 1415.66 )
-    then
-        $programcode = new EligibleProgram()
-        $programcode.setCode("S2R025")
-        $programcode.setRulePart("4b")
-        insertLogical($programcode)
-
-end
-
-rule "S2R025.5a head of household married"
-    dialect "mvel"
-    
-    when 
-        Household( city == "NYC")
-        Person( age >= 55, unemployed == true, disabled == false, headOfHousehold == true ) 
-        HeadOfHouseholdMarried( value == true )
-        IncomeHeadAndSpouseSESMonthly( amount <= 1907.33 )
-    then
-        $programcode = new EligibleProgram()
-        $programcode.setCode("S2R025")
-        $programcode.setRulePart("5a")
-        insertLogical($programcode)
-
-end
-
-rule "S2R025.5a head of household unmarried"
-    dialect "mvel"
-    
-    when 
-        Household( city == "NYC")
-        Person( age >= 55, unemployed == true, disabled == false, headOfHousehold == true ) 
-        not HeadOfHouseholdMarried( value == true)
-        IncomeHeadAndSpouseSESMonthly( amount <= 1415.66 )
-    then
-        $programcode = new EligibleProgram()
-        $programcode.setCode("S2R025")
-        $programcode.setRulePart("5a")
-        insertLogical($programcode)
-
-end
-
-rule "S2R025.5b spouse married"
-    dialect "mvel"
-    
-    when 
-        Household( city == "NYC")
-        Person( age >= 55, unemployed == true, disabled == false, headOfHouseholdRelation == "Spouse" ) 
-        HeadOfHouseholdMarried( value == true ) 
-        IncomeHeadAndSpouseSESMonthly( amount <= 1907.33 )
-    then
-        $programcode = new EligibleProgram()
-        $programcode.setCode("S2R025")
-        $programcode.setRulePart("5b")
-        insertLogical($programcode)
 end
 
 

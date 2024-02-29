@@ -403,4 +403,12 @@ rule "create a fact if a household member has DisabilityMedicaid benefit"
         insertLogical(new IncomePersonHasDM(true))
 end
 
+rule "create a fact if a household member has Supplemental Security Income"
+dialect "mvel"
+    when
+        IncomePersonItemMonthly( type == "SSI" )
+    then
+        insertLogical(new IncomeHouseholdHasSSI(true))
+end
+
 
