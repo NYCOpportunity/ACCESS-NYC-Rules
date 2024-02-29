@@ -430,4 +430,64 @@ dialect "mvel"
         insertLogical(new IncomeHouseholdHasSSI(true))
 end
 
+//The household's income for the Cash Assistance income tests have an expense disregard
+//for people who are employed. The following rules are used to calculate the total
+//income for Cash Assistance minus the expense disregard
+
+//First, we calculate the total monthly income from sources that are checked for Cash Assistance
+rule "Calculate cash assistance total monthly income"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonItemMonthly(type in ( "SelfEmployment","Wages", "Boarder", "WorkersComp", "NYSDisability", "Unemployment", "SSDependent", "SSDisability", "SSSurvivor", "SSRetirement", "Veteran", "Investment", "ChildSupport", "Alimony"), $amountitemized : convertedAmount);
+            $amount : sum($amountitemized)
+        )
+    then
+        insertLogical(new IncomeHouseholdMonthlyCA($amount));
+end
+
+//The next rule creates two fact instances if a person has both wages and self-employment income
+//The following fact is created to account for that 
+rule "create a new fact if the person has wage OR self employment income"
+    dialect "mvel"
+    when
+        $person : Person()
+        IncomePersonItemMonthly(person == $person, type in ( "SelfEmployment", "Wages" ))
+
+    then
+        insertLogical(new IncomePersonHasWagesOrSelfEmployed($person, true));
+end
+
+rule "create a new fact if the person has wage AND self employment income"
+    dialect "mvel"
+    when
+        $person : Person()
+        IncomePersonItemMonthly(person == $person, type == "SelfEmployment")
+        IncomePersonItemMonthly(person == $person, type == "Wages")
+    then
+        insertLogical(new IncomePersonHasWagesAndSelfEmployed($person, true));
+end
+
+// We need to subtract the number of people who have both wages and self employment in order to not double-count
+rule "Create a fact if all household members have SSI or Cash Assistance"
+    dialect "mvel"
+    when
+        IncomeHouseholdMonthlyCA($amount : amount)
+        
+        accumulate(
+            IncomePersonHasWagesOrSelfEmployed( value == true, $personEither : person);
+            $membersWithEither : count($personEither)
+        )
+        
+        accumulate(
+            IncomePersonHasWagesAndSelfEmployed( value == true, $personBoth : person );
+            $membersWithBoth : count($personBoth)
+        )
+    then
+        $expenseDisregard = 150 * ($membersWithEither - $membersWithBoth)
+        $final = $amount - $expenseDisregard
+        insertLogical(new IncomeHouseholdMonthlyCAMinusWorkExpense($final));
+end
+//end of Cash Assistance aggregates
+
 
