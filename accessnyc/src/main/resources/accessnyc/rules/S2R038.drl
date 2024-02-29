@@ -4,24 +4,23 @@ import accessnyc.response.EligibleProgram
 
 import accessnyc.request.Person
 import accessnyc.request.Household
-
-import accessnyc.rules.household.MembersPlusPregnant
 import accessnyc.rules.income.IncomeHouseholdTotalMonthly
 
-rule "s2_r038.3"
+rule "s2_r038"
     dialect "mvel"
     
     when 
         Household(city == "NYC")
         Person( pregnant == true )
         (
-               (MembersPlusPregnant(value == 2) and IncomeHouseholdTotalMonthly(amount <= 3238))
-            or (MembersPlusPregnant(value == 3) and IncomeHouseholdTotalMonthly(amount <= 4081))
-            or (MembersPlusPregnant(value == 4) and IncomeHouseholdTotalMonthly(amount <= 4925))
-            or (MembersPlusPregnant(value == 5) and IncomeHouseholdTotalMonthly(amount <= 5769))
-            or (MembersPlusPregnant(value == 6) and IncomeHouseholdTotalMonthly(amount <= 6612))
-            or (MembersPlusPregnant(value == 7) and IncomeHouseholdTotalMonthly(amount <= 7456))
-            or (MembersPlusPregnant(value == 8) and IncomeHouseholdTotalMonthly(amount <= 8300))
+           (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 2710))
+        or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 3665))
+        or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 4620))
+        or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 5575))
+        or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 6531))
+        or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 7486))
+        or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 8441))
+        or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 9396))
         )
 
     then

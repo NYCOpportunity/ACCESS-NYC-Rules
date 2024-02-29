@@ -5,25 +5,56 @@ import accessnyc.response.EligibleProgram
 import accessnyc.request.Person
 import accessnyc.request.Household
 
-import accessnyc.rules.income.IncomeHouseholdTotalMonthly
+import accessnyc.rules.income.IncomeHouseholdTotalYearly
+import accessnyc.rules.income.IncomeHouseholdHasCashAssistance
+import accessnyc.rules.income.IncomeHouseholdHasSSI
+import accessnyc.rules.household.FosterChildren
 
-rule "s2_r008"
+rule "s2_r008 by income"
     dialect "mvel"
     
     when 
         Household(city == "NYC")
-        Person( age <= 5, age >= 2)
+        Person( age < 5, age > 2 )
         
         (
-               (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 1073))
-            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 1452))
-            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 1830))
-            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 2208))
-            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 2587))
-            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 2965))
-            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 3343))
-            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 3722))
+               (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 14580))
+            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 19720))
+            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 24860))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 30000))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 35140))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 40280))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 45420))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 50560))
         )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R008")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r008 Cash Assistance/SSI"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        (IncomeHouseholdHasCashAssistance(value == true) or IncomeHouseholdHasSSI(value == true))
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R008")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r008 has foster child"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        FosterChildren(value > 0)
 
     then
         $programcode = new EligibleProgram()

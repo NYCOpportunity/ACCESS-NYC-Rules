@@ -4,9 +4,10 @@ import accessnyc.response.EligibleProgram
 import accessnyc.request.Person
 import accessnyc.request.Household
 import accessnyc.rules.income.IncomeHouseholdTotalYearly
+import accessnyc.rules.income.IncomePersonYearly
+import accessnyc.rules.household.HouseholdAllAdults
 
-// Public Housing Rule
-rule "s2_r035"
+rule "s2_r035.5"
     dialect "mvel"
     
     when 
@@ -17,7 +18,6 @@ rule "s2_r035"
             Person( age < 18, headOfHouseholdRelation=="DomesticPartner")
         )
         (
-            Household(members==1) or
             Person(headOfHouseholdRelation=="Spouse") or
             Person(headOfHouseholdRelation=="Child") or
             Person(headOfHouseholdRelation=="FosterChild") or
@@ -31,15 +31,43 @@ rule "s2_r035"
             Person(headOfHouseholdRelation=="StepSisterStepBrother")
         )
         ( 
-          (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 66850.0)) or 
-          (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 76400.0)) or
-          (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 84950.0)) or 
-          (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 95450.0)) or 
-          (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 103100.0)) or 
-          (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 110750.0)) or 
-          (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 118400.0)) or
-          (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 126000.0))
+          (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 90500)) or
+          (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 101800)) or 
+          (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 113100)) or 
+          (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 122150)) or 
+          (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 131200)) or 
+          (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 140250)) or
+          (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 149300))
         ) 
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R035")
+        insertLogical($programcode)
+
+end
+
+// if an adult is living by themselves or with only unrelated adults, check 
+// their eligibility for public housing as an individual
+rule "s2_r035.6"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC")
+        HouseholdAllAdults(value == true)
+        not (
+            Person(headOfHouseholdRelation=="Spouse") or
+            Person(headOfHouseholdRelation=="Child") or
+            Person(headOfHouseholdRelation=="FosterChild") or
+            Person(headOfHouseholdRelation=="Parent") or
+            Person(headOfHouseholdRelation=="Grandparent") or
+            Person(headOfHouseholdRelation=="FosterParent") or
+            Person(headOfHouseholdRelation=="SisterBrother") or
+            Person(headOfHouseholdRelation=="DomesticPartner") or
+            Person(headOfHouseholdRelation=="StepChild") or
+            Person(headOfHouseholdRelation=="StepParent") or
+            Person(headOfHouseholdRelation=="StepSisterStepBrother")
+        )
+        IncomePersonYearly(amount <= 79200)
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R035")

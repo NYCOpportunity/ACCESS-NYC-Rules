@@ -4,14 +4,118 @@ import accessnyc.response.EligibleProgram
 
 import accessnyc.request.Person
 import accessnyc.request.Household
+import accessnyc.rules.income.IncomeHouseholdHasCashAssistance
+import accessnyc.rules.income.IncomeHouseholdHasSSI
+import accessnyc.rules.income.IncomeHouseholdTotalYearly
 
-rule "s2_r036"
+rule "s2_r036.5"
+    dialect "mvel"
+    
+    when
+        
+        Household(city == "NYC", livingShelter == true) 
+        Person(age >= 16, age <= 24, student == false, unemployed == true) 
+
+    then
+    
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R036")
+        insertLogical($programcode)
+end
+
+rule "s2_r036.6"
+    dialect "mvel"
+    
+    when
+        
+        Household(city == "NYC") 
+        
+        // Person is in foster care
+        (
+            Person(age >= 16, age <= 24, student == false, unemployed == true, headOfHouseholdRelation == "FosterChild")
+            or (Person(age >= 16, age <= 24, student == false, unemployed == true, headOfHousehold == true) and Person(headOfHouseholdRelation == "FosterParent"))
+        )
+        
+
+    then
+    
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R036")
+        insertLogical($programcode)
+end
+
+rule "s2_r036.7"
+    dialect "mvel"
+    
+    when
+        
+        Household(city == "NYC") 
+        (
+            Person(age >= 16, age <= 24, student == false, unemployed == true, disabled == true)
+            or Person(age >= 16, age <= 24, student == false, unemployed == true, blind == true)
+        )
+
+    then
+    
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R036")
+        insertLogical($programcode)
+end
+
+rule "s2_r036.8"
+    dialect "mvel"
+    
+    when
+        
+        Household(city == "NYC") 
+        
+        // Person is pregnant or a parent
+        (
+            Person(age >= 16, age <= 24, student == false, unemployed == true, pregnant == true)
+            or Person(age >= 16, age <= 24, student == false, unemployed == true, headOfHouseholdRelation == "Parent")
+            or (Person(age >= 16, age <= 24, student == false, unemployed == true, headOfHousehold == true) and Person(headOfHouseholdRelation == "Child"))
+        )
+
+    then
+    
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R036")
+        insertLogical($programcode)
+end
+
+rule "s2_r036.9"
     dialect "mvel"
     
     when
         
         Household(city == "NYC") 
         Person(age >= 16, age <= 24, student == false, unemployed == true) 
+        IncomeHouseholdHasCashAssistance(value == true) or IncomeHouseholdHasSSI(value == true)
+
+    then
+    
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R036")
+        insertLogical($programcode)
+end
+
+rule "s2_r036.10"
+    dialect "mvel"
+    
+    when
+        
+        Household(city == "NYC") 
+        Person(age >= 16, age <= 24, student == false, unemployed == true) 
+        (
+           (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 14580))
+        or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 19720))
+        or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 24860))
+        or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 30000))
+        or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 35140))
+        or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 40280))
+        or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 45420))
+        or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 50560))
+        )
 
     then
     

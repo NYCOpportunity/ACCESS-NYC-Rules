@@ -7,10 +7,11 @@ import accessnyc.request.Household
 import accessnyc.rules.income.IncomeHouseholdHasBenefit
 import accessnyc.rules.income.IncomeHouseholdTotalYearly
 
-rule "s2_043.1 "
+rule "s2_r043.1"
     dialect "mvel"
     
     when
+        Household(city == "NYC")
         (
             (Person( benefitsMedicaid == true ))
             or (Person( benefitsMedicaidDisability == true ))
@@ -21,7 +22,7 @@ rule "s2_043.1 "
         insertLogical($programcode)  
 end
 
-rule "s2_r043.2 "
+rule "s2_r043.2"
     dialect "mvel"
     
     when
@@ -39,16 +40,15 @@ rule "s2_r043.3 "
     
     when 
         Household(city == "NYC")
-        Person(headOfHousehold == true, age >= 18)
         (
-            (Household(members == 1) and IncomeHouseholdTotalYearly( amount <= 17388 )) 
-            or (Household(members == 2) and IncomeHouseholdTotalYearly( amount <= 23517 )) 
-            or (Household(members == 3) and IncomeHouseholdTotalYearly( amount <= 29646 ))
-            or (Household(members == 4) and IncomeHouseholdTotalYearly( amount <= 35775 ))
-            or (Household(members == 5) and IncomeHouseholdTotalYearly( amount <= 41904 ))
-            or (Household(members == 6) and IncomeHouseholdTotalYearly( amount <= 48033 ))
-            or (Household(members == 7) and IncomeHouseholdTotalYearly( amount <= 54162 ))
-            or (Household(members == 8) and IncomeHouseholdTotalYearly( amount <= 60291 ))
+            (Household(members == 1) and IncomeHouseholdTotalYearly( amount <= 19683 )) 
+            or (Household(members == 2) and IncomeHouseholdTotalYearly( amount <= 26622 )) 
+            or (Household(members == 3) and IncomeHouseholdTotalYearly( amount <= 33561 ))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly( amount <= 40500 ))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly( amount <= 47439 ))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly( amount <= 54378 ))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly( amount <= 61317 ))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly( amount <= 68256 ))
         )
 
     then

@@ -3,29 +3,51 @@ package accessnyc.rules;
 import accessnyc.response.EligibleProgram
 import accessnyc.rules.income.IncomeAdultsChildrenTotalMonthly
 import accessnyc.rules.income.IncomePersonMonthly 
+import accessnyc.rules.income.IncomePersonItemMonthly 
 import accessnyc.request.Household
 import accessnyc.request.Person
 
-rule "s2_r003.2 non-disabled"
+rule "s2_r003.3"
     dialect "mvel"
-    // Test new release 1.2.1..
+    
     when 
-    //You have to live in NYC
         Household(city == "NYC") 
-    //And one of the children must be under 5 and related to the head of household as either a parent or step-parent
+        Person(age < 3, headOfHouseholdRelation == "FosterChild")
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R003")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r003.4"
+    dialect "mvel"
+    
+    when 
+        Household(city == "NYC") 
+        Person(age < 3)
+        IncomePersonItemMonthly(type in ("SSI", "CashAssistance"), (person.headOfHousehold == true || person.headOfHouseholdRelation == "Spouse"))
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R003")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r003.5"
+    dialect "mvel"
+    when 
+        Household(city == "NYC") 
         Person( age < 3, headOfHouseholdRelation in ("Child","StepChild")) 
 
-          
-    //And the total household income must fall in this range
         ( 
-          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 4578)) or
-          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 5760)) or 
-          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 6939)) or 
-          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 8118)) or 
-          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 9300)) or 
-          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 10479)) or
-          (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 10725))
-        
+          (Household(members == 2)  and IncomeAdultsChildrenTotalMonthly(amount <= 5624)) or
+          (Household(members == 3)  and IncomeAdultsChildrenTotalMonthly(amount <= 6948)) or 
+          (Household(members == 4)  and IncomeAdultsChildrenTotalMonthly(amount <= 8271)) or 
+          (Household(members == 5)  and IncomeAdultsChildrenTotalMonthly(amount <= 9594)) or 
+          (Household(members == 6)  and IncomeAdultsChildrenTotalMonthly(amount <= 10918)) or 
+          (Household(members == 7)  and IncomeAdultsChildrenTotalMonthly(amount <= 11166)) or
+          (Household(members == 8)  and IncomeAdultsChildrenTotalMonthly(amount <= 11414))
         ) 
         
     then
@@ -36,13 +58,12 @@ rule "s2_r003.2 non-disabled"
 end
 
 
-rule "s2_r003.4"
+rule "s2_r003.6"
     dialect "mvel"
     
     when 
-    //You have to live in NYC
         Household(city == "NYC") 
-        IncomePersonMonthly(person.age < 3, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 3398)
+        IncomePersonMonthly(person.age < 3, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 4301)
         
     then
         $programcode = new EligibleProgram()
