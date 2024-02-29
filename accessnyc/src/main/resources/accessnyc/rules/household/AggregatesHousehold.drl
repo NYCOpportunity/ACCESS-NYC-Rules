@@ -108,4 +108,22 @@ rule "Determine number of household members that are blind or diabled, but not t
         )
     then 
         insertLogical(new BlindDisabledHouseholdEITC($count));
-end   
+end
+
+rule "Determine the number of household members including HoH, spouse, children and stepchildren under 18, and blind or disabled children and stepchildren 19 or younger who are full time students"
+    dialect "mvel"
+    when
+        accumulate(
+            Person(
+                ( 
+                    headOfHousehold == true 
+                    || headOfHouseholdRelation in ("Self","Spouse")
+                    ||  age < 18 
+                    || (age <= 19 && studentFulltime == true && (blind == true || disabled == true))
+                ), 
+                $value : age);
+            $count : count($value)
+        )
+    then
+        insertLogical(new ChildCareVoucherHouseholdMembers($count));
+end

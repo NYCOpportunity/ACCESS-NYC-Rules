@@ -12,9 +12,13 @@ import accessnyc.rules.expense.ExpenseHouseholdChildSupportMonthly
 import accessnyc.rules.expense.ExpenseHouseholdChildDependentCareMonthly
 import accessnyc.rules.expense.ExpenseHouseholdMedicalMonthly
 import accessnyc.rules.expense.ExpenseHouseholdRentMortgageMonthly
+import accessnyc.rules.expense.ExpensePersonItemMonthly
+import accessnyc.rules.expense.RequestExpense
     
-//we need to know if all the household members have SSI or Cash Assistance. These next four rules do that
-rule "create a new fact if the person has cash assistance or SSI income"
+//we need to know if all the household members have SSI or Cash Assistance. These next six rules do that
+//The first rule creates two fact instances if a person has both SSI and CA
+//The next fact is created to account for that 
+rule "create a new fact if the person has cash assistance OR SSI income"
     dialect "mvel"
     when
         $person : Person()
@@ -24,7 +28,17 @@ rule "create a new fact if the person has cash assistance or SSI income"
         insertLogical(new IncomePersonHasSSIorCashAssistance($person, true));
 end
 
-rule "count household members with SSI or Cash Assistance"
+rule "create a new fact if the person has cash assistance AND SSI income"
+    dialect "mvel"
+    when
+        $person : Person()
+        IncomePersonItemMonthly(person == $person, type == "SSI")
+        IncomePersonItemMonthly(person == $person, type == "CashAssistance")
+    then
+        insertLogical(new IncomePersonHasSSIandCashAssistance($person, true));
+end
+
+rule "count household members with SSI OR Cash Assistance"
     dialect "mvel"
     when
         accumulate(
@@ -35,13 +49,26 @@ rule "count household members with SSI or Cash Assistance"
         insertLogical(new IncomeHouseholdMembersWithSSIorCashAssistance($membersWithIncomeTypes));
 end
 
+rule "count household members with SSI AND Cash Assistance"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonHasSSIandCashAssistance( value == true, $value : value );
+            $membersWithIncomeTypes : count($value)
+        )
+    then
+        insertLogical(new IncomeHouseholdMembersWithSSIandCashAssistance($membersWithIncomeTypes));
+end
+
+// We need to subtract the number of people who have both SSI and CA in order to not double-count
 rule "Create a fact if all household members have SSI or Cash Assistance"
     dialect "mvel"
     when
-        IncomeHouseholdMembersWithSSIorCashAssistance($membersSSI : value)
+        IncomeHouseholdMembersWithSSIorCashAssistance($membersEither : value)
+        IncomeHouseholdMembersWithSSIandCashAssistance($membersBoth : value)
         Household($members : members)
     then
-        $final = $membersSSI - $members
+        $final = $membersEither - $membersBoth - $members
         insertLogical(new IncomeDifMembersMinusSSI($final));
 end
 
@@ -54,13 +81,12 @@ rule "If household members and members with SSI or Cash Assistance is the same, 
 end
 //end of previous comment
 
-
-rule "create a fact for total household income minus child support paid"
+rule "create a fact for total household income minus child support paid 2"
     dialect "mvel"
     when
         ExpenseHouseholdChildSupportMonthly($childsupport : amount)
         IncomeHouseholdTotalMonthly($income : amount)
-    
+
     then
         Float $amount = $income - $childsupport;
         insertLogical(new IncomeHouseholdMinusChildSupportPaid($amount));

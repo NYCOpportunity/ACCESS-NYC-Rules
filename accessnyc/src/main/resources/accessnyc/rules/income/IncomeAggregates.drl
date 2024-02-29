@@ -339,6 +339,25 @@ rule "Calculate income for the HoH, spouse, and any children, monthly"
         insertLogical(new IncomeAdultsChildrenTotalMonthly($amount));
 end
 
+rule "Calculate income for the HoH, spouse, children, and full-time students with disabiities who are 19 or under, monthly"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonMonthly( 
+                (
+                    person.headOfHousehold == true 
+                    || person.headOfHouseholdRelation == "Spouse" 
+                    || person.age < 18 
+                    || (person.age <= 19 && person.studentFulltime == true && (person.blind == true || person.disabled == true))
+                ),
+                $amounthousehold : amount);
+            $requestAmount : sum($amounthousehold)
+        )
+    then
+        Float $amount = $requestAmount;
+        insertLogical(new IncomeChildCareVoucherTotalMonthly($amount));
+end
+
 rule "Calculate income all household members, excluding wage income from people under 18"
     dialect "mvel"
     when

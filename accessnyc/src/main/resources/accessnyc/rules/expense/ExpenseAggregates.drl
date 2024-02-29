@@ -19,7 +19,7 @@ end
 rule "Normalize Person Request Expense from monthly to Monthly2"
     dialect "mvel"
     when
-        $requestIncome : RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "monthly")
+        RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "monthly")
     then
         Float $convertedAmount = $requestAmount;
         insertLogical(new ExpensePersonItemMonthly($person, $convertedAmount, $type));
@@ -28,7 +28,7 @@ end
 rule "Normalize Person Request Expense Yearly to Monthly2"
     dialect "mvel"
     when
-        $requestIncome : RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "yearly")
+        RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "yearly")
     then
         Float $convertedAmount = $requestAmount / 12;
         insertLogical(new ExpensePersonItemMonthly($person, $convertedAmount, $type));
@@ -37,7 +37,7 @@ end
 rule "Normalize Person Request Expense from weekly to Monthly2"
     dialect "mvel"
     when
-        $requestIncome : RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "weekly")
+        RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "weekly")
     then
         Float $convertedAmount = $requestAmount * 4.3333333333333;
         insertLogical(new ExpensePersonItemMonthly($person, $convertedAmount, $type));
@@ -46,7 +46,7 @@ end
 rule "Normalize Person Request Expense from biweekly to Monthly2"
     dialect "mvel"
     when
-        $requestIncome : RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "biweekly")
+        RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "biweekly")
     then
         Float $convertedAmount = $requestAmount * 2.166666666667;
         insertLogical(new ExpensePersonItemMonthly($person, $convertedAmount, $type));
@@ -55,7 +55,7 @@ end
 rule "Normalize Person Request Expense from semimonthly to Monthly2"
     dialect "mvel"
     when
-        $requestIncome : RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "semimonthly")
+        RequestExpense($person : person, $requestAmount : amount, $type : type, frequency == "semimonthly")
     then
         Float $convertedAmount = $requestAmount * 2;
         insertLogical(new ExpensePersonItemMonthly($person, $convertedAmount, $type));
@@ -67,10 +67,9 @@ rule "create a fact if the household has an expense type of Heating"
     when
         RequestExpense(type == "Heating"   )
     then 
-        $programcode = new ExpenseHouseholdHasHeating()
-        $programcode.setValue(true)
-        insertLogical($programcode)
-        System.out.println("Rule creating ExpenseHouseholdHasHeating fired")
+        $programcode = new ExpenseHouseholdHasHeating();
+        $programcode.setValue(true);
+        insertLogical($programcode);
 end
 
 rule "create a fact if the household has an expense type of dependent care"
@@ -78,10 +77,19 @@ rule "create a fact if the household has an expense type of dependent care"
     when
         RequestExpense(type == "DependentCare"   )
     then 
-        $programcode = new ExpenseHouseholdHasDependentCare()
-        $programcode.setValue(true)
-        insertLogical($programcode)
-        System.out.println("Rule creating ExpenseHouseholdHasDependentCare fired")
+        $programcode = new ExpenseHouseholdHasDependentCare();
+        $programcode.setValue(true);
+        insertLogical($programcode);
+end
+
+rule "create a fact if the household has an expense type of child or dependent care"
+    dialect "mvel"
+    when
+        RequestExpense(type in ( "ChildCare","DependentCare"))
+    then 
+        $programcode = new ExpenseHouseholdHasChildOrDependentCare();
+        $programcode.setValue(true);
+        insertLogical($programcode);
 end
 
 rule "Calculate  child and dependent care  monthly"
