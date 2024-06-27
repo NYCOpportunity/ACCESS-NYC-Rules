@@ -5,6 +5,8 @@ import accessnyc.request.Person
 import accessnyc.rules.income.IncomeHouseholdHasBenefit
 import accessnyc.rules.income.IncomeHouseholdTotalYearly
 
+// As of February 8th, 2024 is not accepting new applications
+
 rule "S2R053 ACP 1-4"
     dialect "mvel"
     
@@ -19,9 +21,9 @@ rule "S2R053 ACP 1-4"
         
     then
         
-        $programcode = new EligibleProgram()
-        $programcode.setCode("S2R053")
-        insertLogical($programcode)
+        // $programcode = new EligibleProgram()
+        // $programcode.setCode("S2R053")
+        // insertLogical($programcode)
 
 end
 
@@ -43,8 +45,8 @@ rule "S2R053 ACP income by # of household members"
         
     then
         
-        $programcode = new EligibleProgram()
-        $programcode.setCode("S2R053")
-        insertLogical($programcode)
+        // $programcode = new EligibleProgram()
+        // $programcode.setCode("S2R053")
+        // insertLogical($programcode)
 
 end

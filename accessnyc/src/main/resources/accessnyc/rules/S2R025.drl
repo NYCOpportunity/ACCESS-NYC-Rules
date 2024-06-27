@@ -14,14 +14,14 @@ rule "s2_r025"
         Person( age >= 55, unemployed == true )
         
         (
-               (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 18225))
-            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 24650))
-            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 31075))
-            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 37500))
-            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 43925))
-            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 50350))
-            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 56775))
-            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 63200))
+               (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 18825))
+            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 25550))
+            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 32275))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 39000))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 45725))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 52450))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 59175))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 65900))
         )
         
     then

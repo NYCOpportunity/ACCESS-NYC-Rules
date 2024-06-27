@@ -1,0 +1,830 @@
+<org.drools.core.rule.KieModuleMetaInfo>
+  <typeMetaInfos>
+    <entry>
+      <string>accessnyc.rules.snap.ExpenseHouseholdMedicalMonthlyAdjusted</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonISYYearly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.SNAPIncomeAdjusted</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonSESMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.expense.ExpenseHouseholdChildDependentCareMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonEarnedYearly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.request.Income</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdMonthlyCA</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.request.Expense</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdUnearnedMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.household.MembersPregnantNotFoster</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHeadInvestmentYearly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.SNAPShelterCost</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHeadAndSpouseEarnedYearly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdTotalMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdTotalMonthlyLessGifts</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.IncomeHouseholdMembersWithSSIandCashAssistance</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdGiftsYearly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonYearly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeOwnersHasSSIorSSDB</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonHasWagesAndSelfEmployed</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHeadAndSpouseInvestmentYearly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.IncomeDifMembersMinusSSI</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.SNAPHomelessDeduction</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.household.ChildCareVoucherHouseholdMembers</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdHasCashAssistance</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.IncomePersonHasSSIorCashAssistance</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.SNAPTotalIncome</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.SNAPShelterCostExcess</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonHasWagesOrSelfEmployed</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.household.MembersPlusPregnant</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdTotalYearlyLessGifts</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.IncomeHouseholdMembersWithSSIorCashAssistance</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdHasSSI</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.SNAPStandardDeduction</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.expense.ExpenseHouseholdMedicalMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.household.HouseholdAllAdults</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.expense.ExpenseHouseholdChildSupportMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonWageSelfEmploymentBoarderMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdGiftsMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonHasDM</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.expense.ExpensePersonItemMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeChildrenWageSelfEmploymentMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.request.Household</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.SNAPTotalDeductions</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonWageSelfEmploymentMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.RequestIncome</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeChildCareVoucherTotalMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.IncomePersonHasSSIandCashAssistance</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonInvestmentYearly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonSESItemMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdWageSelfEmploymentBoarderMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.household.FosterChildren</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.request.Person</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.expense.ExpenseHouseholdHasChildOrDependentCare</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.expense.ExpenseHouseholdRentMortgageMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdMonthlyCAMinusWorkExpense</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.expense.ExpenseHouseholdRentMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHeadHasS2R005Income</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.IncomeHouseholdAllSSIOrCash</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeAdultsTotalMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.household.HeadOfHouseholdMarried</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHeadEarnedYearly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonISYMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonItemMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.household.ChildrenStudentBlindDisabledEITC</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdHasBenefit</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeAdultsChildrenTotalMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.expense.RequestExpense</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeHouseholdTotalYearly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.household.MembersPregnant</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomePersonGiftsMonthly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.response.EligibleProgram</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap.IncomeHouseholdMinusChildSupportPaid</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income.IncomeOwnersTotalYearly</string>
+      <org.drools.core.rule.TypeMetaInfo>
+        <kind>CLASS</kind>
+        <role>FACT</role>
+        <isDeclaredType>false</isDeclaredType>
+      </org.drools.core.rule.TypeMetaInfo>
+    </entry>
+  </typeMetaInfos>
+  <rulesByPackage>
+    <entry>
+      <string>accessnyc.rules.valid</string>
+      <set>
+        <string>ValidPerson</string>
+      </set>
+    </entry>
+    <entry>
+      <string>accessnyc.rules</string>
+      <set>
+        <string>s2_r007 150% of poverty level gross income: has earned income</string>
+        <string>s2_r007 200% of poverty level gross income: child care, dependent care, elderly person, disability, or blind</string>
+        <string>s2_r006 no spouse or qualifying children</string>
+        <string>S2R053 ACP income by # of household members</string>
+        <string>s2_r006 other household members aside from HoH and Spouse</string>
+        <string>S2R028.5</string>
+        <string>S2R028.6</string>
+        <string>s2_r009</string>
+        <string>S2R028.3</string>
+        <string>S2R028.4</string>
+        <string>s2_r005</string>
+        <string>S2R028.7</string>
+        <string>S2R028.8</string>
+        <string>s2_r011</string>
+        <string>s2_r043.4 </string>
+        <string>S2R023</string>
+        <string>S2R024</string>
+        <string>s2_r035.6</string>
+        <string>s2_r040.2, .3</string>
+        <string>s2_r006 head of household married, no qualifying children</string>
+        <string>s2_r008 Cash Assistance/SSI</string>
+        <string>s2_r006 no spouse, qualifying children or disabled household members</string>
+        <string>S2R026</string>
+        <string>S2R027</string>
+        <string>s2_r035.5</string>
+        <string>s2_r039</string>
+        <string>s2_r012 STAR</string>
+        <string>S2R029</string>
+        <string>s2_r037</string>
+        <string>s2_r010.2</string>
+        <string>s2_r038</string>
+        <string>s2_r010.3</string>
+        <string>s2_r045</string>
+        <string>S2R030</string>
+        <string>S2R032</string>
+        <string>s2_r017 SSI or SSDB</string>
+        <string>s2_r085</string>
+        <string>s2_r001: This is the last mile of rule s2r001</string>
+        <string>s2_047.1 and s2_047.2 and s2_047.3</string>
+        <string>s2_r017 disabled</string>
+        <string>s2_r006 head of household married, qualifying children or blind/disabled household members</string>
+        <string>s2_r017 blind</string>
+        <string>s2_r003.5</string>
+        <string>s2_r003.6</string>
+        <string>S2R053 ACP 1-4</string>
+        <string>s2_r007.2</string>
+        <string>s2_r007 130% of poverty level gross income: all other</string>
+        <string>s2_r003.3</string>
+        <string>s2_r003.4</string>
+        <string>s2_r043.2</string>
+        <string>s2_r043.1</string>
+        <string>s2_r022.2</string>
+        <string>s2_r025</string>
+        <string>s2_r033</string>
+        <string>s2_r034</string>
+        <string>s2_r031</string>
+        <string>s2_r040.4 not child or step child</string>
+        <string>s2_r008 has foster child</string>
+        <string>S2R004 last mile</string>
+        <string>s2_r036.9</string>
+        <string>s2_r021 free lunch</string>
+        <string>s2_r036.6</string>
+        <string>s2_r036.5</string>
+        <string>s2_r036.8</string>
+        <string>s2_r036.7</string>
+        <string>s2_r019</string>
+        <string>s2_r018</string>
+        <string>s2_r015</string>
+        <string>s2_r016</string>
+        <string>s2_r036.10</string>
+        <string>s2_r014</string>
+        <string>s2_r043.3 </string>
+        <string>s2_r020 free lunch</string>
+        <string>s2_r020</string>
+        <string>s2_r013 </string>
+        <string>s2_r008 by income</string>
+      </set>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.snap</string>
+      <set>
+        <string>create snap deduction amount based on household size less than 4</string>
+        <string>add snap deduction amount if household is in a shelter or homeless</string>
+        <string>find the adjusted income</string>
+        <string>count household members with SSI AND Cash Assistance</string>
+        <string>if excess shelter just went below 0</string>
+        <string>create a fact for total household income minus child support paid 2</string>
+        <string>create snap deduction amount based on household size 6+</string>
+        <string>create a new fact if the person has cash assistance AND SSI income</string>
+        <string>create snap deduction amount based on household size 4</string>
+        <string>create a new fact if the person has cash assistance OR SSI income</string>
+        <string>if medical expenses just went below 0</string>
+        <string>add 0 for snap deduction amount if household is not in a shelter or homeless</string>
+        <string>calculate shelter costs</string>
+        <string>create snap deduction amount based on household size 5</string>
+        <string>excess shelter costs</string>
+        <string>count household members with SSI OR Cash Assistance</string>
+        <string>If household members and members with SSI or Cash Assistance is the same, set a new fact</string>
+        <string>create the snap total income</string>
+        <string>subtract 35 from medical expenses</string>
+        <string>calculate monthly food stamp net income</string>
+        <string>Create a fact if all household members have SSI or Cash Assistance</string>
+        <string>create the snap deductions</string>
+      </set>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.expense</string>
+      <set>
+        <string>create a fact if the household has an expense type of dependent care</string>
+        <string>create a fact if the household has an expense type of child or dependent care</string>
+        <string>calculate household child support paid</string>
+        <string>Normalize Person Request Expense from monthly to Monthly2</string>
+        <string>Normalize Person Request Expense Yearly to Monthly2</string>
+        <string>Calculate  medical  care  cost  monthly</string>
+        <string>create a fact if the household has an expense type of Heating</string>
+        <string>Calculate  rent or mortgage   cost  monthly</string>
+        <string>Infer Person Request Expenses From Valid Person Expenses List</string>
+        <string>Normalize Person Request Expense from weekly to Monthly2</string>
+        <string>Calculate  child and dependent care  monthly</string>
+        <string>Calculate rent cost monthly</string>
+        <string>Normalize Person Request Expense from semimonthly to Monthly2</string>
+        <string>Normalize Person Request Expense from biweekly to Monthly2</string>
+      </set>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.household</string>
+      <set>
+        <string>Determine the number of household members including HoH, spouse, children and stepchildren under 18, and blind or disabled children and stepchildren 19 or younger who are full time students</string>
+        <string>Calculate pregnant household members plus normal household members</string>
+        <string>Determine whether the head of household is married</string>
+        <string>Determine the number of foster children in the household</string>
+        <string>Determine whether all household members are adults</string>
+        <string>Count number of pregnant women in household</string>
+        <string>Determine the number of household members including HoH, spouse, children, stepchildren</string>
+        <string>Count number of pregnant women in household who are not foster children of the HoH</string>
+        <string>Calculate pregnant household members (who are not foster children) plus normal household members minus foster children</string>
+        <string>Determine number of children under age 19 or student under age 24</string>
+      </set>
+    </entry>
+    <entry>
+      <string>accessnyc.response</string>
+      <set>
+        <string>findEligibility</string>
+      </set>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.income</string>
+      <set>
+        <string>Calculate household gifts income yearly from the monthly income</string>
+        <string>create a new fact if the person has wage AND self employment income</string>
+        <string>create a fact if the owners have certain income types</string>
+        <string>Calculate income for the HoH, spouse, children, and full-time students with disabiities who are 19 or under, monthly</string>
+        <string>Normalize Person Request Incomes Yearly to Monthly2</string>
+        <string>Normalize Person Request Incomes from semimonthly to Monthly2</string>
+        <string>Calculate investment income for the head of household and spouse</string>
+        <string>create a fact if the head of household has certain income types</string>
+        <string>Calculate  unearned household income monthly - this only applies to SNAP because of Boarder income</string>
+        <string>Calculate wage income for all household members, including boarder income (used in the SNAP rule) </string>
+        <string>Calculate  Person Wage and self employment and boarder Income Monthly</string>
+        <string>create a fact if the household has benefit</string>
+        <string>Calculate Person Income yearly</string>
+        <string>Create a fact that remaining non-SS SES incomes for a  person income from rule 25</string>
+        <string>Calculate Household Income Monthly</string>
+        <string>Calculate yearly household income minus household gift income</string>
+        <string>Calculate  Person Wage and self employment Income yearly</string>
+        <string>create a new fact if the person has wage OR self employment income</string>
+        <string>Calculate earned income for the head of household</string>
+        <string>Calculate income for all owners of a home, Yearly</string>
+        <string>Calculate wage income for all household members under 18</string>
+        <string>Create for the Cash Assistance income with the expense disregard</string>
+        <string>Normalize Person Request Incomes from biweekly to Monthly2</string>
+        <string>Calculate income for the HoH, spouse by summing SES monthly income</string>
+        <string>Calculate  Person Gift Income Monthly</string>
+        <string>Calculate Total Person ISY Income Yearly</string>
+        <string>Calculate  boarder household income monthly</string>
+        <string>create a fact if a household member has Supplemental Security Income</string>
+        <string>Calculate investment income for the head of household</string>
+        <string>Calculate household income yearly from the monthly income</string>
+        <string>Calculate income all household members, excluding wage income from people under 18</string>
+        <string>Calculate Total Person SES Income Monthly</string>
+        <string>Calculate Household Gifts Income Monthly</string>
+        <string>Calculate Total Person ISY Income Monthly</string>
+        <string>create a fact if the household has Unemployment Insurance</string>
+        <string>Calculate Household Income Monthly by excluding Gifts</string>
+        <string>Calculate Total Person Income Monthly</string>
+        <string>Calculate cash assistance total monthly income</string>
+        <string>Calculate ISY income yearly for the HoH, Spouse, children, StepChildren</string>
+        <string>Calculate  Person investment Income Yearly</string>
+        <string>Calculate wage income for all household members </string>
+        <string>Calculate Household Income for all members except foster children, Monthly</string>
+        <string>create a fact if a household member has DisabilityMedicaid benefit</string>
+        <string>Calculate income for the HoH, spouse, and any children, monthly</string>
+        <string>Create a fact that calculates 75% of SS incomes person income based on the SES calculation in rule 25</string>
+        <string>Calculate wage income for head of HH and spouse, yearly </string>
+        <string>Calculate  Person Wage and self employment Income Monthly</string>
+        <string>Infer Person Request Incomes From Valid Person Incomes List</string>
+        <string>Normalize Person Request Incomes from weekly to Monthly2</string>
+        <string>Normalize Person Request Incomes from monthly to Monthly2</string>
+        <string>create a fact if anyone in the household has cash assistance</string>
+      </set>
+    </entry>
+    <entry>
+      <string>accessnyc.rules.scrie</string>
+      <set>
+        <string>Calculate the ratio of rent and household income monthly</string>
+      </set>
+    </entry>
+  </rulesByPackage>
+</org.drools.core.rule.KieModuleMetaInfo>

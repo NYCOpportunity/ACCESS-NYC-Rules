@@ -4,8 +4,6 @@ import accessnyc.request.Person
 import accessnyc.request.Household
 
 
-// test comment
-
 rule "Determine whether the head of household is married"
     dialect "mvel"
     when
@@ -90,24 +88,23 @@ end
 rule "Determine number of children under age 19 or student under age 24"
     dialect "mvel"
     when
+        Person(headOfHousehold == true, $hohAge : age)
+        // If the household has a spouse, set the spouse's age; otherwise, set it to be the HOH's age
+        ( Person(headOfHouseholdRelation == "Spouse", $spouseAge : age) || Person(headOfHousehold == true, $spouseAge : age) )
         accumulate(
-            Person((age < 19 || (student == true && age < 24) || blind == true || disabled == true) && headOfHousehold == false && headOfHouseholdRelation not in ("Spouse"), $age : age);
+            Person(
+                (
+                    (
+                        (age < 19 || (studentFulltime == true && age < 24)) 
+                        && (age < $hohAge || age < $spouseAge)
+                    )
+                    || blind == true || disabled == true) 
+                && headOfHousehold == false 
+                && headOfHouseholdRelation in ("Child", "StepChild", "FosterChild", "Grandchild", "SisterBrother"), $age : age);
             $count : count($age)
         )
     then 
-        insertLogical(new ChildrenStudentEITCDefinition($count));
-end
-
-
-rule "Determine number of household members that are blind or diabled, but not the HoH or spouse"
-    dialect "mvel"
-    when
-        accumulate(
-            Person(((blind == true || disabled == true) && headOfHousehold == false && headOfHouseholdRelation not in ("Self","Spouse")), $age : age);
-            $count : count($age)
-        )
-    then 
-        insertLogical(new BlindDisabledHouseholdEITC($count));
+        insertLogical(new ChildrenStudentBlindDisabledEITC($count));
 end
 
 rule "Determine the number of household members including HoH, spouse, children and stepchildren under 18, and blind or disabled children and stepchildren 19 or younger who are full time students"

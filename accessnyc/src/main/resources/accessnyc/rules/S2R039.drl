@@ -11,8 +11,12 @@ rule "s2_r039"
     when 
         Household( city == "NYC" )
         (
-            (Household( members == 1 ) and IncomeHouseholdTotalYearly ( amount <= 56000 ))
-            or (Household( members > 1 ) and IncomeHouseholdTotalYearly ( amount <= 80000 ))
+            (Household( members == 1 ) and IncomeHouseholdTotalYearly ( amount <= 59000 ))
+            or (
+                Household( members > 1 ) 
+                and Person( headOfHouseholdRelation in ("Child", "StepChild"))
+                and IncomeHouseholdTotalYearly ( amount <= 85000 )
+                )
         )
        
     then

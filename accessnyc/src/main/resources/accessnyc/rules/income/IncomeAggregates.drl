@@ -189,8 +189,6 @@ rule "Calculate investment income for the head of household and spouse"
         insertLogical(new IncomeHeadAndSpouseInvestmentYearly($amount));
 end
 
-
-
 rule "Calculate  Person Gift Income Monthly"
     dialect "mvel"
     when
