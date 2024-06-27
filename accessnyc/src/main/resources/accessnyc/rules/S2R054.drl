@@ -1,0 +1,18 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+
+rule "S2R054"
+    dialect "mvel"
+    
+    when 
+        Household( livingRenting == true, livingRentalType == "NYCHA")
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R054")
+        insertLogical($programcode)
+
+end

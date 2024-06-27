@@ -16,14 +16,14 @@ rule "s2_r033"
         (
             IncomeHouseholdHasCashAssistance( value == true )
             or (Household(members == 1) and IncomeHouseholdHasSSI( value == true ))
-            or (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 2852))
-            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 3730))
-            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 4608))
-            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 5485))
-            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 6363))
-            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 7241))
-            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 7405))
-            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 7570))
+            or (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 3035))
+            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 3970))
+            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 4904))
+            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 5838))
+            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 6772))
+            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 7706))
+            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 7881))
+            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 8056))
         )
 
     then

@@ -11,7 +11,6 @@ rule "s2_r043.1"
     dialect "mvel"
     
     when
-        Household(city == "NYC")
         (
             (Person( benefitsMedicaid == true ))
             or (Person( benefitsMedicaidDisability == true ))
@@ -26,7 +25,6 @@ rule "s2_r043.2"
     dialect "mvel"
     
     when
-        Household(city == "NYC")
         IncomeHouseholdHasBenefit( value == true )
     then
         $programcode = new EligibleProgram()
@@ -35,20 +33,31 @@ rule "s2_r043.2"
     
 end
 
-rule "s2_r043.3 "
+rule "s2_r043.3"
+    dialect "mvel"
+    
+    when
+        Household( livingRenting == true, livingRentalType == "NYCHA")
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R043")
+        insertLogical($programcode)   
+    
+end
+
+rule "s2_r043.4"
     dialect "mvel"
     
     when 
-        Household(city == "NYC")
         (
-            (Household(members == 1) and IncomeHouseholdTotalYearly( amount <= 19683 )) 
-            or (Household(members == 2) and IncomeHouseholdTotalYearly( amount <= 26622 )) 
-            or (Household(members == 3) and IncomeHouseholdTotalYearly( amount <= 33561 ))
-            or (Household(members == 4) and IncomeHouseholdTotalYearly( amount <= 40500 ))
-            or (Household(members == 5) and IncomeHouseholdTotalYearly( amount <= 47439 ))
-            or (Household(members == 6) and IncomeHouseholdTotalYearly( amount <= 54378 ))
-            or (Household(members == 7) and IncomeHouseholdTotalYearly( amount <= 61317 ))
-            or (Household(members == 8) and IncomeHouseholdTotalYearly( amount <= 68256 ))
+            (Household(members == 1) and IncomeHouseholdTotalYearly( amount <= 20331 )) 
+            or (Household(members == 2) and IncomeHouseholdTotalYearly( amount <= 27594 )) 
+            or (Household(members == 3) and IncomeHouseholdTotalYearly( amount <= 34857 ))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly( amount <= 42120 ))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly( amount <= 49383 ))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly( amount <= 56646 ))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly( amount <= 63909 ))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly( amount <= 71172 ))
         )
 
     then
