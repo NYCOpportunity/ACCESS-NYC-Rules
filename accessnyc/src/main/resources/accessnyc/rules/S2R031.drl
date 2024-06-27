@@ -13,16 +13,16 @@ rule "s2_r031"
     when 
 
         Household( city == "NYC" )
-        Person( benefitsMedicaid == false, benefitsMedicaidDisability == false, pregnant == false) 
+        Person( benefitsMedicaid == false, benefitsMedicaidDisability == false) 
         (
-           (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 2710))
-        or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 3665))
-        or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 4620))
-        or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 5575))
-        or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 6531))
-        or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 7486))
-        or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 8441))
-        or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 9396))
+           (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 2799))
+        or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 3799))
+        or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 4799))
+        or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 5598))
+        or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 6798))
+        or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 7798))
+        or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 8798))
+        or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 9798))
         )
     
     then
