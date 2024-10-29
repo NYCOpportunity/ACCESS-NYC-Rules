@@ -5,7 +5,7 @@ import accessnyc.response.EligibleProgram
 import accessnyc.request.Person
 
 
-rule "s2_r011"
+rule "s2_r056"
     dialect "mvel"
     
     when 
@@ -13,7 +13,7 @@ rule "s2_r011"
 
     then
         $programcode = new EligibleProgram()
-        $programcode.setCode("S2R011")
+        $programcode.setCode("S2R056")
         insertLogical($programcode)
 
 end

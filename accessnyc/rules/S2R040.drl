@@ -7,7 +7,7 @@ import accessnyc.request.Household
 import accessnyc.request.Person
 import accessnyc.rules.household.ChildCareVoucherHouseholdMembers
 
-rule "s2_r040.2, .3"
+rule "s2_r040"
     dialect "mvel"
 
     when 
@@ -27,29 +27,14 @@ rule "s2_r040.2, .3"
           
     //And the household income among all of these members must fall in this range      
         ( 
-          (ChildCareVoucherHouseholdMembers(value == 2)  and IncomeChildCareVoucherTotalMonthly(amount <= 5624)) or
-          (ChildCareVoucherHouseholdMembers(value == 3)  and IncomeChildCareVoucherTotalMonthly(amount <= 6948)) or 
-          (ChildCareVoucherHouseholdMembers(value == 4)  and IncomeChildCareVoucherTotalMonthly(amount <= 8271)) or 
-          (ChildCareVoucherHouseholdMembers(value == 5)  and IncomeChildCareVoucherTotalMonthly(amount <= 9594)) or 
-          (ChildCareVoucherHouseholdMembers(value == 6)  and IncomeChildCareVoucherTotalMonthly(amount <= 10918)) or 
-          (ChildCareVoucherHouseholdMembers(value == 7)  and IncomeChildCareVoucherTotalMonthly(amount <= 11166)) or
-          (ChildCareVoucherHouseholdMembers(value == 8)  and IncomeChildCareVoucherTotalMonthly(amount <= 11414))
+          (ChildCareVoucherHouseholdMembers(value == 2)  and IncomeChildCareVoucherTotalMonthly(amount <= 6156)) or
+          (ChildCareVoucherHouseholdMembers(value == 3)  and IncomeChildCareVoucherTotalMonthly(amount <= 7604)) or 
+          (ChildCareVoucherHouseholdMembers(value == 4)  and IncomeChildCareVoucherTotalMonthly(amount <= 9053)) or 
+          (ChildCareVoucherHouseholdMembers(value == 5)  and IncomeChildCareVoucherTotalMonthly(amount <= 10501)) or 
+          (ChildCareVoucherHouseholdMembers(value == 6)  and IncomeChildCareVoucherTotalMonthly(amount <= 11949)) or 
+          (ChildCareVoucherHouseholdMembers(value == 7)  and IncomeChildCareVoucherTotalMonthly(amount <= 12221)) or
+          (ChildCareVoucherHouseholdMembers(value == 8)  and IncomeChildCareVoucherTotalMonthly(amount <= 12493))
         ) 
-        
-    then
-        $programcode = new EligibleProgram()
-        $programcode.setCode("S2R040")
-        insertLogical($programcode)
-
-end
-
-rule "s2_r040.4 not child or step child"
-    dialect "mvel"
-    
-    when 
-    //You have to live in NYC
-        Household(city == "NYC") 
-        IncomePersonMonthly(person.age <= 13, person.headOfHouseholdRelation not in ("Child","StepChild"), amount <= 4301)
         
     then
         $programcode = new EligibleProgram()

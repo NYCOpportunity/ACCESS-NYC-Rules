@@ -11,16 +11,16 @@ rule "s2_r022.2"
     
     when 
         Household(city == "NYC") 
-        (Person(pregnant == true) or Person(age < 6))
+        (Person(pregnant == true) or Person(age < 5))
         (
-            (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 26973))
-            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 36482))
-            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 45991))
-            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 55500))
-            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 65009))
-            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 74518))
-            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 84027))
-            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 93536))
+            (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 27861))
+            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 37814))
+            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 47767))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 57720))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 67673))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 77626))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 87579))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 97532))
             )
     then
         $programcode = new EligibleProgram()
