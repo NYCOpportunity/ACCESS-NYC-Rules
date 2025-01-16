@@ -114,9 +114,9 @@ rule "Determine the number of household members including HoH, spouse, children 
             Person(
                 ( 
                     headOfHousehold == true 
-                    || headOfHouseholdRelation in ("Self","Spouse")
+                    || headOfHouseholdRelation in ("Self","Spouse", "DomesticPartner", "BoyfriendGirlfriend")
                     ||  age < 18 
-                    || (age <= 19 && studentFulltime == true && (blind == true || disabled == true))
+                    || (age == 18 && studentFulltime == true && (blind == true || disabled == true))
                 ), 
                 $value : age);
             $count : count($value)

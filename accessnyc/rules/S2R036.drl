@@ -107,14 +107,14 @@ rule "s2_r036.10"
         Household(city == "NYC") 
         Person(age >= 16, age <= 24, student == false, unemployed == true) 
         (
-           (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 14580))
-        or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 19720))
-        or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 24860))
-        or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 30000))
-        or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 35140))
-        or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 40280))
-        or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 45420))
-        or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 50560))
+           (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 15060))
+        or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 20440))
+        or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 25820))
+        or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 31200))
+        or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 36580))
+        or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 41960))
+        or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 47340))
+        or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 52720))
         )
 
     then

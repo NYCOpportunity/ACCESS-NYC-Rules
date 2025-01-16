@@ -345,8 +345,10 @@ rule "Calculate income for the HoH, spouse, children, and full-time students wit
                 (
                     person.headOfHousehold == true 
                     || person.headOfHouseholdRelation == "Spouse" 
+                    || person.headOfHouseholdRelation == "DomesticPartner"
+                    || person.headOfHouseholdRelation == "BoyfriendGirlfriend"
                     || person.age < 18 
-                    || (person.age <= 19 && person.studentFulltime == true && (person.blind == true || person.disabled == true))
+                    || (person.age == 18 && person.studentFulltime == true && (person.blind == true || person.disabled == true))
                 ),
                 $amounthousehold : amount);
             $requestAmount : sum($amounthousehold)

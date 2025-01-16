@@ -11,17 +11,16 @@ rule "s2_r040"
     dialect "mvel"
 
     when 
-	// You have to live in NYC
-        Household(city == "NYC") 
-        
     // One of the following must be true:
-	// - One of the children must be 13 or under and related to the head of household as either a child or step-child
-	// - Or, there must be a household member who is blind or disabled, aged 19 years old or less, a full-time student, and 
-    //   is a child or step-child of the head of household
+	// - One of the children must be 12 or under
+	// - Or, there must be a household member who is blind or disabled who is 17 or under
+	// - Or, there must be a household member who is blind or disabled who is 18 and a full-time student
         (
-            Person( age <= 13, headOfHouseholdRelation in ("Child","StepChild")) or
-            Person( age <= 19, studentFulltime == true, headOfHouseholdRelation in ("Child","StepChild"), disabled == true) or
-            Person( age <= 19, studentFulltime == true, headOfHouseholdRelation in ("Child","StepChild"), blind == true)
+            Person( age <= 12 ) or
+            Person( age <= 17, disabled == true ) or
+            Person( age <= 17, blind == true ) or
+            Person( age == 18, studentFulltime == true, blind == true ) or
+            Person( age == 18, studentFulltime == true, disabled == true )
         )
 
           

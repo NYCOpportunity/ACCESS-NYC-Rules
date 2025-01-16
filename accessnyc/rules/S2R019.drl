@@ -11,19 +11,18 @@ rule "s2_r019"
     dialect "mvel"
     
     when 
-        Household(city == "NYC")
         (Person( age <= 6) or Person( age >= 60) or Person( disabled == true ) or Person( blind == true ))
         (
             IncomeHouseholdHasCashAssistance( value == true )
             or (Household(members == 1) and IncomeHouseholdHasSSI( value == true ))
-            or (Household(members == 1) and IncomeAdultsTotalMonthly(amount <= 3035))
-            or (Household(members == 2) and IncomeAdultsTotalMonthly(amount <= 3970))
-            or (Household(members == 3) and IncomeAdultsTotalMonthly(amount <= 4904))
-            or (Household(members == 4) and IncomeAdultsTotalMonthly(amount <= 5838))
-            or (Household(members == 5) and IncomeAdultsTotalMonthly(amount <= 6772))
-            or (Household(members == 6) and IncomeAdultsTotalMonthly(amount <= 7706))
-            or (Household(members == 7) and IncomeAdultsTotalMonthly(amount <= 7881))
-            or (Household(members == 8) and IncomeAdultsTotalMonthly(amount <= 8056))
+            or (Household(members == 1) and IncomeAdultsTotalMonthly(amount <= 3322))
+            or (Household(members == 2) and IncomeAdultsTotalMonthly(amount <= 4345))
+            or (Household(members == 3) and IncomeAdultsTotalMonthly(amount <= 5367))
+            or (Household(members == 4) and IncomeAdultsTotalMonthly(amount <= 6390))
+            or (Household(members == 5) and IncomeAdultsTotalMonthly(amount <= 7412))
+            or (Household(members == 6) and IncomeAdultsTotalMonthly(amount <= 8434))
+            or (Household(members == 7) and IncomeAdultsTotalMonthly(amount <= 8626))
+            or (Household(members == 8) and IncomeAdultsTotalMonthly(amount <= 8818))
         )
 
     then
