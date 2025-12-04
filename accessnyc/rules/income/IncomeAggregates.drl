@@ -337,7 +337,7 @@ rule "Calculate income for the HoH, spouse, and any children, monthly"
         insertLogical(new IncomeAdultsChildrenTotalMonthly($amount));
 end
 
-rule "Calculate income for the HoH, spouse, children, and full-time students with disabiities who are 19 or under, monthly"
+rule "Calculate income for the HoH, spouse, domestic partner, and/or boyfriend/girlfriend"
     dialect "mvel"
     when
         accumulate(
@@ -347,8 +347,6 @@ rule "Calculate income for the HoH, spouse, children, and full-time students wit
                     || person.headOfHouseholdRelation == "Spouse" 
                     || person.headOfHouseholdRelation == "DomesticPartner"
                     || person.headOfHouseholdRelation == "BoyfriendGirlfriend"
-                    || person.age < 18 
-                    || (person.age == 18 && person.studentFulltime == true && (person.blind == true || person.disabled == true))
                 ),
                 $amounthousehold : amount);
             $requestAmount : sum($amounthousehold)
@@ -502,5 +500,24 @@ rule "Calculate Person Income yearly"
         Float $amountFinal = $amount * 12;
         insertLogical(new IncomePersonYearly($person, $amountFinal));
 end
+
+rule "Calculate income for the HoH, spouse, and all members 20 or under who have valid relationships, except for pregnant HoH or spouse 20 or under"
+    dialect "mvel"
+    when
+        accumulate(
+            IncomePersonYearly( 
+                (
+                    (person.headOfHousehold == true && (person.pregnant == false || person.age >= 21))
+                    || (person.headOfHouseholdRelation == "Spouse" && (person.pregnant == false || person.age >= 21))
+                    || (person.age <= 20 && person.headOfHouseholdRelation in ("Child", "FosterChild", "StepChild", "Grandchild", "SisterBrother", "StepSisterStepBrother"))
+                ),
+                $amounthousehold : amount);
+            $requestAmount : sum($amounthousehold)
+            )
+    then
+        Float $amount = $requestAmount;
+        insertLogical(new IncomeMedicaidTotalYearly($amount));
+end
+
 
 

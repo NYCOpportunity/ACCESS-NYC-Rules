@@ -20,11 +20,11 @@ rule "s2_r006 head of household married, qualifying children or blind/disabled h
     
     when
         HeadOfHouseholdMarried( value == true )
-        not IncomeHeadAndSpouseInvestmentYearly( amount > 11000 )
+        not IncomeHeadAndSpouseInvestmentYearly( amount > 11600 )
         (
-            (ChildrenStudentBlindDisabledEITC( value == 1 ) and IncomeHeadAndSpouseEarnedYearly( amount > 0  , amount <= 53120 ))
-            or (ChildrenStudentBlindDisabledEITC( value == 2 ) and IncomeHeadAndSpouseEarnedYearly( amount > 0  , amount <= 59478 ))
-            or (ChildrenStudentBlindDisabledEITC( value >= 3 ) and IncomeHeadAndSpouseEarnedYearly( amount > 0  , amount <= 63398 ))
+            (ChildrenStudentBlindDisabledEITC( value == 1 ) and IncomeHeadAndSpouseEarnedYearly( amount > 0  , amount <= 56004 ))
+            or (ChildrenStudentBlindDisabledEITC( value == 2 ) and IncomeHeadAndSpouseEarnedYearly( amount > 0  , amount <= 62688 ))
+            or (ChildrenStudentBlindDisabledEITC( value >= 3 ) and IncomeHeadAndSpouseEarnedYearly( amount > 0  , amount <= 66819 ))
         )
 
     then
@@ -38,9 +38,9 @@ rule "s2_r006 head of household married, no qualifying children"
     
     when
         HeadOfHouseholdMarried( value == true )
-        not IncomeHeadAndSpouseInvestmentYearly( amount > 11000 )
+        not IncomeHeadAndSpouseInvestmentYearly( amount > 11600 )
         (Person(headOfHousehold == true, age >= 25, age < 65) or Person(headOfHouseholdRelation == "Spouse", age >= 25, age < 65))
-        IncomeHeadAndSpouseEarnedYearly( amount > 0  , amount <= 24210 )
+        IncomeHeadAndSpouseEarnedYearly( amount > 0  , amount <= 25511 )
 
     then
         $programcode = new EligibleProgram()
@@ -54,11 +54,11 @@ rule "s2_r006 no spouse, qualifying children or disabled household members"
     
     when
         not HeadOfHouseholdMarried( value == true )
-        not IncomeHeadInvestmentYearly( amount > 11000 )
+        not IncomeHeadInvestmentYearly( amount > 11600 )
         (
-            (ChildrenStudentBlindDisabledEITC( value == 1 ) and IncomeHeadEarnedYearly( amount > 0  , amount <= 46560 ))
-            or (ChildrenStudentBlindDisabledEITC( value == 2 ) and IncomeHeadEarnedYearly( amount > 0  , amount <= 52918 ))
-            or (ChildrenStudentBlindDisabledEITC( value >= 3 ) and IncomeHeadEarnedYearly( amount > 0  , amount <= 56838 ))
+            (ChildrenStudentBlindDisabledEITC( value == 1 ) and IncomeHeadEarnedYearly( amount > 0  , amount <= 49084 ))
+            or (ChildrenStudentBlindDisabledEITC( value == 2 ) and IncomeHeadEarnedYearly( amount > 0  , amount <= 55768 ))
+            or (ChildrenStudentBlindDisabledEITC( value >= 3 ) and IncomeHeadEarnedYearly( amount > 0  , amount <= 59899 ))
         )
 
     then
@@ -73,8 +73,8 @@ rule "s2_r006 no spouse or qualifying children"
     when
         not HeadOfHouseholdMarried( value == true )
         Person(headOfHousehold == true, age >= 25, age < 65)
-        IncomeHeadEarnedYearly( amount > 0, amount <= 17640 )
-        not IncomeHeadInvestmentYearly( amount > 11000 )
+        IncomeHeadEarnedYearly( amount > 0, amount <= 18591 )
+        not IncomeHeadInvestmentYearly( amount > 11600 )
 
     then
         $programcode = new EligibleProgram()
@@ -87,8 +87,8 @@ rule "s2_r006 other household members aside from HoH and Spouse"
     
     when
         $person: Person(headOfHousehold == false, headOfHouseholdRelation != "Spouse", age >= 25, age < 65)
-        IncomePersonEarnedYearly(person == $person, amount > 0, amount <= 17640 )
-        not IncomePersonInvestmentYearly( person == $person, amount > 11000 )
+        IncomePersonEarnedYearly(person == $person, amount > 0, amount <= 18591 )
+        not IncomePersonInvestmentYearly( person == $person, amount > 11600 )
 
     then
         $programcode = new EligibleProgram()

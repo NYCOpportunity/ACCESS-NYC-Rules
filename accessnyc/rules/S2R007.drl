@@ -15,7 +15,6 @@ rule "s2_r007.2"
     dialect "mvel"
     
     when
-        Household(city == "NYC")
         IncomeHouseholdAllSSIOrCash(value == true)  
 
     then
@@ -30,7 +29,6 @@ end
 rule "s2_r007 200% of poverty level gross income: child care, dependent care, elderly person, disability, or blind"
     dialect "mvel"
     when
-        Household(city == "NYC")
         ( 
             ExpenseHouseholdHasChildOrDependentCare(value == true) or
             Person( age >= 60 ) or
@@ -38,14 +36,14 @@ rule "s2_r007 200% of poverty level gross income: child care, dependent care, el
             Person( blind == true)
         )
         (
-               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2510))
-            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 3407))
-            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 4303))
-            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 5200))
-            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 6097))
-            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 6993))
-            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 7890))
-            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 8787))
+               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2608))
+            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 3525))
+            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 4442))
+            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 5358))
+            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 6275))
+            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 7192))
+            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 8108))
+            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 9025))
         )
             
     then
@@ -59,17 +57,16 @@ rule "s2_r007 150% of poverty level gross income: has earned income"
     dialect "mvel"
     
     when
-        Household(city == "NYC")
         IncomeHouseholdWageSelfEmploymentBoarderMonthly(amount > 0)
         (
-               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 1883))
-            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2555))
-            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3228))
-            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 3900))
-            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4573))
-            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5245))
-            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 5918))
-            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 6590))
+               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 1957))
+            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2644))
+            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3332))
+            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 4019))
+            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4707))
+            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5394))
+            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 6082))
+            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 6769))
         )
             
     then
@@ -83,16 +80,15 @@ rule "s2_r007 130% of poverty level gross income: all other"
     dialect "mvel"
     
     when
-        Household(city == "NYC")
        (
-               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 1632))
-            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2215))
-            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 2798))
-            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 3380))
-            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 3963))
-            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 4546))
-            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 5129))
-            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 5712))
+               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 1696))
+            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2292))
+            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 2888))
+            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 3483))
+            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4079))
+            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 4675))
+            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 5271))
+            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 5867))
         )
             
     then

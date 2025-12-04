@@ -13,26 +13,24 @@ rule "s2_r040"
     when 
     // One of the following must be true:
 	// - One of the children must be 12 or under
-	// - Or, there must be a household member who is blind or disabled who is 17 or under
-	// - Or, there must be a household member who is blind or disabled who is 18 and a full-time student
+	// - Or, there must be a household member who is blind or disabled who is 19 or under
         (
-            Person( age <= 12 ) or
-            Person( age <= 17, disabled == true ) or
-            Person( age <= 17, blind == true ) or
-            Person( age == 18, studentFulltime == true, blind == true ) or
-            Person( age == 18, studentFulltime == true, disabled == true )
+            Person( age <= 13 ) or
+            Person( age <= 19, disabled == true ) or
+            Person( age <= 19, blind == true )
         )
 
           
-    //And the household income among all of these members must fall in this range      
+    //And the household income among all of these members must fall in this range, or someone in the household must receive Cash Assistance     
         ( 
-          (ChildCareVoucherHouseholdMembers(value == 2)  and IncomeChildCareVoucherTotalMonthly(amount <= 6156)) or
-          (ChildCareVoucherHouseholdMembers(value == 3)  and IncomeChildCareVoucherTotalMonthly(amount <= 7604)) or 
-          (ChildCareVoucherHouseholdMembers(value == 4)  and IncomeChildCareVoucherTotalMonthly(amount <= 9053)) or 
-          (ChildCareVoucherHouseholdMembers(value == 5)  and IncomeChildCareVoucherTotalMonthly(amount <= 10501)) or 
-          (ChildCareVoucherHouseholdMembers(value == 6)  and IncomeChildCareVoucherTotalMonthly(amount <= 11949)) or 
-          (ChildCareVoucherHouseholdMembers(value == 7)  and IncomeChildCareVoucherTotalMonthly(amount <= 12221)) or
-          (ChildCareVoucherHouseholdMembers(value == 8)  and IncomeChildCareVoucherTotalMonthly(amount <= 12493))
+          (ChildCareVoucherHouseholdMembers(value == 2)  and IncomeChildCareVoucherTotalMonthly(amount <= 6435)) or
+          (ChildCareVoucherHouseholdMembers(value == 3)  and IncomeChildCareVoucherTotalMonthly(amount <= 7949.74)) or 
+          (ChildCareVoucherHouseholdMembers(value == 4)  and IncomeChildCareVoucherTotalMonthly(amount <= 9463.97)) or 
+          (ChildCareVoucherHouseholdMembers(value == 5)  and IncomeChildCareVoucherTotalMonthly(amount <= 10978.20)) or 
+          (ChildCareVoucherHouseholdMembers(value == 6)  and IncomeChildCareVoucherTotalMonthly(amount <= 12492.44)) or 
+          (ChildCareVoucherHouseholdMembers(value == 7)  and IncomeChildCareVoucherTotalMonthly(amount <= 12776.36)) or
+          (ChildCareVoucherHouseholdMembers(value == 8)  and IncomeChildCareVoucherTotalMonthly(amount <= 13060.28)) or
+          IncomeHouseholdHasCashAssistance(value == true)
         ) 
         
     then

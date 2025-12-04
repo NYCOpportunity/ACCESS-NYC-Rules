@@ -21,6 +21,7 @@ rule "s2_r035.5"
             Person(headOfHouseholdRelation=="Spouse") or
             Person(headOfHouseholdRelation=="Child") or
             Person(headOfHouseholdRelation=="FosterChild") or
+            Person(headOfHouseholdRelation=="Grandchild") or
             Person(headOfHouseholdRelation=="Parent") or
             Person(headOfHouseholdRelation=="Grandparent") or
             Person(headOfHouseholdRelation=="FosterParent") or
@@ -31,13 +32,13 @@ rule "s2_r035.5"
             Person(headOfHouseholdRelation=="StepSisterStepBrother")
         )
         ( 
-          (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 99550)) or
-          (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 111950)) or 
-          (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 124400)) or 
-          (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 134350)) or 
-          (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 144300)) or 
-          (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 154250)) or
-          (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 164200))
+          (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 103700)) or
+          (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 116650)) or 
+          (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 129600)) or 
+          (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 140000)) or 
+          (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 150350)) or 
+          (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 160750)) or
+          (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 171100))
         ) 
     then
         $programcode = new EligibleProgram()
@@ -67,7 +68,7 @@ rule "s2_r035.6"
             Person(headOfHouseholdRelation=="StepParent") or
             Person(headOfHouseholdRelation=="StepSisterStepBrother")
         )
-        IncomePersonYearly(amount <= 87100)
+        IncomePersonYearly(amount <= 90750)
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R035")

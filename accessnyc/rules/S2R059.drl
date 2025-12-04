@@ -1,0 +1,20 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+
+
+rule "s2_r059"
+    dialect "mvel"
+    
+    when 
+        Person(age >= 65) or Person(blind == true) or Person(disabled == true) or Person(student == true, age >= 14, age <= 18)
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R059")
+        insertLogical($programcode)
+
+end

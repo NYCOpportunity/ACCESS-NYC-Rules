@@ -4,23 +4,24 @@ import accessnyc.response.EligibleProgram
 
 import accessnyc.request.Person
 import accessnyc.request.Household
-import accessnyc.rules.income.IncomeHouseholdTotalYearly
+import accessnyc.rules.income.IncomeMedicaidTotalYearly
+import accessnyc.rules.household.MembersMedicaid
 
-rule "s2_r038"
+rule "s2_r038 1-2"
     dialect "mvel"
     
     when 
-        Household(city == "NYC")
-        Person( pregnant == true )
+        Person( headOfHousehold == true, pregnant == true ) or Person( headOfHouseholdRelation == "Spouse", pregnant == true )
         (
-           (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 33584))
-        or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 45581))
-        or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 57579))
-        or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 69576))
-        or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 81573))
-        or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 93571))
-        or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 105568))
-        or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 117566))
+           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 34900))
+        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 47165))
+        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 59430))
+        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 71695))
+        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 83960))
+        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 96225))
+        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 108490))
+        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 120755))
+        or (MembersMedicaid(value >= 9) and IncomeMedicaidTotalYearly(amount <= 133020))
         )
 
     then
@@ -28,5 +29,95 @@ rule "s2_r038"
         $programcode.setCode("S2R038")
         insertLogical($programcode)
 
+end
+
+rule "s2_r038 3"
+    dialect "mvel"
+    
+    when 
+        Person( age < 1 )
+        (
+           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 34900))
+        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 47165))
+        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 59430))
+        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 71695))
+        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 83960))
+        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 96225))
+        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 108490))
+        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 120755))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R038")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r038 4"
+    dialect "mvel"
+    
+    when 
+        Person( ( (age == 19 || age == 20) && headOfHouseholdRelation in ("Child", "FosterChild", "StepChild", "Grandchild", "SisterBrother", "StepSisterStepBrother") ) )
+        (
+           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 24258))
+        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 32783))
+        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 41308))
+        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 49833))
+        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 58258))
+        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 66883))
+        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 75408))
+        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 83933))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R038")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r038 5"
+    dialect "mvel"
+    
+    when 
+        Person( age <= 18 && headOfHousehold == true ) or Person( age <= 18 && headOfHouseholdRelation in ("Spouse", "Child", "FosterChild", "StepChild", "Grandchild", "SisterBrother", "StepSisterStepBrother"))
+        (
+           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 24101))
+        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 32571))
+        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 41041))
+        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 49511))
+        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 57981))
+        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 66451))
+        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 74921))
+        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 83391))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R038")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r038 6"
+    dialect "mvel"
+    
+    when 
+        (
+           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 21597))
+        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 29187))
+        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 36777))
+        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 44367))
+        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 51957))
+        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 66451))
+        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 67137))
+        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 74727))
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R038")
+        insertLogical($programcode)
 
 end

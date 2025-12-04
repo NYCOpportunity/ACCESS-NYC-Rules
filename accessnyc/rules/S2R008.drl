@@ -18,14 +18,14 @@ rule "s2_r008 by income"
         Person( age < 5, age > 2 )
         
         (
-               (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 15060))
-            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 20440))
-            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 25820))
-            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 31200))
-            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 36580))
-            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 41960))
-            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 47340))
-            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 52720))
+               (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 15650))
+            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 21500))
+            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 26650))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 32150))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 37650))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 43150))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 48650))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 54150))
         )
 
     then

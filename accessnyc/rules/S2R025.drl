@@ -10,18 +10,17 @@ rule "s2_r025"
     dialect "mvel"
     
     when 
-        Household( city == "NYC" )
         Person( age >= 55, unemployed == true )
         
         (
-               (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 18825))
-            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 25550))
-            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 32275))
-            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 39000))
-            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 45725))
-            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 52450))
-            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 59175))
-            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 65900))
+               (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 19563))
+            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 26438))
+            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 33313))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 40188))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 47063))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 53938))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 60813))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 67688))
         )
         
     then

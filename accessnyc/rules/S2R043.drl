@@ -50,14 +50,14 @@ rule "s2_r043.4"
     
     when 
         (
-            (Household(members == 1) and IncomeHouseholdTotalYearly( amount <= 20331 )) 
-            or (Household(members == 2) and IncomeHouseholdTotalYearly( amount <= 27594 )) 
-            or (Household(members == 3) and IncomeHouseholdTotalYearly( amount <= 34857 ))
-            or (Household(members == 4) and IncomeHouseholdTotalYearly( amount <= 42120 ))
-            or (Household(members == 5) and IncomeHouseholdTotalYearly( amount <= 49383 ))
-            or (Household(members == 6) and IncomeHouseholdTotalYearly( amount <= 56646 ))
-            or (Household(members == 7) and IncomeHouseholdTotalYearly( amount <= 63909 ))
-            or (Household(members == 8) and IncomeHouseholdTotalYearly( amount <= 71172 ))
+            (Household(members == 1) and IncomeHouseholdTotalYearly( amount <= 21128 )) 
+            or (Household(members == 2) and IncomeHouseholdTotalYearly( amount <= 28553 )) 
+            or (Household(members == 3) and IncomeHouseholdTotalYearly( amount <= 35978 ))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly( amount <= 43403 ))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly( amount <= 50828 ))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly( amount <= 58253 ))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly( amount <= 65678 ))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly( amount <= 73103 ))
         )
 
     then

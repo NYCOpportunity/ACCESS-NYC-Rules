@@ -5,23 +5,36 @@ import accessnyc.response.EligibleProgram
 import accessnyc.request.Person
 import accessnyc.request.Household
 import accessnyc.rules.income.IncomeHouseholdTotalYearly
+import accessnyc.rules.income.IncomePersonItemMonthly 
 
-rule "s2_r022.2"
+rule "s2_r022 income"
     dialect "mvel"
     
     when 
-        Household(city == "NYC") 
         (Person(pregnant == true) or Person(age < 5))
         (
-            (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 27861))
-            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 37814))
-            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 47767))
-            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 57720))
-            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 67673))
-            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 77626))
-            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 87579))
-            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 97532))
+            (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 28953))
+            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 39128))
+            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 49303))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 59478))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 69653))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 79828))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 90003))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 100178))
             )
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R022")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r022 medicaid, disability medicaid, or cash assistance"
+    dialect "mvel"
+    
+    when 
+        (Person(pregnant == true) or Person(age < 5))
+        (Person(benefitsMedicaid == true) or Person(benefitsMedicaidDisability == true) or IncomePersonItemMonthly(type == "CashAssistance"))
     then
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R022")

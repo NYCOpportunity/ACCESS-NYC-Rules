@@ -107,7 +107,7 @@ rule "Determine number of children under age 19 or student under age 24"
         insertLogical(new ChildrenStudentBlindDisabledEITC($count));
 end
 
-rule "Determine the number of household members including HoH, spouse, children and stepchildren under 18, and blind or disabled children and stepchildren 19 or younger who are full time students"
+rule "Determine the number of household members including HoH, spouse, children and stepchildren under 18, and blind or disabled members 19 or younger"
     dialect "mvel"
     when
         accumulate(
@@ -116,7 +116,7 @@ rule "Determine the number of household members including HoH, spouse, children 
                     headOfHousehold == true 
                     || headOfHouseholdRelation in ("Self","Spouse", "DomesticPartner", "BoyfriendGirlfriend")
                     ||  age < 18 
-                    || (age == 18 && studentFulltime == true && (blind == true || disabled == true))
+                    || (age <= 19 && (blind == true || disabled == true))
                 ), 
                 $value : age);
             $count : count($value)
@@ -135,4 +135,21 @@ dialect "mvel"
         )
     then
         insertLogical(new HouseholdAllAdults($count == $members));
+end
+
+rule "Determine the number of household members including HoH, spouse, and members with valid relationship 20 or under, plus one for unborn child if hoh or spouse is pregnant"
+    dialect "mvel"
+    when
+        accumulate(
+            Person((headOfHousehold == true || headOfHouseholdRelation == "Spouse" || (age <= 20 && headOfHouseholdRelation in ("Child", "FosterChild", "StepChild", "Grandchild", "SisterBrother", "StepSisterStepBrother"))), $value : age);
+            $count : count($value)
+        )
+        
+        accumulate(
+            Person(((headOfHousehold == true || headOfHouseholdRelation == "Spouse") && pregnant == true ), $valuePregnant : age);
+            $countPregnant : count($valuePregnant)
+        )
+    then
+        $total = $count + $countPregnant
+        insertLogical(new MembersMedicaid($total));
 end
