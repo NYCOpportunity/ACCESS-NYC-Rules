@@ -3,27 +3,25 @@ import accessnyc.response.EligibleProgram
 
 import accessnyc.request.Person
 import accessnyc.request.Household
-import accessnyc.rules.income.IncomeAdultsTotalMonthly
+import accessnyc.rules.income.IncomeHouseholdTotalMonthly
 import accessnyc.rules.expense.ExpenseHouseholdHasHeating
 
 
 rule "s2_r033"
     dialect "mvel"
     
-    when 
-        Household(city == "NYC")
-        (Person( age <= 6) or Person( age >= 60) or Person( disabled == true ) or Person( blind == true ))
+   when 
         (
             IncomeHouseholdHasCashAssistance( value == true )
             or (Household(members == 1) and IncomeHouseholdHasSSI( value == true ))
-            or (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 3322))
-            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 4345))
-            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 5367))
-            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 6390))
-            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 7412))
-            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 8434))
-            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 8626))
-            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 8818))
+            or (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 3473))
+            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 4542))
+            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 5611))
+            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 6680))
+            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 7749))
+            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 8818))
+            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 9018))
+            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 9218))
         )
 
     then
