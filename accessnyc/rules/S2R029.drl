@@ -4,23 +4,38 @@ import accessnyc.response.EligibleProgram
 
 import accessnyc.request.Person
 import accessnyc.request.Household
-import accessnyc.rules.income.IncomeHouseholdTotalMonthly
+import accessnyc.rules.income.IncomeHouseholdTotalYearly
 import accessnyc.rules.household.MembersPlusPregnant
 
-rule "S2R029"
+rule "S2R029 pregnant, medicaid or disability medicaid"
     dialect "mvel"
     
     when 
-        Household( city == "NYC")
-        Person( pregnant == true )
+        (Person( pregnant == true ))
+        (Person(benefitsMedicaid == true) or Person(benefitsMedicaidDisability == true))
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R029")
+        insertLogical($programcode)
+
+
+end
+
+rule "S2R029 income limits with pregnant household member"
+    dialect "mvel"
+    
+    when 
+        (Person( pregnant == true ))
         and (
-               (MembersPlusPregnant(value == 2) and IncomeHouseholdTotalMonthly(amount <= 2960))
-            or (MembersPlusPregnant(value == 3) and IncomeHouseholdTotalMonthly(amount <= 3733))
-            or (MembersPlusPregnant(value == 4) and IncomeHouseholdTotalMonthly(amount <= 4606))
-            or (MembersPlusPregnant(value == 5) and IncomeHouseholdTotalMonthly(amount <= 5280))
-            or (MembersPlusPregnant(value == 6) and IncomeHouseholdTotalMonthly(amount <= 6053))
-            or (MembersPlusPregnant(value == 7) and IncomeHouseholdTotalMonthly(amount <= 6826))
-            or (MembersPlusPregnant(value == 8) and IncomeHouseholdTotalMonthly(amount <= 7599))
+               (MembersPlusPregnant(value == 1) and IncomeHouseholdTotalYearly(amount <= 34900))
+            or (MembersPlusPregnant(value == 2) and IncomeHouseholdTotalYearly(amount <= 47165))
+            or (MembersPlusPregnant(value == 3) and IncomeHouseholdTotalYearly(amount <= 59430))
+            or (MembersPlusPregnant(value == 4) and IncomeHouseholdTotalYearly(amount <= 71695))
+            or (MembersPlusPregnant(value == 5) and IncomeHouseholdTotalYearly(amount <= 83960))
+            or (MembersPlusPregnant(value == 6) and IncomeHouseholdTotalYearly(amount <= 96225))
+            or (MembersPlusPregnant(value == 7) and IncomeHouseholdTotalYearly(amount <= 108490))
+            or (MembersPlusPregnant(value == 8) and IncomeHouseholdTotalYearly(amount <= 120755))
+            or (MembersPlusPregnant(value == 9) and IncomeHouseholdTotalYearly(amount <= 133020))
             )
         
     then
