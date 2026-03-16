@@ -629,22 +629,23 @@
       <set>
         <string>s2_r057 age under 1</string>
         <string>s2_r007 150% of poverty level gross income: has earned income</string>
+        <string>S2R029 pregnant, medicaid or disability medicaid</string>
         <string>s2_r007 200% of poverty level gross income: child care, dependent care, elderly person, disability, or blind</string>
         <string>S2R053 ACP income by # of household members</string>
         <string>s2_r006 no spouse or qualifying children</string>
         <string>s2_r006 other household members aside from HoH and Spouse</string>
-        <string>S2R028.5</string>
         <string>s2_r057 age 1-18</string>
-        <string>S2R028.6</string>
+        <string>S2R028.5</string>
         <string>s2_r009</string>
+        <string>S2R028.6</string>
         <string>S2R028.3</string>
         <string>S2R028.4</string>
         <string>s2_r005</string>
         <string>S2R028.7</string>
         <string>S2R028.8</string>
-        <string>s2_r055</string>
         <string>s2_r037 head of household</string>
         <string>s2_r011</string>
+        <string>s2_r055</string>
         <string>s2_r056</string>
         <string>s2_r043.4 </string>
         <string>S2R023</string>
@@ -655,35 +656,31 @@
         <string>s2_r006 no spouse, qualifying children or disabled household members</string>
         <string>S2R026</string>
         <string>s2_r022 medicaid, disability medicaid, or cash assistance</string>
-        <string>S2R027</string>
         <string>s2_r035.5</string>
+        <string>S2R027</string>
         <string>s2_r039</string>
         <string>s2_r012 STAR</string>
-        <string>S2R029</string>
         <string>s2_r010.2</string>
         <string>s2_r010.3</string>
         <string>s2_r045</string>
         <string>S2R030</string>
         <string>s2_r038 6</string>
-        <string>S2R032</string>
         <string>s2_r040</string>
+        <string>S2R032</string>
+        <string>s2_r017 SSI or SSDB</string>
         <string>s2_r038 5</string>
         <string>s2_r085</string>
-        <string>s2_r017 SSI or SSDB</string>
         <string>s2_r038 4</string>
         <string>s2_r038 3</string>
         <string>s2_r001: This is the last mile of rule s2r001</string>
         <string>s2_047.1 and s2_047.2 and s2_047.3</string>
         <string>s2_r017 disabled</string>
-        <string>s2_r006 head of household married, qualifying children or blind/disabled household members</string>
         <string>s2_r017 blind</string>
+        <string>s2_r006 head of household married, qualifying children or blind/disabled household members</string>
         <string>s2_r003.5</string>
         <string>S2R053 ACP 1-4</string>
         <string>s2_r007.2</string>
-        <string>s2_r003.6</string>
         <string>s2_r007 130% of poverty level gross income: all other</string>
-        <string>s2_r003.3</string>
-        <string>s2_r003.4</string>
         <string>s2_r043.2</string>
         <string>s2_r043.1</string>
         <string>s2_r043.4</string>
@@ -695,6 +692,7 @@
         <string>s2_r008 has foster child</string>
         <string>S2R004 last mile</string>
         <string>s2_r037 not head or spouse</string>
+        <string>S2R029 income limits with pregnant household member</string>
         <string>s2_r037 spouse</string>
         <string>s2_r022 income</string>
         <string>s2_r036.9</string>
@@ -715,6 +713,7 @@
         <string>s2_r020 free lunch</string>
         <string>s2_r020</string>
         <string>S2R054</string>
+        <string>s2_r060</string>
         <string>s2_r013 </string>
         <string>s2_r008 by income</string>
       </set>
