@@ -4,37 +4,39 @@ import accessnyc.response.EligibleProgram
 
 import accessnyc.request.Person
 import accessnyc.request.Household
-import accessnyc.rules.income.IncomeHeadAndSpouseEarnedYearly
-import accessnyc.rules.household.HeadOfHouseholdMarried
+import accessnyc.rules.income.IncomeHouseholdTotalYearly
 
 
-rule "s2_r037 head of household"
+rule "s2_r037 disabled/blind, 65+, medicaid or disability medicaid"
     dialect "mvel"
     
     when 
-
-        Person( headOfHousehold == true && disabled == true) or Person( headOfHousehold == true && blind == true ) or Person( headOfHousehold == true && age >= 65 )
         (
-            (HeadOfHouseholdMarried(value == false) and IncomeHeadAndSpouseEarnedYearly(amount <= 20783) and Household( cashOnHand <= 31175))
-            or (HeadOfHouseholdMarried(value == true) and IncomeHeadAndSpouseEarnedYearly(amount <= 28208) and Household( cashOnHand <= 42312))
+            (Person(disabled == true) or Person(blind == true) or Person(age >= 65)) and
+            (Person(benefitsMedicaid == true) or Person(benefitsMedicaidDisability == true))
         )
-       
     then
-
         $programcode = new EligibleProgram()
         $programcode.setCode("S2R037")
         insertLogical($programcode)
 
 end
 
-rule "s2_r037 spouse"
+rule "s2_r037 disabled/blind or 65+ household member with household income below limit"
     dialect "mvel"
     
     when 
-
-        Person( headOfHouseholdRelation == "Spouse" && disabled == true ) or Person( headOfHouseholdRelation == "Spouse" && blind == true ) or Person( headOfHouseholdRelation == "Spouse" && age >= 65 )
-        IncomeHeadAndSpouseEarnedYearly( amount <= 28208 ) 
-        Household( cashOnHand <= 42312 )
+        (Person(disabled == true) or Person(blind == true ) or Person (age >= 65))
+        and (
+                (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 22025))
+             or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 29864))
+             or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 37702))
+             or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 45540))
+             or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 53379))
+             or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 61217))
+             or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 69056))
+             or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 76894))
+            )
        
     then
 
@@ -44,13 +46,12 @@ rule "s2_r037 spouse"
 
 end
 
-rule "s2_r037 not head or spouse"
+rule "s2_r037 disabled/blind or 65+ person with personal income under limit"
     dialect "mvel"
     
     when 
         // interpret this person as a 1-person household
-        IncomePersonEarnedYearly( person.blind == true, amount <= 20783 ) or IncomePersonEarnedYearly( person.disabled == true, amount <= 20783 ) or IncomePersonEarnedYearly( person.age >= 65, amount <= 20783 )
-        Household( cashOnHand <= 31175 )
+        IncomePersonEarnedYearly( person.blind == true, amount <= 22025 ) or IncomePersonEarnedYearly( person.disabled == true, amount <= 22025 ) or IncomePersonEarnedYearly( person.age >= 65, amount <= 22025 )
        
     then
 

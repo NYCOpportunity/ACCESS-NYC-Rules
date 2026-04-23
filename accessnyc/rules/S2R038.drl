@@ -13,15 +13,15 @@ rule "s2_r038 1-2"
     when 
         Person( headOfHousehold == true, pregnant == true ) or Person( headOfHouseholdRelation == "Spouse", pregnant == true )
         (
-           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 34900))
-        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 47165))
-        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 59430))
-        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 71695))
-        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 83960))
-        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 96225))
-        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 108490))
-        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 120755))
-        or (MembersMedicaid(value >= 9) and IncomeMedicaidTotalYearly(amount <= 133020))
+           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 35591))
+        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 48258))
+        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 60924))
+        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 73590))
+        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 86257))
+        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 98923))
+        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 111590))
+        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 124256))
+        or (MembersMedicaid(value >= 9) and IncomeMedicaidTotalYearly(amount <= 136922))
         )
 
     then
@@ -37,14 +37,14 @@ rule "s2_r038 3"
     when 
         Person( age < 1 )
         (
-           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 34900))
-        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 47165))
-        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 59430))
-        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 71695))
-        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 83960))
-        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 96225))
-        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 108490))
-        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 120755))
+           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 35591))
+        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 48258))
+        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 60924))
+        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 73590))
+        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 86257))
+        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 98923))
+        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 111590))
+        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 124256))
         )
 
     then
@@ -60,14 +60,14 @@ rule "s2_r038 4"
     when 
         Person( ( (age == 19 || age == 20) && headOfHouseholdRelation in ("Child", "FosterChild", "StepChild", "Grandchild", "SisterBrother", "StepSisterStepBrother") ) )
         (
-           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 24258))
-        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 32783))
-        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 41308))
-        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 49833))
-        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 58258))
-        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 66883))
-        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 75408))
-        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 83933))
+           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 24738))
+        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 33542))
+        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 42346))
+        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 51150))
+        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 59954))
+        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 68758))
+        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 77562))
+        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 86366))
         )
 
     then
@@ -83,14 +83,14 @@ rule "s2_r038 5"
     when 
         Person( age <= 18 && headOfHousehold == true ) or Person( age <= 18 && headOfHouseholdRelation in ("Spouse", "Child", "FosterChild", "StepChild", "Grandchild", "SisterBrother", "StepSisterStepBrother"))
         (
-           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 24101))
-        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 32571))
-        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 41041))
-        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 49511))
-        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 57981))
-        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 66451))
-        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 74921))
-        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 83391))
+           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 24579))
+        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 33326))
+        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 42073))
+        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 50820))
+        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 59568))
+        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 68315))
+        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 77062))
+        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 85809))
         )
 
     then
@@ -105,14 +105,14 @@ rule "s2_r038 6"
     
     when 
         (
-           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 21597))
-        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 29187))
-        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 36777))
-        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 44367))
-        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 51957))
-        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 66451))
-        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 67137))
-        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 74727))
+           (MembersMedicaid(value == 1) and IncomeMedicaidTotalYearly(amount <= 22025))
+        or (MembersMedicaid(value == 2) and IncomeMedicaidTotalYearly(amount <= 29864))
+        or (MembersMedicaid(value == 3) and IncomeMedicaidTotalYearly(amount <= 37702))
+        or (MembersMedicaid(value == 4) and IncomeMedicaidTotalYearly(amount <= 45540))
+        or (MembersMedicaid(value == 5) and IncomeMedicaidTotalYearly(amount <= 53379))
+        or (MembersMedicaid(value == 6) and IncomeMedicaidTotalYearly(amount <= 61217))
+        or (MembersMedicaid(value == 7) and IncomeMedicaidTotalYearly(amount <= 69056))
+        or (MembersMedicaid(value == 8) and IncomeMedicaidTotalYearly(amount <= 76894))
         )
 
     then
