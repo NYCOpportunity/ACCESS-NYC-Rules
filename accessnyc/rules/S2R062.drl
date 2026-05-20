@@ -1,0 +1,46 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+import accessnyc.rules.income.IncomeHouseholdTotalMonthly
+import accessnyc.rules.income.IncomePersonItemMonthly 
+
+rule "s2_r062 cash assistance, medicaid, disability-related medicaid"
+    dialect "mvel"
+    
+    when 
+        (
+            Person(age >= 6, age <= 16) and
+            (IncomePersonItemMonthly(type == "CashAssistance") or Person(benefitsMedicaid == true) or Person(benefitsMedicaidDisability == true))
+        )
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R062")
+        insertLogical($programcode)
+
+end
+
+rule "s2_r062 income"
+    dialect "mvel"
+    
+    when 
+        (Person(age >= 6, age <= 16))
+        (
+            (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 2413))
+            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 3261))
+            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 4109))
+            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 4957))
+            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 5805))
+            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 6653))
+            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 7501))
+            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 8349))
+            )
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R062")
+        insertLogical($programcode)
+
+end
+
