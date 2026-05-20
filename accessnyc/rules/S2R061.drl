@@ -1,0 +1,27 @@
+package accessnyc.rules;
+
+import accessnyc.response.EligibleProgram
+
+import accessnyc.request.Person
+import accessnyc.request.Household
+import accessnyc.rules.income.IncomePersonItemMonthly
+
+
+rule "s2_r061"
+    dialect "mvel"
+    
+    when 
+        (
+            Person(age >= 65) or 
+            Person(disabled == true) or 
+            Person(blind == true) or 
+            Person(benefitsMedicaidDisability == true) or 
+            IncomePersonItemMonthly(type == "SSI")
+        )
+
+    then
+        $programcode = new EligibleProgram()
+        $programcode.setCode("S2R061")
+        insertLogical($programcode)
+
+end

@@ -13,14 +13,14 @@ rule "s2_r022 income"
     when 
         (Person(pregnant == true) or Person(age < 5))
         (
-            (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 28953))
-            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 39128))
-            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 49303))
-            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 59478))
-            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 69653))
-            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 79828))
-            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 90003))
-            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 100178))
+            (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 29526))
+            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 40034))
+            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 50542))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 61050))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 71558))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 82066))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 92574))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 103082))
             )
     then
         $programcode = new EligibleProgram()

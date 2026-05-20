@@ -634,11 +634,11 @@
         <string>s2_r006 no spouse or qualifying children</string>
         <string>S2R053 ACP income by # of household members</string>
         <string>s2_r006 other household members aside from HoH and Spouse</string>
-        <string>S2R028.5</string>
-        <string>s2_r037 disabled/blind, 65+, medicaid or disability medicaid</string>
         <string>s2_r057 age 1-18</string>
-        <string>S2R028.6</string>
+        <string>s2_r037 disabled/blind, 65+, medicaid or disability medicaid</string>
+        <string>S2R028.5</string>
         <string>s2_r009</string>
+        <string>S2R028.6</string>
         <string>S2R028.3</string>
         <string>S2R028.4</string>
         <string>s2_r005</string>
@@ -650,22 +650,23 @@
         <string>s2_r043.4 </string>
         <string>S2R023</string>
         <string>S2R024</string>
+        <string>s2_r062 cash assistance, medicaid, disability-related medicaid</string>
         <string>s2_r035.6</string>
-        <string>s2_r008 Cash Assistance/SSI</string>
         <string>s2_r006 head of household married, no qualifying children</string>
+        <string>s2_r008 Cash Assistance/SSI</string>
         <string>s2_r006 no spouse, qualifying children or disabled household members</string>
         <string>S2R026</string>
         <string>s2_r022 medicaid, disability medicaid, or cash assistance</string>
-        <string>S2R027</string>
         <string>s2_r039</string>
         <string>s2_r035.5</string>
+        <string>S2R027</string>
         <string>s2_r012 STAR</string>
         <string>s2_r010.2</string>
         <string>s2_r010.3</string>
         <string>s2_r045</string>
         <string>S2R030</string>
-        <string>s2_r038 6</string>
         <string>S2R032</string>
+        <string>s2_r038 6</string>
         <string>s2_r040</string>
         <string>s2_r038 5</string>
         <string>s2_r085</string>
@@ -685,8 +686,8 @@
         <string>s2_r043.2</string>
         <string>s2_r043.1</string>
         <string>s2_r043.4</string>
-        <string>s2_r043.3</string>
         <string>s2_r025</string>
+        <string>s2_r043.3</string>
         <string>s2_r033</string>
         <string>s2_r034</string>
         <string>s2_r031</string>
@@ -695,8 +696,8 @@
         <string>S2R029 income limits with pregnant household member</string>
         <string>s2_r022 income</string>
         <string>s2_r036.9</string>
-        <string>s2_r036.6</string>
         <string>s2_r021 free lunch</string>
+        <string>s2_r036.6</string>
         <string>s2_r036.5</string>
         <string>s2_r036.8</string>
         <string>s2_r036.7</string>
@@ -707,13 +708,15 @@
         <string>s2_r059</string>
         <string>s2_r016</string>
         <string>s2_r036.10</string>
-        <string>s2_r038 1-2</string>
         <string>s2_r014</string>
         <string>s2_r058</string>
+        <string>s2_r038 1-2</string>
         <string>s2_r020 free lunch</string>
         <string>s2_r020</string>
+        <string>s2_r062 income</string>
         <string>S2R054</string>
         <string>s2_r060</string>
+        <string>s2_r061</string>
         <string>s2_r013 </string>
         <string>s2_r008 by income</string>
       </set>
@@ -781,12 +784,6 @@
       </set>
     </entry>
     <entry>
-      <string>accessnyc.response</string>
-      <set>
-        <string>findEligibility</string>
-      </set>
-    </entry>
-    <entry>
       <string>accessnyc.rules.income</string>
       <set>
         <string>Calculate household gifts income yearly from the monthly income</string>
@@ -813,8 +810,8 @@
         <string>Create for the Cash Assistance income with the expense disregard</string>
         <string>Normalize Person Request Incomes from biweekly to Monthly2</string>
         <string>Calculate income for the HoH, spouse by summing SES monthly income</string>
-        <string>Calculate  Person Gift Income Monthly</string>
         <string>Calculate Total Person ISY Income Yearly</string>
+        <string>Calculate  Person Gift Income Monthly</string>
         <string>Calculate  boarder household income monthly</string>
         <string>create a fact if a household member has Supplemental Security Income</string>
         <string>Calculate investment income for the head of household</string>
@@ -841,6 +838,12 @@
         <string>Normalize Person Request Incomes from monthly to Monthly2</string>
         <string>create a fact if anyone in the household has cash assistance</string>
         <string>Calculate income for the HoH, spouse, and all members 20 or under who have valid relationships, except for pregnant HoH or spouse 20 or under</string>
+      </set>
+    </entry>
+    <entry>
+      <string>accessnyc.response</string>
+      <set>
+        <string>findEligibility</string>
       </set>
     </entry>
     <entry>
