@@ -27,15 +27,15 @@ rule "S2R029 income limits with pregnant household member"
     when 
         (Person( pregnant == true ))
         and (
-               (MembersPlusPregnant(value == 1) and IncomeHouseholdTotalYearly(amount <= 34900))
-            or (MembersPlusPregnant(value == 2) and IncomeHouseholdTotalYearly(amount <= 47165))
-            or (MembersPlusPregnant(value == 3) and IncomeHouseholdTotalYearly(amount <= 59430))
-            or (MembersPlusPregnant(value == 4) and IncomeHouseholdTotalYearly(amount <= 71695))
-            or (MembersPlusPregnant(value == 5) and IncomeHouseholdTotalYearly(amount <= 83960))
-            or (MembersPlusPregnant(value == 6) and IncomeHouseholdTotalYearly(amount <= 96225))
-            or (MembersPlusPregnant(value == 7) and IncomeHouseholdTotalYearly(amount <= 108490))
-            or (MembersPlusPregnant(value == 8) and IncomeHouseholdTotalYearly(amount <= 120755))
-            or (MembersPlusPregnant(value == 9) and IncomeHouseholdTotalYearly(amount <= 133020))
+               (MembersPlusPregnant(value == 1) and IncomeHouseholdTotalYearly(amount <= 35591))
+            or (MembersPlusPregnant(value == 2) and IncomeHouseholdTotalYearly(amount <= 48258))
+            or (MembersPlusPregnant(value == 3) and IncomeHouseholdTotalYearly(amount <= 60924))
+            or (MembersPlusPregnant(value == 4) and IncomeHouseholdTotalYearly(amount <= 73590))
+            or (MembersPlusPregnant(value == 5) and IncomeHouseholdTotalYearly(amount <= 86257))
+            or (MembersPlusPregnant(value == 6) and IncomeHouseholdTotalYearly(amount <= 98923))
+            or (MembersPlusPregnant(value == 7) and IncomeHouseholdTotalYearly(amount <= 111590))
+            or (MembersPlusPregnant(value == 8) and IncomeHouseholdTotalYearly(amount <= 124256))
+            or (MembersPlusPregnant(value == 9) and IncomeHouseholdTotalYearly(amount <= 136923))
             )
         
     then
