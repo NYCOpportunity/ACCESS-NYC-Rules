@@ -11,9 +11,9 @@ rule "s2_r037 disabled/blind, 65+, medicaid or disability medicaid"
     dialect "mvel"
     
     when 
-        (
-            (Person(disabled == true) or Person(blind == true) or Person(age >= 65)) and
-            (Person(benefitsMedicaid == true) or Person(benefitsMedicaidDisability == true))
+        Person(
+            disabled == true || blind == true || age >= 65,
+            benefitsMedicaid == true || benefitsMedicaidDisability == true
         )
     then
         $programcode = new EligibleProgram()
