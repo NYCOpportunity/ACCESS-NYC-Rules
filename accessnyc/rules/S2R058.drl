@@ -12,14 +12,14 @@ rule "s2_r058"
     when 
         Person(age >= 19, age <= 64, benefitsMedicaid == false, benefitsMedicaidDisability == false)
         (
-            (Household(members == 1) and IncomeHouseholdTotalYearly(amount > 21597, amount <= 39125))
-            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount > 29187, amount <= 52875))
-            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount > 36777, amount <= 66625))
-            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount > 44367, amount <= 80375))
-            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount > 51957, amount <= 94125))
-            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount > 66451, amount <= 107875))
-            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount > 67137, amount <= 121625))
-            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount > 74727, amount <= 135375))
+            (Household(members == 1) and IncomeHouseholdTotalYearly(amount <= 31920))
+            or (Household(members == 2) and IncomeHouseholdTotalYearly(amount <= 43280))
+            or (Household(members == 3) and IncomeHouseholdTotalYearly(amount <= 54640))
+            or (Household(members == 4) and IncomeHouseholdTotalYearly(amount <= 66000))
+            or (Household(members == 5) and IncomeHouseholdTotalYearly(amount <= 77360))
+            or (Household(members == 6) and IncomeHouseholdTotalYearly(amount <= 88720))
+            or (Household(members == 7) and IncomeHouseholdTotalYearly(amount <= 100080))
+            or (Household(members == 8) and IncomeHouseholdTotalYearly(amount <= 111440))
             )
 
     then
