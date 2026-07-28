@@ -4,19 +4,19 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>accessnyc</groupId>
   <artifactId>accessnyc-rules</artifactId>
-  <version>1.45.10</version>
+  <version>1.46.0</version>
   <name>accessnyc</name>
   <description>AccessNYC Eligibility Screening API</description>
   <distributionManagement>
     <repository>
       <id>nyc-nexus-deployments</id>
       <name>Nexus Release Repository</name>
-      <url>http://10.138.80.33:8081/repository/maven-releases/</url>
+      <url>http://10.138.80.119:8081/repository/maven-releases/</url>
     </repository>
     <snapshotRepository>
       <id>nyc-nexus-deployments</id>
       <name>Nexus Snapshot Repository</name>
-      <url>http://10.138.80.33:8081/repository/maven-snapshots/</url>
+      <url>http://10.138.80.119:8081/repository/maven-snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
   <properties>

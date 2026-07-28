@@ -28,14 +28,14 @@ rule "s2_r062 income"
     when 
         (Person(age >= 6, age <= 16))
         (
-            (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 2413))
-            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 3261))
-            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 4109))
-            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 4957))
-            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 5805))
-            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 6653))
-            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 7501))
-            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 8349))
+            (Household(members == 1) and IncomeHouseholdTotalMonthly(amount <= 2461))
+            or (Household(members == 2) and IncomeHouseholdTotalMonthly(amount <= 3337))
+            or (Household(members == 3) and IncomeHouseholdTotalMonthly(amount <= 4212))
+            or (Household(members == 4) and IncomeHouseholdTotalMonthly(amount <= 5088))
+            or (Household(members == 5) and IncomeHouseholdTotalMonthly(amount <= 5964))
+            or (Household(members == 6) and IncomeHouseholdTotalMonthly(amount <= 6839))
+            or (Household(members == 7) and IncomeHouseholdTotalMonthly(amount <= 7715))
+            or (Household(members == 8) and IncomeHouseholdTotalMonthly(amount <= 8591))
             )
     then
         $programcode = new EligibleProgram()
