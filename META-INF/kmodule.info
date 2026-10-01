@@ -626,8 +626,8 @@
         <string>S2R053 ACP income by # of household members</string>
         <string>s2_r006 no spouse or qualifying children</string>
         <string>s2_r006 other household members aside from HoH and Spouse</string>
-        <string>s2_r037 disabled/blind, 65+, medicaid or disability medicaid</string>
         <string>S2R028.5</string>
+        <string>s2_r037 disabled/blind, 65+, medicaid or disability medicaid</string>
         <string>s2_r057 age 1-18</string>
         <string>S2R028.6</string>
         <string>s2_r009</string>
@@ -636,8 +636,8 @@
         <string>s2_r005</string>
         <string>S2R028.7</string>
         <string>S2R028.8</string>
-        <string>s2_r055</string>
         <string>s2_r011</string>
+        <string>s2_r055</string>
         <string>s2_r056</string>
         <string>s2_r043.4 </string>
         <string>S2R023</string>
@@ -647,21 +647,21 @@
         <string>s2_r006 head of household married, no qualifying children</string>
         <string>s2_r008 Cash Assistance/SSI</string>
         <string>s2_r006 no spouse, qualifying children or disabled household members</string>
-        <string>S2R026</string>
         <string>s2_r022 medicaid, disability medicaid, or cash assistance</string>
+        <string>S2R026</string>
         <string>s2_r035.5</string>
-        <string>s2_r039</string>
         <string>S2R027</string>
+        <string>s2_r039</string>
         <string>s2_r012 STAR</string>
         <string>s2_r010.2</string>
         <string>s2_r010.3</string>
         <string>s2_r045</string>
         <string>S2R030</string>
         <string>s2_r040</string>
-        <string>s2_r038 6</string>
         <string>S2R032</string>
-        <string>s2_r017 SSI or SSDB</string>
+        <string>s2_r038 6</string>
         <string>s2_r085</string>
+        <string>s2_r017 SSI or SSDB</string>
         <string>s2_r038 5</string>
         <string>s2_r037 disabled/blind or 65+ household member with household income below limit</string>
         <string>s2_r038 4</string>
@@ -700,9 +700,9 @@
         <string>s2_r015</string>
         <string>s2_r016</string>
         <string>s2_r036.10</string>
-        <string>s2_r038 1-2</string>
-        <string>s2_r058</string>
         <string>s2_r014</string>
+        <string>s2_r058</string>
+        <string>s2_r038 1-2</string>
         <string>s2_r020 free lunch</string>
         <string>s2_r020</string>
         <string>s2_r062 income</string>
@@ -802,8 +802,8 @@
         <string>Create for the Cash Assistance income with the expense disregard</string>
         <string>Normalize Person Request Incomes from biweekly to Monthly2</string>
         <string>Calculate income for the HoH, spouse by summing SES monthly income</string>
-        <string>Calculate  Person Gift Income Monthly</string>
         <string>Calculate Total Person ISY Income Yearly</string>
+        <string>Calculate  Person Gift Income Monthly</string>
         <string>Calculate  boarder household income monthly</string>
         <string>create a fact if a household member has Supplemental Security Income</string>
         <string>Calculate investment income for the head of household</string>
@@ -821,8 +821,8 @@
         <string>Calculate wage income for all household members </string>
         <string>Calculate Household Income for all members except foster children, Monthly</string>
         <string>create a fact if a household member has DisabilityMedicaid benefit</string>
-        <string>Calculate income for the HoH, spouse, and any children, monthly</string>
         <string>Create a fact that calculates 75% of SS incomes person income based on the SES calculation in rule 25</string>
+        <string>Calculate income for the HoH, spouse, and any children, monthly</string>
         <string>Calculate wage income for head of HH and spouse, yearly </string>
         <string>Calculate  Person Wage and self employment Income Monthly</string>
         <string>Infer Person Request Incomes From Valid Person Incomes List</string>
