@@ -36,14 +36,14 @@ rule "s2_r007 200% of poverty level gross income: child care, dependent care, el
             Person( blind == true)
         )
         (
-               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2608))
-            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 3525))
-            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 4442))
-            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 5358))
-            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 6275))
-            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 7192))
-            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 8108))
-            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 9025))
+               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 2660))
+            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 3607))
+            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 4553))
+            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 5500))
+            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 6447))
+            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 7393))
+            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 8340))
+            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 9287))
         )
             
     then
@@ -59,14 +59,14 @@ rule "s2_r007 150% of poverty level gross income: has earned income"
     when
         IncomeHouseholdWageSelfEmploymentBoarderMonthly(amount > 0)
         (
-               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 1957))
-            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2644))
-            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3332))
-            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 4019))
-            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4707))
-            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5394))
-            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 6082))
-            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 6769))
+               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 1995))
+            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2705))
+            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 3415))
+            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 4125))
+            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4835))
+            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 5545))
+            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 6225))
+            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 6965))
         )
             
     then
@@ -81,14 +81,14 @@ rule "s2_r007 130% of poverty level gross income: all other"
     
     when
        (
-               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 1696))
-            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2292))
-            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 2888))
-            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 3483))
-            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4079))
-            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 4675))
-            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 5271))
-            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 5867))
+               (Household(members == 1) and IncomeHouseholdMinusChildSupportPaid(amount <= 1729))
+            or (Household(members == 2) and IncomeHouseholdMinusChildSupportPaid(amount <= 2345))
+            or (Household(members == 3) and IncomeHouseholdMinusChildSupportPaid(amount <= 2960))
+            or (Household(members == 4) and IncomeHouseholdMinusChildSupportPaid(amount <= 3575))
+            or (Household(members == 5) and IncomeHouseholdMinusChildSupportPaid(amount <= 4191))
+            or (Household(members == 6) and IncomeHouseholdMinusChildSupportPaid(amount <= 4806))
+            or (Household(members == 7) and IncomeHouseholdMinusChildSupportPaid(amount <= 5421))
+            or (Household(members == 8) and IncomeHouseholdMinusChildSupportPaid(amount <= 6037))
         )
             
     then
